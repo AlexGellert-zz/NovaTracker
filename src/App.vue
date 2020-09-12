@@ -1,13 +1,3 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
-</template>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -30,3 +20,34 @@
   color: #42b983;
 }
 </style>
+
+<template>
+  <ion-app>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu - Basic</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <menu-left />
+        <router-view></router-view>
+    </ion-app>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import MenuLeft from "./components/MenuLeft.vue";
+
+
+@Component({
+  components: {
+    MenuLeft,
+  }
+})
+export default class App extends Vue {
+      goBackHome() {
+      this.$router.push('/')
+    }
+}
+</script>
+
+
