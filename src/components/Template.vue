@@ -1,20 +1,18 @@
+<style scoped>
+
+</style>
+
 <template>
   <div>
-      Home page
+      Template
       <ion-button>Button</ion-button>
-      <bar-code-scanner />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import BarCodeScanner from "./shared/BarCodeScanner.vue";
 
-@Component({
-  components: {
-    BarCodeScanner
-  }
-})
+@Component
 export default class Home extends Vue {
   constructor() {
     super();

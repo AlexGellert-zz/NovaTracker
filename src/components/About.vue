@@ -1,13 +1,13 @@
-<style>
-.my-custom-menu {
-  --width: 500px;
-}
+<style scoped>
+
 </style>
 
 <template>
-<ion-app>
-<ion-button @click="goBackHome()" full>Go Back!</ion-button>
-</ion-app>
+  <ion-app>
+    <ion-content>
+      About Page
+    </ion-content>
+  </ion-app>
 </template>
 
 <script lang="ts">
@@ -17,9 +17,6 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class About extends Vue {
     constructor(){
         super();
-    }
-    goBackHome() {
-      this.$router.push('/')
     }
   }
 </script>
