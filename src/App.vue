@@ -7,13 +7,11 @@
     <menu-left />
     <ion-header>
       <ion-toolbar>
-        <ion-title><fa-icon icon="dog" /> NovaTracker</ion-title>
+        <ion-title><fa-icon icon="dog" /> Nova's Inventory</ion-title>
         <fa-icon class="menu" @click="openStart()" icon="bars"/>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
         <router-view></router-view>
-    </ion-content>
     </ion-app>
 </template>
 

@@ -1,17 +1,17 @@
 <style scoped>
 .centerMain{
-    margin-top: 250px;
+    margin-top: 250px !important;
 }
 </style>
 
 <template>
-  <div class="centerMain">
+  <ion-content class="centerMain">
       <form @submit="search()">
         <input type="text" name="searchTerm" id="searchTerm" placeholder="Search for an item" v-model="searchTerm" />
         <input type="submit" value="Search" />
       </form>
       <ion-button>Scan Barcode</ion-button>
-  </div>
+  </ion-content>
 </template>
 
 <script lang="ts">

@@ -5,7 +5,7 @@ ion-row.hydrated {
 </style>
 
 <template>
-  <div class="itemDisplay">
+  <ion-content class="itemDisplay">
       <ion-grid>
             <ion-row>
                 <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
@@ -27,7 +27,7 @@ ion-row.hydrated {
                 <ion-button>Save</ion-button>
             </ion-row>
         </ion-grid>
-  </div>
+  </ion-content>
 </template>
 
 <script lang="ts">

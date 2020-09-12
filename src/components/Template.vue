@@ -3,10 +3,10 @@
 </style>
 
 <template>
-  <div>
+  <ion-content>
       Template
       <ion-button>Button</ion-button>
-  </div>
+  </ion-content>
 </template>
 
 <script lang="ts">

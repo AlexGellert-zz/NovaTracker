@@ -48,7 +48,7 @@ Vue.use(VueRouter)
     component: UserList
   },
   {
-    path: 'newItem',
+    path: '/newItem',
     name: 'NewItem',
     component: NewItem
   }

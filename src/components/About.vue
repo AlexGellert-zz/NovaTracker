@@ -3,11 +3,13 @@
 </style>
 
 <template>
-  <ion-app>
-    <ion-content>
+  <ion-content>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+
       About Page
-    </ion-content>
-  </ion-app>
+
+  </ion-content>
 </template>
 
 <script lang="ts">
