@@ -16,10 +16,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Plugins, CameraSource, CameraResultType } from "@capacitor/core";
 import { photoService } from "./../../services/PhotoService";
 import { Photo } from "@/types/index"
-const { Camera } = Plugins;
 
 @Component
 export default class CameraComponent extends Vue {

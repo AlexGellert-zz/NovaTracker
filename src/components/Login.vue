@@ -1,12 +1,9 @@
 <style scoped>
-.loginMain{
-    text-align: center;
-    margin-top: 350px;
-}
+
 </style>
 
 <template>
-  <div class="loginMain">
+  <div class="centerMain">
       <ion-button class="login" v-if="isClicked" @click="isClicked = !isClicked">Login</ion-button>
       <form class="form" v-if="!isClicked" @submit="login()">
           <input type="text" name="username" id="username" placeholder="Username" v-model="username"/>
@@ -29,7 +26,7 @@ export default class Login extends Vue {
   }
 
   login(){
-
+      console.log("logging in");
   }
 }
 </script>

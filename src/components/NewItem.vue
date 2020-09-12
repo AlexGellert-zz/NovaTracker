@@ -4,7 +4,7 @@
 
 <template>
   <div>
-      Template
+      New Item
       <ion-button>Button</ion-button>
   </div>
 </template>
@@ -13,7 +13,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class Template extends Vue {
+export default class NewItem extends Vue {
   constructor() {
     super();
   }

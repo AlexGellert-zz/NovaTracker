@@ -7,18 +7,26 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="homeBtn">Check Inventory</ion-button>
+          <router-link to="/inventory">
+            <ion-button class="homeBtn">Check Inventory</ion-button>
+          </router-link>
         </ion-col>
         <ion-col>
-          <ion-button class="homeBtn">Add Quantity</ion-button>
+          <router-link to="/quickEdit">
+            <ion-button class="homeBtn">Quick Edit</ion-button>
+          </router-link>
         </ion-col>
       </ion-row>
       <ion-row v-if="isAdmin">
         <ion-col>
-          <ion-button class="homeBtn">Edit Users</ion-button>
+          <router-link to="/userList">
+            <ion-button class="homeBtn">View Users</ion-button>
+          </router-link>
         </ion-col>
         <ion-col>
-          <ion-button class="homeBtn">Add Items</ion-button>
+          <router-link to="/newItem">
+            <ion-button class="homeBtn">New Item</ion-button>
+          </router-link>
         </ion-col>
       </ion-row>
     </ion-grid>

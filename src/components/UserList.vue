@@ -13,7 +13,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class Template extends Vue {
+export default class UserList extends Vue {
   constructor() {
     super();
   }

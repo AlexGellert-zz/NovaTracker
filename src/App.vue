@@ -7,7 +7,7 @@
     <menu-left />
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu - Basic</ion-title>
+        <ion-title><fa-icon icon="dog" /> NovaTracker</ion-title>
         <fa-icon class="menu" @click="openStart()" icon="bars"/>
       </ion-toolbar>
     </ion-header>
