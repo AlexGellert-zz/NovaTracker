@@ -1,21 +1,41 @@
+<style scoped>
+@import './../styles/home.less';
+</style>
+
 <template>
   <div>
-      Home page
-      <ion-button>Button</ion-button>
-      <bar-code-scanner />
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button class="homeBtn">Check Inventory</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="homeBtn">Add Quantity</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row v-if="isAdmin">
+        <ion-col>
+          <ion-button class="homeBtn">Edit Users</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="homeBtn">Add Items</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import BarCodeScanner from "./shared/BarCodeScanner.vue";
+import CameraComponent from "./shared/CameraComponent.vue";
 
 @Component({
   components: {
-    BarCodeScanner
-  }
+    CameraComponent,
+  },
 })
 export default class Home extends Vue {
+  isAdmin: boolean = true;
   constructor() {
     super();
   }

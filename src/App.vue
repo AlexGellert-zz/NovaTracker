@@ -1,6 +1,5 @@
 <style>
 @import './styles/main.less';
-
 </style>
 
 <template>
@@ -9,7 +8,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Menu - Basic</ion-title>
-        <ion-button @click="openStart()">Open Start Menu</ion-button>
+        <fa-icon class="menu" @click="openStart()" icon="bars"/>
       </ion-toolbar>
     </ion-header>
     <ion-content>
