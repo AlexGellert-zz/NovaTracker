@@ -7,6 +7,9 @@ import { Photo } from '@/types/index'
 
 const { Camera, Filesystem, Storage } = Plugins;
 
+/**
+ * PhotoService is used to take and save pictures.
+ */
 export default class PhotoService {
     public photoState = Vue.observable({ photos: <Photo[]>[] });
 

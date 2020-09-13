@@ -32,7 +32,7 @@ ion-row.hydrated {
         <form>
             <ion-row>
               <div class="missingImg" v-if="itemImage == ''" @click="addImage()">
-                <img src="./../assets/addPhoto.png" alt="Picture of a husky." width="200px" />
+                <img src="@/assets/addPhoto.png" alt="Picture of a husky." width="200px" />
               </div>
               <ion-img class="photoTaken" v-if="!itemImage == ''" :src="itemImage.webviewPath"></ion-img>
             </ion-row>
@@ -55,7 +55,7 @@ ion-row.hydrated {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { photoService } from "./../services/PhotoService";
+import { photoService } from "@/services/PhotoService";
 import { Photo } from "@/types/index";
 
 @Component

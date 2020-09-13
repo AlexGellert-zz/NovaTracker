@@ -2,12 +2,12 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
-import Login from '../components/Login.vue'
+import Login from '../components/user/Login.vue'
 import QuickEdit from '../components/QuickEdit.vue';
-import ItemDisplay from '../components/ItemDisplay.vue';
-import Inventory from '../components/Inventory.vue';
-import UserList from '../components/UserList.vue';
-import NewItem from '../components/NewItem.vue';
+import ItemDisplay from '../components/inventory/ItemDisplay.vue';
+import Inventory from '../components/inventory/Inventory.vue';
+import UserList from '../components/user/UserList.vue';
+import NewItem from '../components/inventory/NewItem.vue';
 
 Vue.use(VueRouter)
 
