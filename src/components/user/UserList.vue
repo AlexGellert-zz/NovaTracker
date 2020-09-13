@@ -1,31 +1,34 @@
 <style scoped>
-ion-col {
+@import "./../../styles/grid.less";
+
+ion-col{
   border: 1px solid grey;
-  text-align: center;
 }
+
+.newUser{
+  float: right;
+}
+
 </style>
 
 <template>
   <ion-page>
-      UserList
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              User List
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              1
-            </ion-col>
-            <ion-col>
-              2
-            </ion-col>
-            <ion-col>
-              3
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-button class="newUser">Add User</ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>User List</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="six">Username</ion-col>
+        <ion-col>Edit</ion-col>
+        <ion-col>Delete</ion-col>
+      </ion-row>
+      <ion-row v-for="(user, index) in userList" :key="index">
+        <ion-col class="six">{{user.username}}</ion-col>
+        <ion-col><router-link :to="{path: `/userList/${user.id}`, params:{user: user.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
+        <ion-col><fa-icon class="delete" icon="times-circle" @click="deleteUser(user.id)" /></ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-page>
 </template>
 
@@ -36,16 +39,13 @@ import { novaUser } from "@/types/index";
 
 @Component
 export default class UserList extends Vue {
-  userList: novaUser[] = [];
+  userList: novaUser[] = dataBaseAPI.state.userList;
   constructor() {
     super();
-    
   }
 
-  async beforeCreate(){
-    await dataBaseAPI.readUsers();
-    this.userList = dataBaseAPI.state.userList;
+  deleteUser(id){
+    dataBaseAPI.deleteUser(id);
   }
-
 }
 </script>

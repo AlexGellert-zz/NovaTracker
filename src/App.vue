@@ -30,6 +30,11 @@ import { dataBaseAPI } from "./services/dataBaseAPI";
   },
 })
 export default class App extends Vue {
+
+  async beforeCreate(){
+    await dataBaseAPI.readUsers();
+    console.log("hello");
+  }
   goBackHome() {
     this.$router.push("/");
   }

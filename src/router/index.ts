@@ -2,12 +2,20 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
-import Login from '../components/user/Login.vue'
-import QuickEdit from '../components/QuickEdit.vue';
-import ItemDisplay from '../components/inventory/ItemDisplay.vue';
-import Inventory from '../components/inventory/Inventory.vue';
-import UserList from '../components/user/UserList.vue';
+
+//Inventory
+import Item from '../components/inventory/Item.vue';
 import NewItem from '../components/inventory/NewItem.vue';
+import Inventory from '../components/inventory/Inventory.vue';
+import QuickEdit from '../components/QuickEdit.vue';
+
+//User
+import Login from '../components/user/Login.vue'
+import UserList from '../components/user/UserList.vue';
+import User from '../components/user/User.vue';
+import NewUser from '../components/user/NewUser.vue'
+
+
 
 Vue.use(VueRouter)
 
@@ -33,9 +41,9 @@ Vue.use(VueRouter)
     component: QuickEdit
   },
   {
-    path: '/itemDisplay',
-    name: 'ItemDisplay',
-    component: ItemDisplay
+    path: '/newItem',
+    name: 'NewItem',
+    component: NewItem
   },
   {
     path: '/inventory',
@@ -43,15 +51,26 @@ Vue.use(VueRouter)
     component: Inventory
   },
   {
+    path: '/inventory/:item',
+    name: 'Item',
+    component: Item
+  },
+  {
     path: '/userList',
     name: 'UserList',
     component: UserList
   },
   {
-    path: '/newItem',
-    name: 'NewItem',
-    component: NewItem
+    path: '/userList/:user',
+    name: 'User',
+    component: User
+  },
+  {
+    path: '/newUser',
+    name: 'NewUser',
+    component: NewUser
   }
+
 ]
 
 const router = new VueRouter({

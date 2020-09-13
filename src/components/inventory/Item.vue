@@ -34,7 +34,7 @@ ion-row.hydrated {
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class ItemDisplay extends Vue {
+export default class Item extends Vue {
     itemName: string = "Nova";
     itemImg: any = "@/assets/husky.png";
   constructor() {

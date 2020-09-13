@@ -9,6 +9,22 @@ const axios = require('axios').default;
 export default class DataBaseAPI {
     public state = Vue.observable({ itemList: <novaItem[]>[], userList: <novaUser[]>[] });
 
+    public getUser(id){
+        for(var i in this.state.userList){
+            if(id == this.state.userList[i].id){
+                return this.state.userList[i];
+            }
+        }
+    }
+
+    public getItem(id){
+        for(var i in this.state.itemList){
+            if(id == this.state.itemList[i].id){
+                return this.state.itemList[i];
+            }
+        }
+    }
+
     /**  INVENTORY RELATED CALLS **/
     public async readInventory() {
         let formData = new FormData();

@@ -11,20 +11,23 @@ ion-row.hydrated {
                 <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
             </ion-row>
             <ion-row>
-                <h3>{{itemName}}</h3>
+                <h3>{{user.username}}</h3>
             </ion-row>
             <ion-row>
-                <ion-button>Change Name</ion-button>
+                <ion-button>{{user.password}}</ion-button>
             </ion-row>
             <ion-row>
-                <ion-button>Edit Quantity</ion-button>
+                <ion-button>{{user.role}}</ion-button>
             </ion-row>
             <ion-row>
                 <!-- Add Modal for every Edit -->
-                <ion-button>Edit Description</ion-button>
+                <ion-button>{{user.email}}</ion-button>
+            </ion-row>
+              <ion-row>
+                <ion-button>{{user.alerts}}</ion-button>
             </ion-row>
             <ion-row>
-                <ion-button>Save</ion-button>
+                <ion-button @click="save()">Save</ion-button>
             </ion-row>
         </ion-grid>
   </ion-page>
@@ -32,13 +35,22 @@ ion-row.hydrated {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { novaUser } from "@/types/index"
 
 @Component
 export default class UserDisplay extends Vue {
-    itemName: string = "Nova";
-    itemImg: any = "@/assets/husky.png";
+    user: any;
   constructor() {
     super();
+  }
+  
+  created(){
+    this.user = dataBaseAPI.getUser(this.$route.params.user);
+  }
+
+  save(){
+    this.$router.push("/userList");
   }
 }
 </script>
