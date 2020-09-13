@@ -27,7 +27,7 @@ ion-row.hydrated {
 </style>
 
 <template>
-  <ion-content class="itemDisplay">
+  <ion-page>
       <ion-grid>
         <form>
             <ion-row>
@@ -50,8 +50,7 @@ ion-row.hydrated {
             </ion-row>
           </form>
         </ion-grid>
-
-  </ion-content>
+  </ion-page>
 </template>
 
 <script lang="ts">

@@ -5,13 +5,15 @@
 </style>
 
 <template>
-  <ion-content class="centerMain">
-      <form @submit="search()">
-        <input type="text" name="searchTerm" id="searchTerm" placeholder="Search for an item" v-model="searchTerm" />
-        <input type="submit" value="Search" />
-      </form>
-      <ion-button>Scan Barcode</ion-button>
-  </ion-content>
+  <ion-page>
+      <div class="centerMain">
+            <form @submit="search()">
+                <input type="text" name="searchTerm" id="searchTerm" placeholder="Search for an item" v-model="searchTerm" />
+                <input type="submit" value="Search" />
+            </form>
+        <ion-button>Scan Barcode</ion-button>
+      </div>
+  </ion-page>
 </template>
 
 <script lang="ts">

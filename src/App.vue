@@ -4,6 +4,7 @@
 
 <template>
   <ion-app>
+    <ion-page>
     <menu-left />
     <ion-header>
       <ion-toolbar>
@@ -12,6 +13,7 @@
       </ion-toolbar>
     </ion-header>
         <router-view></router-view>
+        </ion-page>
     </ion-app>
 </template>
 

@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <ion-content class="home">
+  <ion-page>
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -30,7 +30,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-content>
+  </ion-page>
 </template>
 
 <script lang="ts">

@@ -1,4 +1,5 @@
 <template>
+<ion-page>
   <ion-menu side="start" content-id="menu-content">
     <ion-header>
       <ion-toolbar color="primary">
@@ -14,6 +15,7 @@
       </ion-list>
     </ion-content>
   </ion-menu>
+</ion-page>
 </template>
 
 <script lang="ts">
