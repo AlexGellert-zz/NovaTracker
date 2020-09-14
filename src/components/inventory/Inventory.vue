@@ -11,13 +11,11 @@
       </ion-row>
       <ion-row>
         <ion-col class="six">Name</ion-col>
-        <ion-col>Description</ion-col>
         <ion-col>Quantity</ion-col>
         <ion-col>Edit</ion-col>
       </ion-row>
       <ion-row v-for="(item, index) in inventory" :key="index">
-        <ion-col class="six">{{item.quantity}}</ion-col>
-        <ion-col>{{item.item_description}}</ion-col>
+        <ion-col class="six">{{item.item_name}}</ion-col>
         <ion-col>{{item.item_quantity}}</ion-col>
         <ion-col><router-link :to="{path: `/inventory/${item.id}`, params:{item: item.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
       </ion-row>

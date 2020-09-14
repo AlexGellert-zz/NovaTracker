@@ -70,7 +70,6 @@ export default class Inventory extends Vue {
       this.item = dataBaseAPI.getItem(this.$route.params.item);
       this.newItem = false;
       this.stockImage = false;
-      console.log(this.item.item_image);
     }
   }
 
@@ -83,7 +82,6 @@ export default class Inventory extends Vue {
 
   addItem(ev) {
       ev.preventDefault();
-      console.log(this.item);
       dataBaseAPI.newItem(this.item);
       alert("Item " + this.item.item_name + " has been created.")
   }

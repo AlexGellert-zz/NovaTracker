@@ -12,18 +12,16 @@ $allowedOrigins = array(
   '(http(s)://)?localhost:8080',
 );
  
-if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] != '') {
-  foreach ($allowedOrigins as $allowedOrigin) {
-    if (preg_match('#' . $allowedOrigin . '#', $_SERVER['HTTP_ORIGIN'])) {
-      header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
-      header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
-      header('Access-Control-Max-Age: 1000');
-      header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-      break;
-    }
-  }
-}
+
 //Remove all this code in production and use file in api/novaInventory.php
+
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+header('Access-Control-Max-Age: 1000');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+
+//Remove all this code in production and use file in api/novaInventory.php
+
 $host = "localhost"; /* Host name */
 $user = "root"; /* User */
 $password = ""; /* Password */
@@ -40,28 +38,20 @@ if(isset($_POST['readItems'])){
   $table = 'item_collection';
   $data = mysqli_query($con,"SELECT * FROM $table");
   $result = array();
+  $row_info = array();
   while($row = mysqli_fetch_assoc($data)){
-    header("Content-type: image/png");
-    header("Content-Disposition: attachment; filename=$item_name");
-    $response = array();
-    $response['id'] = $row['row'];
-    $response['item_name'] = $row['item_name'];
-    $response['item_description'] = $row['item_description'];
-    $respone['item_quantity'] = $row['item_quantity'];
-    $response['item_image'] = $row['item_image'];
-    $result[] = $response;
+    $result[] = $row;
   }
   echo json_encode($result);
 }
 
 if(isset($_POST['insertItem'])){
-  echo 'Made it to insertItem';
   $table = 'item_collection';
   $item_name = $_POST['item_name'];
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
-  $item_image = file_get_contents($_POST['item_image']);
-  $data = mysqli_insert_blob_query($con,"INSERT INTO `$table`(`item_name`, `item_description`, `item_quantity`, `item_image`) VALUES ('$item_name', '$item_description', '$item_quantity', '$item_image')");
+  $item_image = $_POST['item_image'];
+  $data = mysqli_query($con,"INSERT INTO `$table`(`item_name`, `item_description`, `item_quantity`, `item_image`) VALUES ('$item_name', '$item_description', '$item_quantity', '$item_image')");
   return $data->result();
 }
 
@@ -71,7 +61,7 @@ if(isset($_POST['updateItem'])){
   $item_name = $_POST['item_name'];
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
-  $item_image = file_get_contents($_POST['item_image']);
+  $item_image = $_POST['item_image'];
   $data = mysqli_query($con,"UPDATE `$table` SET `item_name`='$item_name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image' WHERE `id`=$id");
   return $data->result();
 }
