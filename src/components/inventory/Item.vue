@@ -17,7 +17,8 @@ ion-row.hydrated {
 
 <template>
   <ion-page>
-      <h1>New Item</h1>
+      <h1 v-if="newItem">New Item</h1>
+      <h1 v-if="!newItem">Item Name: {{item.item_name}}</h1>
     <form>
       <ion-item>
         <img v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
@@ -83,12 +84,12 @@ export default class Inventory extends Vue {
   addItem(ev) {
       ev.preventDefault();
       dataBaseAPI.newItem(this.item);
-      alert("Item " + this.item.item_name + " has been created.")
+
   }
 
   updateItem(ev) {
       dataBaseAPI.updateItem(this.item);
-      alert("Item " + this.item.item_name + " has been updated.")
+
   }
 }
 </script>

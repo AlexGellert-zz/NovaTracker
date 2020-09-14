@@ -1,4 +1,7 @@
 <style scoped>
+ion-col{
+  border: 1px solid grey;
+}
 
 </style>
 
