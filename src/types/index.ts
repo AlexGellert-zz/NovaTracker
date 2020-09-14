@@ -1,6 +1,7 @@
 export interface Photo {
     filepath: string;
     webviewPath: any;
+    data: string;
 }
 
 export interface novaItem {
@@ -8,7 +9,7 @@ export interface novaItem {
     item_name: string;
     item_description: string;
     item_quantity: any;
-    item_image: Blob;
+    item_image: any;
 }
 
 export interface novaUser {

@@ -21,7 +21,7 @@ ion-row.hydrated {
     <form>
       <ion-item>
         <img v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
-        <img v-if="!stockImage" :src="newImage" @click="uploadImage()"  width="400px" />
+        <img v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="400px" />
       </ion-item>
 
       <ion-item>
@@ -69,17 +69,16 @@ export default class Inventory extends Vue {
     if(this.$route.params.item != undefined){
       this.item = dataBaseAPI.getItem(this.$route.params.item);
       this.newItem = false;
+      this.stockImage = false;
+      console.log(this.item.item_image);
     }
   }
 
   async uploadImage(){
     await photoService.takePhoto();
-    this.newImage = photoService.photoState.photos[0].webviewPath;
+
     this.stockImage = false;
-    let blob = await fetch(this.newImage).then(r => r.blob());
-    console.log(blob);
-    console.log("newImage" + this.newImage);
-    this.item.item_image = blob;
+    this.item.item_image = photoService.photoState.photos[0].data;
   }
 
   addItem(ev) {

@@ -14,6 +14,7 @@ export default class PhotoService {
     public photoState = Vue.observable({ photos: <Photo[]>[] });
 
     public async takePhoto() {
+        this.photoState.photos = [];
         // Take a photo
         const capturedPhoto = await Camera.getPhoto({
             resultType: CameraResultType.Uri,
@@ -39,7 +40,7 @@ export default class PhotoService {
             directory: FilesystemDirectory.Data
         })
 
-        return {filepath: fileName, webviewPath: cameraPhoto.webPath}
+        return {filepath: fileName, webviewPath: cameraPhoto.webPath, data: base64Data}
 
     }
 

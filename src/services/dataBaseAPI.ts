@@ -25,7 +25,7 @@ export default class DataBaseAPI {
                 return <novaItem>this.state.itemList[i];
             }
         }
-        return {item_name: "", item_description: "", item_quantity: 0, item_image: new Blob()};
+        return {item_name: "", item_description: "", item_quantity: 0, item_image: ""};
     }
 
     /**  INVENTORY RELATED CALLS **/
@@ -49,8 +49,8 @@ export default class DataBaseAPI {
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
-        ).then(() => {
-            console.log('item added' + item.item_image);
+        ).then((res) => {
+            console.log('newItem API response: ' + res.data);
         }).catch((err) => {
             console.log('item added' + err);
         })
