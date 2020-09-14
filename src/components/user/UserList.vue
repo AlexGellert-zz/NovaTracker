@@ -13,7 +13,7 @@ ion-col{
 
 <template>
   <ion-page>
-    <ion-button class="newUser">Add User</ion-button>
+    <router-link to="/newUser"><ion-button class="newUser">Add User</ion-button></router-link>
     <ion-grid>
       <ion-row>
         <ion-col>User List</ion-col>

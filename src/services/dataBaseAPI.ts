@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { novaItem, novaUser } from '@/types/index';
+const host = require('@/credentials.json');
 const axios = require('axios').default;
 
 /**
@@ -29,7 +30,7 @@ export default class DataBaseAPI {
     public async readInventory() {
         let formData = new FormData();
         formData.append('readItems', "readItems");
-        axios({ method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData }
+        axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
             this.state.itemList = res.data;
             console.log('Inventory' + res.data);
@@ -46,7 +47,7 @@ export default class DataBaseAPI {
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
         formData.append('stock', item.stock);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item added' + item);
         }).catch((err) => {
@@ -63,7 +64,7 @@ export default class DataBaseAPI {
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
         formData.append('stock', item.stock);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item added' + item);
         }).catch((err) => {
@@ -75,7 +76,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteItem', "deleteItem");
         formData.append('id', id);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item deleted' + id);
         }).catch((err) => {
@@ -87,7 +88,7 @@ export default class DataBaseAPI {
     public async readUsers() {
         let formData = new FormData();
         formData.append('readUsers', "readUsers");
-        axios({ method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData }
+        axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
             this.state.userList = res.data;
             console.log('users' + res.data);
@@ -104,7 +105,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('roles', user.role);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('user added' + user);
         }).catch((err) => {
@@ -121,7 +122,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('roles', user.role);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item updated' + user);
         }).catch((err) => {
@@ -133,7 +134,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteUser', "deleteUser")
         formData.append('id', user.id);
-        axios({method: 'post', url: 'http://localhost/api/novaInventory.php', data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item deleted' + user);
         }).catch((err) => {
