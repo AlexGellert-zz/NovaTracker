@@ -1,44 +1,97 @@
 <style scoped>
+
 ion-row.hydrated {
   justify-content: center;
 }
+
+.avatar-md {
+  width: 200px;
+  height: 200px;
+}
+
+.newItem{
+  float: right;
+}
+
 </style>
 
 <template>
   <ion-page>
-      <ion-grid>
-            <ion-row>
-                <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
-            </ion-row>
-            <ion-row>
-                <h3>{{itemName}}</h3>
-            </ion-row>
-            <ion-row>
-                <ion-button>Change Name</ion-button>
-            </ion-row>
-            <ion-row>
-                <ion-button>Edit Quantity</ion-button>
-            </ion-row>
-            <ion-row>
-                <!-- Add Modal for every Edit -->
-                <ion-button>Edit Description</ion-button>
-            </ion-row>
-            <ion-row>
-                <ion-button>Save</ion-button>
-            </ion-row>
-        </ion-grid>
+      <h1>New Item</h1>
+    <form>
+      <ion-item>
+        <img v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
+        <img v-if="!stockImage" :src="newImage" @click="uploadImage()"  width="400px" />
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" v-if="newItem">Name</ion-label>
+        <ion-label position="floating" v-if="!newItem">{{item.item_name}}</ion-label>
+        <ion-input type="text" name="item_name" id="item_name" v-model="item.item_name" @ionChange="item.item_name = $event.target.value" required />
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" v-if="newItem">Description</ion-label>
+        <ion-label position="floating" v-if="!newItem">{{item.item_description}}</ion-label>
+        <ion-textarea type="text" name="item_description" id="item_description" v-model="item.item_description" @ionChange="item.item_description = $event.target.value" required />
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" v-if="newItem">Quantity</ion-label>
+        <ion-label position="floating" v-if="!newItem">{{item.item_quantity}}</ion-label>
+        <ion-input type="text" name="item_quantity" id="item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
+      </ion-item>
+
+        <ion-button class="newItem" type="submit" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
+        <ion-button class="newItem" type="submit" @click="updateItem($event)" v-if="!newItem">Update Item</ion-button>
+    </form>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { photoService } from "@/services/PhotoService"
+import { novaItem } from "@/types/index";
 
 @Component
-export default class Item extends Vue {
-    itemName: string = "Nova";
-    itemImg: any = "@/assets/husky.png";
+export default class Inventory extends Vue {
+  item: novaItem = {item_name: "", item_description: "" , item_quantity: "", item_image: new Blob()};
+  newItem: boolean = true;
+  stockImage: boolean = true;
+  newImage: any = {};
+
   constructor() {
     super();
+  }
+
+  created(){
+    if(this.$route.params.item != undefined){
+      this.item = dataBaseAPI.getItem(this.$route.params.item);
+      this.newItem = false;
+    }
+  }
+
+  async uploadImage(){
+    await photoService.takePhoto();
+    this.newImage = photoService.photoState.photos[0].webviewPath;
+    this.stockImage = false;
+    let blob = await fetch(this.newImage).then(r => r.blob());
+    console.log(blob);
+    console.log("newImage" + this.newImage);
+    this.item.item_image = blob;
+  }
+
+  addItem(ev) {
+      ev.preventDefault();
+      console.log(this.item);
+      dataBaseAPI.newItem(this.item);
+      alert("Item " + this.item.item_name + " has been created.")
+  }
+
+  updateItem(ev) {
+      dataBaseAPI.updateItem(this.item);
+      alert("Item " + this.item.item_name + " has been updated.")
   }
 }
 </script>

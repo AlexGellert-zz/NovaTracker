@@ -44,8 +44,11 @@ export default class UserList extends Vue {
     super();
   }
 
-  deleteUser(id){
-    dataBaseAPI.deleteUser(id);
+  async deleteUser(id){
+    var user = await dataBaseAPI.getUser(id);
+    console.log(user);
+    dataBaseAPI.deleteUser(user);
+    console.log(user);
   }
 }
 </script>

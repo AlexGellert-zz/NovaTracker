@@ -13,7 +13,6 @@ import QuickEdit from '../components/QuickEdit.vue';
 import Login from '../components/user/Login.vue'
 import UserList from '../components/user/UserList.vue';
 import User from '../components/user/User.vue';
-import NewUser from '../components/user/NewUser.vue'
 
 
 
@@ -43,7 +42,7 @@ Vue.use(VueRouter)
   {
     path: '/newItem',
     name: 'NewItem',
-    component: NewItem
+    component: Item
   },
   {
     path: '/inventory',
@@ -68,7 +67,7 @@ Vue.use(VueRouter)
   {
     path: '/newUser',
     name: 'NewUser',
-    component: NewUser
+    component: User
   }
 
 ]

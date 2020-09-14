@@ -33,6 +33,7 @@ if(isset($_POST['readItems'])){
   $response = array();
   while($row = mysqli_fetch_assoc($data)){
     $response[] = $row;
+    echo json_encode($row);
   }
   echo json_encode($response);
 }
@@ -90,12 +91,13 @@ if(isset($_POST['newUser'])){
 
 if(isset($_POST['updateUser'])){
     $table = 'users';
+    $id = $_POST['id'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $alerts = $_POST['alerts'];
     $role = $_POST['role'];
-    $data = mysqli_query($con,"INSERT INTO `$table`(`username`, `password`, `email`, `alerts`, `role`) VALUES ('$username', '$password', '$email', '$alerts','$role')");
+    $data = mysqli_query($con,"UPDATE `$table` SET `username`='$username', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role' WHERE `id`=$id");
     return $data->result();
   }
 

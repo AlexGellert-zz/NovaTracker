@@ -9,7 +9,6 @@ export interface novaItem {
     item_description: string;
     item_quantity: any;
     item_image: Blob;
-    stock: any;
 }
 
 export interface novaUser {

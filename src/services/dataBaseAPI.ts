@@ -10,20 +10,22 @@ const axios = require('axios').default;
 export default class DataBaseAPI {
     public state = Vue.observable({ itemList: <novaItem[]>[], userList: <novaUser[]>[] });
 
-    public getUser(id){
+    public getUser(id): novaUser{
         for(var i in this.state.userList){
             if(id == this.state.userList[i].id){
-                return this.state.userList[i];
+                return <novaUser>this.state.userList[i];
             }
         }
+        return {username: "",password: "",email: "",alerts: 0,role: "",};
     }
 
-    public getItem(id){
+    public getItem(id): novaItem{
         for(var i in this.state.itemList){
             if(id == this.state.itemList[i].id){
-                return this.state.itemList[i];
+                return <novaItem>this.state.itemList[i];
             }
         }
+        return {item_name: "", item_description: "", item_quantity: 0, item_image: new Blob()};
     }
 
     /**  INVENTORY RELATED CALLS **/
@@ -33,7 +35,7 @@ export default class DataBaseAPI {
         axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
             this.state.itemList = res.data;
-            console.log('Inventory' + res.data);
+            console.log('Inventory list' + res.data);
         }).catch((err) => {
             console.log(err);
         })
@@ -46,10 +48,9 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        formData.append('stock', item.stock);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            console.log('item added' + item);
+            console.log('item added' + item.item_image);
         }).catch((err) => {
             console.log('item added' + err);
         })
@@ -63,7 +64,6 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        formData.append('stock', item.stock);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('item added' + item);
@@ -105,6 +105,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('roles', user.role);
+        console.log("formData" + formData['username']);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('user added' + user);

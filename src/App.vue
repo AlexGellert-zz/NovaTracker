@@ -33,16 +33,10 @@ export default class App extends Vue {
 
   async beforeCreate(){
     await dataBaseAPI.readUsers();
-    console.log("hello");
+    await dataBaseAPI.readInventory();
   }
-  goBackHome() {
-    this.$router.push("/");
-  }
-
   openStart() {
-    var openMenu = (document.querySelector("ion-menu-controller") as any).open(
-      "start"
-    );
+    var openMenu = (document.querySelector("ion-menu-controller") as any).open("start");
   }
 }
 </script>
