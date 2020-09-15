@@ -113,7 +113,7 @@ export default class NewUser extends Vue {
         alert("Please choose a role");
     } else {
       dataBaseAPI.updateUser(this.user);
-      alert("User " + this.user.name + " has been updated.")
+      this.$router.push('/userList');
     }
   }
 }

@@ -101,7 +101,7 @@ export default class DataBaseAPI {
         formData.append('item_image', item.item_image);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then((res) => {
-            console.log('newItem API response: ' + res.data);
+            this.readInventory();
         }).catch((err) => {
             console.log('item added' + err);
         })
@@ -117,7 +117,7 @@ export default class DataBaseAPI {
         formData.append('item_image', item.item_image);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
-            console.log('item added' + item);
+            this.readInventory();
         }).catch((err) => {
             console.log('item added' + err);
         })
@@ -129,7 +129,7 @@ export default class DataBaseAPI {
         formData.append('id', id);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
-            console.log('item deleted' + id);
+            this.readInventory();
         }).catch((err) => {
             console.log('item deleted' + err);
         })
@@ -159,7 +159,7 @@ export default class DataBaseAPI {
         console.log("formData" + formData['name']);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
-            console.log('user added' + user);
+            this.readUsers();
         }).catch((err) => {
             console.log('user added' + err);
         })
@@ -176,7 +176,7 @@ export default class DataBaseAPI {
         formData.append('roles', user.role);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
-            console.log('item updated' + user);
+            this.readUsers();
         }).catch((err) => {
             console.log('item updated' + err);
         })
@@ -188,7 +188,7 @@ export default class DataBaseAPI {
         formData.append('id', user.id);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
-            console.log('item deleted' + user);
+            this.readUsers();
         }).catch((err) => {
             console.log('item deleted' + err);
         })
