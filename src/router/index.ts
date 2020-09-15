@@ -60,7 +60,7 @@ Vue.use(VueRouter)
     component: UserList
   },
   {
-    path: '/userList/:user',
+    path: '/userList/:id',
     name: 'User',
     component: User
   },

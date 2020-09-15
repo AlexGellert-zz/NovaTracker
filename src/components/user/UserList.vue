@@ -25,7 +25,7 @@ ion-col{
       </ion-row>
       <ion-row v-for="(user, index) in userList" :key="index">
         <ion-col class="six">{{user.name}}</ion-col>
-        <ion-col><router-link :to="{path: `/userList/${user.id}`, params:{user: user.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
+        <ion-col><router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
         <ion-col><fa-icon class="delete" icon="times-circle" @click="deleteUser(user.id)" /></ion-col>
       </ion-row>
     </ion-grid>

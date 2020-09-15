@@ -192,7 +192,7 @@ export default class DataBaseAPI {
         formData.append('name', name);
         let tempUser = await axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then((res) => {
-            console.log('user found ' + res.data);
+            console.log('user found ' + res.data[0]);
             return res.data[0];
         }).catch((err) => {
             console.log('user found ' + err);

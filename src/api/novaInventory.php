@@ -127,15 +127,23 @@ if(isset($_POST['updateUser'])){
   if(isset($_POST['findUser'])){
     $table = 'users';
     $id = $_POST['id'];
-    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$id");
-    return $data->result();
+    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `id`=$id");
+    $response = array();
+    while($row = mysqli_fetch_assoc($data)){
+      $response[] = $row;
+    }
+    echo json_encode($response);
   }
 
   if(isset($_POST['findUserName'])){
     $table = 'users';
     $name = $_POST['name'];
     $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$name");
-    return $data->result();
+    $response = array();
+    while($row = mysqli_fetch_assoc($data)){
+      $response[] = $row;
+    }
+    echo json_encode($response);
   }
 
   if(isset($_POST['deleteUser'])){
