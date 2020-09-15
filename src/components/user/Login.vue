@@ -30,9 +30,11 @@ export default class Login extends Vue {
     super();
   }
 
-  login(ev){
+  async login(ev){
     ev.preventDefault();
-    if(dataBaseAPI.login(this.username.toLowerCase(), this.password)){
+    let checkLogin = await dataBaseAPI.login(this.username.toLowerCase(), this.password);
+    console.log("checkLogin " + checkLogin);
+    if(checkLogin){
       this.$emit('success');
     } else {
       alert('Invalid username and password');

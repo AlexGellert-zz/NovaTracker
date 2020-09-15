@@ -32,7 +32,7 @@ ion-row.hydrated {
 
       <ion-item>
         <ion-label position="floating">Description</ion-label>
-        <ion-textarea :disabled="permission" type="text" :value="item.item_description" v-model="item.item_description" @ionChange="item.item_description = $event.target.value" required />
+        <ion-input :disabled="permission" type="text" :value="item.item_description" v-model="item.item_description" @ionChange="item.item_description = $event.target.value" required />
       </ion-item>
 
       <ion-item>
@@ -54,7 +54,7 @@ import { novaItem, novaUser } from "@/types/index";
 
 @Component
 export default class Inventory extends Vue {
-  item: novaItem = {name: "", item_description: "" , item_quantity: "", item_image: new Blob()};
+  item: any = {name: "", item_description: "" , item_quantity: "", item_image: new Blob()};
   newItem: boolean = true;
   stockImage: boolean = true;
   newImage: any = {};
@@ -65,12 +65,13 @@ export default class Inventory extends Vue {
     super();
   }
 
-  created(){
-    if(this.$route.params.item != undefined){
-      this.item = dataBaseAPI.getItem(this.$route.params.item.toLowerCase());
+  async created(){
+    if(this.$route.params.id != undefined){
+      this.item = await dataBaseAPI.findItem(this.$route.params.id);
       this.newItem = false;
       this.stockImage = false;
     }
+    console.log("user role " + this.currentUser.role);
     if(this.newItem || this.currentUser.role == 'admin'){
       this.permission = false;
     }
@@ -82,17 +83,21 @@ export default class Inventory extends Vue {
     this.item.item_image = photoService.photoState.photos[0].data;
   }
 
-  addItem(ev) {
-      if(!dataBaseAPI.checkItem(this.item.name.toLowerCase()) && this.item.name != ""){
-        dataBaseAPI.newItem(this.item);
+  async addItem(ev) {
+    ev.preventDefault();
+    let newItem = await dataBaseAPI.checkItemName(this.item.name);
+      if(newItem){
+        await dataBaseAPI.newItem(this.item);
+        this.$emit('updateList');
         this.$router.push('/inventory');
       } else {
         alert('Item name already exists');
       }
   }
 
-  updateItem(ev) {
-      dataBaseAPI.updateItem(this.item);
+  async updateItem(ev) {
+      await dataBaseAPI.updateItem(this.item);
+      this.$emit('updateList');
       this.$router.push('/inventory');
   }
 }

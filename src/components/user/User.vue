@@ -78,38 +78,38 @@ import { novaUser } from "@/types/index";
 
 @Component
 export default class NewUser extends Vue {
-  user: novaUser = {name: "", password: "" , email: "", alerts: 0, role: ""};
+  user: any = {name: "", password: "" , email: "", alerts: 0, role: ""};
   newUser: boolean = true;
 
   constructor() {
     super();
   }
 
-  created(){
-    if(this.$route.params.user != undefined){
-      this.user = dataBaseAPI.getUser(this.$route.params.user);
+  async created(){
+    if(this.$route.params.id != undefined){
+      this.user = await dataBaseAPI.findUser(this.$route.params.id);
       this.newUser = false;
     }
   }
 
-  addUser(ev) {
+  async addUser(ev) {
+    ev.preventDefault();
     if(this.user.role == ""){
-        ev.preventDefault();
         alert("Please choose a role");
     } else if(!dataBaseAPI.checkUser(this.user.name.toLowerCase())) {
-      dataBaseAPI.newUser(this.user);
+      await dataBaseAPI.newUser(this.user);
       this.$router.push('/userList');
     } else {
       alert('Username already exists');
     }
   }
 
-  updateUser(ev) {
+  async updateUser(ev) {
+    ev.preventDefault();
     if(this.user.role == ""){
-        ev.preventDefault();
         alert("Please choose a role");
     } else {
-      dataBaseAPI.updateUser(this.user);
+      await dataBaseAPI.updateUser(this.user);
       this.$router.push('/userList');
     }
   }

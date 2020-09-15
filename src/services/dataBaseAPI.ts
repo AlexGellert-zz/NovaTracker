@@ -13,83 +13,58 @@ enum Type{
  * to cover all the CRUD involving the database.
  */
 export default class DataBaseAPI {
-    public state = Vue.observable({ itemHashObject: <Object>{}, userHashObject: <Object>{}, currentUser: <novaUser>{} });
-
-    /** Hash Object **/
-    public hashObject(data){
-        let tempArray = new Array();
-        let hashObject = {};
-        for(let i in data){
-            let key = data[i].name.toLowerCase();
-            let obj: any = data[i];
-            if(!tempArray[key]){
-                tempArray[key] = {key: key, value: obj};
-            }
-        }
-        hashObject = tempArray;
-        console.log("-------------------- hashobject below this line --------------------");
-        console.log(hashObject);
-        return hashObject;
-    }
+    public state = Vue.observable({ currentUser: <novaUser>{} });
 
     /** Get Current User **/
     public getCurrentUser(){
         return this.state.currentUser;
     }
     /** Check Valid User **/
-    public login(username: string, password: string){
-        if(this.state.userHashObject[username].value.password == password){
-            this.state.currentUser = this.state.userHashObject[username].value;
-            console.log(this.state.currentUser);
-            return true;
+    public async login(username: string, password: string){
+        let userList = await this.readUsers();
+        for(let i in userList){
+            if(username == userList[i].name && password == userList[i].password){
+                this.state.currentUser = userList[i];
+                return true;
+            }
         }
         return false;
     }
 
     /** Check New User **/
-    public checkUser(name){
-        if(this.state.userHashObject[name]){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
-    /** Check New Item **/
-    public checkItem(name){
-        if(this.state.itemHashObject[name]){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
-    /** Find User or Item **/
-    public getUser(name): novaUser{
-        if(this.state.userHashObject[name]){
-            return <novaUser>this.state.userHashObject[name].value;
-        }
-        return {name: "",password: "",email: "",alerts: 0,role: "",};
-    }
-
-    public getItem(name): novaItem{
-            if(this.state.itemHashObject[name]){
-                return <novaItem>this.state.itemHashObject[name].value;
+    public async checkUser(name){
+        let userList = await this.readUsers();
+        console.log('checkUser ' + userList)
+        for(let i in userList){
+            if(userList[i].name == name){
+                return false;
             }
-        return {name: "", item_description: "", item_quantity: 0, item_image: ""};
+        }
+        return true;
     }
 
+    /** Check Item Name **/
+    
+    public async checkItemName(name){
+        let itemList = await this.readInventory();
+        for(let i in itemList){
+            if(itemList[i].name == name){
+                return false;
+            }
+        }
+        return true;
+    }
     /**  INVENTORY RELATED CALLS **/
-    public async readInventory() {
+    public async readInventory(){
         let formData = new FormData();
         formData.append('readItems', "readItems");
-        axios({ method: 'post', url: `${host["live"]}`, data: formData }
+        let newList = axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
-            this.state.itemHashObject = this.hashObject(res.data);
-            console.log('Inventory list ' + this.state.itemHashObject['alex'].key);
+            return res.data;
         }).catch((err) => {
             console.log(err);
         })
+        return newList;
     }
     
     public async newItem(item: novaItem){
@@ -99,11 +74,11 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then((res) => {
-            this.readInventory();
+            console.log("item added " + res)
         }).catch((err) => {
-            console.log('item added' + err);
+            console.log('item added ' + err);
         })
     }
 
@@ -115,21 +90,35 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            this.readInventory();
+            console.log('item updated ' + item);
         }).catch((err) => {
-            console.log('item added' + err);
+            console.log('item added ' + err);
         })
+    }
+
+    public async findItem(id){
+        let formData = new FormData();
+        formData.append('findItem', 'findItem');
+        formData.append('id', id);
+        let tempItem = await axios({method: 'post', url: `${host["local"]}`, data: formData}
+        ).then((res) => {
+            console.log('item found ' + res.data[0]);
+            return res.data[0];
+        }).catch((err) => {
+            console.log('item found ' + err);
+        });
+        return tempItem;
     }
 
     public async deleteItem(id){
         let formData = new FormData();
         formData.append('deleteItem', "deleteItem");
         formData.append('id', id);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            this.readInventory();
+            console.log('item deleted: ' + id);
         }).catch((err) => {
             console.log('item deleted' + err);
         })
@@ -139,13 +128,15 @@ export default class DataBaseAPI {
     public async readUsers() {
         let formData = new FormData();
         formData.append('readUsers', "readUsers");
-        axios({ method: 'post', url: `${host["live"]}`, data: formData }
+        let newList = await axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
-            this.state.userHashObject = this.hashObject(res.data);
-            console.log('user ' + this.state.userHashObject['member'].key);
+            console.log('user ' + res.data);
+            return res.data;
         }).catch((err) => {
             console.log(err);
         })
+        console.log('returning list ' + newList)
+        return newList;
     }
 
     public async newUser(user: novaUser){
@@ -155,13 +146,13 @@ export default class DataBaseAPI {
         formData.append('password', user.password);
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
-        formData.append('roles', user.role);
+        formData.append('role', user.role);
         console.log("formData" + formData['name']);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            this.readUsers();
+            console.log('user added ' + user);
         }).catch((err) => {
-            console.log('user added' + err);
+            console.log('user added ' + err);
         })
     }
 
@@ -173,24 +164,53 @@ export default class DataBaseAPI {
         formData.append('password', user.password);
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
-        formData.append('roles', user.role);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        formData.append('role', user.role);
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            this.readUsers();
+            console.log('item updated ' + user);
         }).catch((err) => {
-            console.log('item updated' + err);
+            console.log('item updated ' + err);
         })
+    }
+
+    public async findUser(id){
+        let formData = new FormData();
+        formData.append('findUser', 'findUser');
+        formData.append('id', id);
+        let tempUser = await axios({method: 'post', url: `${host["local"]}`, data: formData}
+        ).then((res) => {
+            console.log('user found ' + res.data);
+            return res.data[0];
+        }).catch((err) => {
+            console.log('user found ' + err);
+        })
+        return tempUser;
+    }
+
+    public async findUserName(name){
+        let formData = new FormData();
+        formData.append('findUserName', 'findUserName');
+        formData.append('name', name);
+        let tempUser = await axios({method: 'post', url: `${host["local"]}`, data: formData}
+        ).then((res) => {
+            console.log('user found ' + res.data);
+            return res.data[0];
+        }).catch((err) => {
+            console.log('user found ' + err);
+        })
+        
+        return tempUser;
     }
 
     public async deleteUser(user: novaUser){
         let formData = new FormData();
         formData.append('deleteUser', "deleteUser")
         formData.append('id', user.id);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            this.readUsers();
+            console.log('item deleted ' + user);
         }).catch((err) => {
-            console.log('item deleted' + err);
+            console.log('item deleted ' + err);
         })
     }
     

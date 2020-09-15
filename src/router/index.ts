@@ -50,7 +50,7 @@ Vue.use(VueRouter)
     component: Inventory
   },
   {
-    path: '/inventory/:item',
+    path: '/inventory/:id',
     name: 'Item',
     component: Item
   },

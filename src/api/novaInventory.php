@@ -37,7 +37,6 @@ if(isset($_POST['readItems'])){
   $table = 'item_collection';
   $data = mysqli_query($con,"SELECT * FROM $table");
   $result = array();
-  $row_info = array();
   while($row = mysqli_fetch_assoc($data)){
     $result[] = $row;
   }
@@ -63,6 +62,26 @@ if(isset($_POST['updateItem'])){
   $item_image = $_POST['item_image'];
   $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image' WHERE `id`=$id");
   return $data->result();
+}
+
+if(isset($_POST['findItem'])){
+  $table = 'item_collection';
+  $id = $_POST['id'];
+  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `id`=$id");
+  while($row = mysqli_fetch_assoc($data)){
+    $result[] = $row;
+  }
+  echo json_encode($result);
+}
+
+if(isset($_POST['findItemName'])){
+  $table = 'item_collection';
+  $name = $_POST['name'];
+  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$name");
+  while($row = mysqli_fetch_assoc($data)){
+    $result[] = $row;
+  }
+  echo json_encode($result);
 }
 
 if(isset($_POST['deleteItem'])){
@@ -105,6 +124,20 @@ if(isset($_POST['updateUser'])){
     return $data->result();
   }
 
+  if(isset($_POST['findUser'])){
+    $table = 'users';
+    $id = $_POST['id'];
+    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$id");
+    return $data->result();
+  }
+
+  if(isset($_POST['findUserName'])){
+    $table = 'users';
+    $name = $_POST['name'];
+    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$name");
+    return $data->result();
+  }
+
   if(isset($_POST['deleteUser'])){
     $table = 'users';
     $id = $_POST['id'];
@@ -114,7 +147,5 @@ if(isset($_POST['updateUser'])){
 
 
 exit;
-
-
 
 ?>

@@ -48,11 +48,6 @@ export default class App extends Vue {
   constructor(){
     super();
   }
-
-  async beforeCreate(){
-    await dataBaseAPI.readUsers();
-    await dataBaseAPI.readInventory();
-  }
   openStart() {
     var openMenu = (document.querySelector("ion-menu-controller") as any).open("start");
   }
