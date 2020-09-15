@@ -68,7 +68,7 @@ export default class Inventory extends Vue {
 
   created(){
     if(this.$route.params.item != undefined){
-      this.item = dataBaseAPI.getItem(this.$route.params.item);
+      this.item = dataBaseAPI.getItem(this.$route.params.item.toLowerCase());
       this.newItem = false;
       this.stockImage = false;
     }
