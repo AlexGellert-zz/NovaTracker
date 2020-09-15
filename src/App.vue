@@ -4,7 +4,7 @@
 
 <template>
   <ion-app>
-    <ion-page>
+    <ion-page v-if="isLoggedIn">
       <menu-left />
       <ion-header>
         <ion-toolbar>
@@ -16,6 +16,16 @@
       </ion-header>
       <router-view></router-view>
     </ion-page>
+    <ion-page v-if="!isLoggedIn">
+          <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <fa-icon icon="dog" />Nova's Inventory
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <Login @success="success"/>
+    </ion-page>
   </ion-app>
 </template>
 
@@ -23,13 +33,16 @@
 import { Component, Vue } from "vue-property-decorator";
 import MenuLeft from "./components/shared/MenuLeft.vue";
 import { dataBaseAPI } from "./services/dataBaseAPI";
+import Login from "./components/user/Login.vue";
 
 @Component({
   components: {
     MenuLeft,
+    Login
   },
 })
 export default class App extends Vue {
+    isLoggedIn: boolean = true;
 
   async beforeCreate(){
     await dataBaseAPI.readUsers();
@@ -37,6 +50,10 @@ export default class App extends Vue {
   }
   openStart() {
     var openMenu = (document.querySelector("ion-menu-controller") as any).open("start");
+  }
+  success(){
+    this.isLoggedIn = true;
+    this.$router.push('/');
   }
 }
 </script>

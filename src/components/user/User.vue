@@ -31,9 +31,9 @@ h1{
       </ion-avatar>
 
       <ion-item>
-        <ion-label position="floating" v-if="newUser">Username</ion-label>
-        <ion-label position="floating" v-if="!newUser">{{user.username}}</ion-label>
-        <ion-input type="custom" name="username" id="username" v-model="user.username" @ionChange="user.username = $event.target.value" required />
+        <ion-label position="floating" v-if="newUser">name</ion-label>
+        <ion-label position="floating" v-if="!newUser">{{user.name}}</ion-label>
+        <ion-input type="custom" name="name" id="name" v-model="user.name" @ionChange="user.name = $event.target.value" required />
       </ion-item>
 
       <ion-item>
@@ -81,7 +81,7 @@ import { novaUser } from "@/types/index";
 
 @Component
 export default class NewUser extends Vue {
-  user: novaUser = {username: "", password: "" , email: "", alerts: 0, role: ""};
+  user: novaUser = {name: "", password: "" , email: "", alerts: 0, role: ""};
   newUser: boolean = true;
 
   constructor() {
@@ -90,6 +90,7 @@ export default class NewUser extends Vue {
 
   created(){
     if(this.$route.params.user != undefined){
+      console.log("router param" + this.$route.params.user);
       this.user = dataBaseAPI.getUser(this.$route.params.user);
       this.newUser = false;
     }
@@ -102,7 +103,7 @@ export default class NewUser extends Vue {
     } else {
       console.log(this.user);
       dataBaseAPI.newUser(this.user);
-      alert("User " + this.user.username + " has been created.")
+      alert("User " + this.user.name + " has been created.")
     }
   }
 
@@ -112,7 +113,7 @@ export default class NewUser extends Vue {
         alert("Please choose a role");
     } else {
       dataBaseAPI.updateUser(this.user);
-      alert("User " + this.user.username + " has been updated.")
+      alert("User " + this.user.name + " has been updated.")
     }
   }
 }

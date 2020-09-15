@@ -19,13 +19,13 @@ ion-col{
         <ion-col>User List</ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="six">Username</ion-col>
+        <ion-col class="six">name</ion-col>
         <ion-col>Edit</ion-col>
         <ion-col>Delete</ion-col>
       </ion-row>
       <ion-row v-for="(user, index) in userList" :key="index">
-        <ion-col class="six">{{user.username}}</ion-col>
-        <ion-col><router-link :to="{path: `/userList/${user.id}`, params:{user: user.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
+        <ion-col class="six">{{user.name}}</ion-col>
+        <ion-col><router-link :to="{path: `/userList/${user.name}`, params:{user: user.name}}"><ion-button>Edit</ion-button></router-link></ion-col>
         <ion-col><fa-icon class="delete" icon="times-circle" @click="deleteUser(user.id)" /></ion-col>
       </ion-row>
     </ion-grid>
@@ -39,9 +39,14 @@ import { novaUser } from "@/types/index";
 
 @Component
 export default class UserList extends Vue {
-  userList: novaUser[] = dataBaseAPI.state.userList;
+  userHashObject: object = dataBaseAPI.state.userHashObject;
+  userList: novaUser[] = [];
   constructor() {
     super();
+    for(var i in this.userHashObject){
+      console.log(this.userHashObject[i].value);
+      this.userList.push(this.userHashObject[i].value);
+    }
   }
 
   async deleteUser(id){

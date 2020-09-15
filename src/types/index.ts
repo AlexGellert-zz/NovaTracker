@@ -6,7 +6,7 @@ export interface Photo {
 
 export interface novaItem {
     id?: any;
-    item_name: string;
+    name: string;
     item_description: string;
     item_quantity: any;
     item_image: any;
@@ -14,7 +14,7 @@ export interface novaItem {
 
 export interface novaUser {
     id?: any;
-    username: string;
+    name: string;
     password: string;
     email: string;
     alerts: any;

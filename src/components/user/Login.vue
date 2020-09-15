@@ -1,5 +1,7 @@
 <style scoped>
-
+.centerMain{
+  margin-top: 250px !important;
+}
 </style>
 
 <template>
@@ -7,7 +9,7 @@
     <div class="centerMain">
       <ion-button class="login" v-if="isClicked" @click="isClicked = !isClicked">Login</ion-button>
       <form class="form" v-if="!isClicked" @submit="login()">
-          <input type="text" name="username" id="username" placeholder="Username" v-model="username"/>
+          <input type="text" name="name" id="name" placeholder="name" v-model="name"/>
           <input type="password" name="password" id="password" placeholder="Password" v-model="password"/>
           <input type="submit" value="Submit" />
       </form>
@@ -21,7 +23,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Login extends Vue {
     isClicked: boolean = true;
-    username: string = "";
+    name: string = "";
     password: string = "";
   constructor() {
     super();

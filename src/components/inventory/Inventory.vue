@@ -18,7 +18,7 @@ ion-col{
         <ion-col>Edit</ion-col>
       </ion-row>
       <ion-row v-for="(item, index) in inventory" :key="index">
-        <ion-col class="six">{{item.item_name}}</ion-col>
+        <ion-col class="six">{{item.name}}</ion-col>
         <ion-col>{{item.item_quantity}}</ion-col>
         <ion-col><router-link :to="{path: `/inventory/${item.id}`, params:{item: item.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
       </ion-row>
@@ -34,11 +34,14 @@ import { novaItem } from "@/types/index";
 
 @Component
 export default class Inventory extends Vue {
-  inventory: novaItem[] = dataBaseAPI.state.itemList;
-
+  inventoryHashObject: object = dataBaseAPI.state.itemHashObject;
+  inventory: novaItem[] = [];
   constructor() {
     super();
+    for(var i in this.inventoryHashObject){
+      console.log(this.inventoryHashObject[i].value);
+      this.inventory.push(this.inventoryHashObject[i].value);
+    }
   }
-
 }
 </script>

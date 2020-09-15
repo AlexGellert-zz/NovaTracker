@@ -47,22 +47,22 @@ if(isset($_POST['readItems'])){
 
 if(isset($_POST['insertItem'])){
   $table = 'item_collection';
-  $item_name = $_POST['item_name'];
+  $name = $_POST['name'];
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
   $item_image = $_POST['item_image'];
-  $data = mysqli_query($con,"INSERT INTO `$table`(`item_name`, `item_description`, `item_quantity`, `item_image`) VALUES ('$item_name', '$item_description', '$item_quantity', '$item_image')");
+  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `item_description`, `item_quantity`, `item_image`) VALUES ('$name', '$item_description', '$item_quantity', '$item_image')");
   return $data->result();
 }
 
 if(isset($_POST['updateItem'])){
   $table = 'item_collection';
   $id = $_POST['id'];
-  $item_name = $_POST['item_name'];
+  $name = $_POST['name'];
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
   $item_image = $_POST['item_image'];
-  $data = mysqli_query($con,"UPDATE `$table` SET `item_name`='$item_name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image' WHERE `id`=$id");
+  $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image' WHERE `id`=$id");
   return $data->result();
 }
 
@@ -85,24 +85,24 @@ if(isset($_POST['readUsers'])){
 
 if(isset($_POST['newUser'])){
   $table = 'users';
-  $username = $_POST['username'];
+  $name = $_POST['name'];
   $password = $_POST['password'];
   $email = $_POST['email'];
   $alerts = $_POST['alerts'];
   $role = $_POST['role'];
-  $data = mysqli_query($con,"INSERT INTO `$table`(`username`, `password`, `email`, `alerts`, `role`) VALUES ('$username', '$password', '$email', '$alerts','$role')");
+  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`) VALUES ('$name', '$password', '$email', '$alerts','$role')");
   return $data->result();
 }
 
 if(isset($_POST['updateUser'])){
     $table = 'users';
     $id = $_POST['id'];
-    $username = $_POST['username'];
+    $name = $_POST['name'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $alerts = $_POST['alerts'];
     $role = $_POST['role'];
-    $data = mysqli_query($con,"UPDATE `$table` SET `username`='$username', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role' WHERE `id`=$id");
+    $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role' WHERE `id`=$id");
     return $data->result();
   }
 
