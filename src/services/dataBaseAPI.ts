@@ -83,7 +83,7 @@ export default class DataBaseAPI {
     public async readInventory() {
         let formData = new FormData();
         formData.append('readItems', "readItems");
-        axios({ method: 'post', url: `${host["local"]}`, data: formData }
+        axios({ method: 'post', url: `${host["live"]}`, data: formData }
         ).then(res => {
             this.state.itemHashObject = this.hashObject(res.data);
             console.log('Inventory list ' + this.state.itemHashObject['alex'].key);
@@ -99,7 +99,7 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then((res) => {
             console.log('newItem API response: ' + res.data);
         }).catch((err) => {
@@ -115,7 +115,7 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item added' + item);
         }).catch((err) => {
@@ -127,7 +127,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteItem', "deleteItem");
         formData.append('id', id);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item deleted' + id);
         }).catch((err) => {
@@ -139,7 +139,7 @@ export default class DataBaseAPI {
     public async readUsers() {
         let formData = new FormData();
         formData.append('readUsers', "readUsers");
-        axios({ method: 'post', url: `${host["local"]}`, data: formData }
+        axios({ method: 'post', url: `${host["live"]}`, data: formData }
         ).then(res => {
             this.state.userHashObject = this.hashObject(res.data);
             console.log('user ' + this.state.userHashObject['member'].key);
@@ -157,7 +157,7 @@ export default class DataBaseAPI {
         formData.append('alerts', user.alerts);
         formData.append('roles', user.role);
         console.log("formData" + formData['name']);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('user added' + user);
         }).catch((err) => {
@@ -174,7 +174,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('roles', user.role);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item updated' + user);
         }).catch((err) => {
@@ -186,7 +186,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteUser', "deleteUser")
         formData.append('id', user.id);
-        axios({method: 'post', url: `${host["local"]}`, data: formData}
+        axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item deleted' + user);
         }).catch((err) => {

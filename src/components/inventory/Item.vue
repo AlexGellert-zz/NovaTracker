@@ -21,8 +21,8 @@ ion-row.hydrated {
       <h1 v-if="!newItem">Item Name: {{item.name}}</h1>
     <form>
       <ion-item>
-        <img v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="300px" @click="uploadImage()"/>
-        <img v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="400px" />
+        <img v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
+        <img v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </ion-item>
 
       <ion-item>

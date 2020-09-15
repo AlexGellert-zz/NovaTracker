@@ -21,7 +21,6 @@ header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 //Remove all this code in production and use file in api/novaInventory.php
-
 $host = "localhost"; /* Host name */
 $user = "root"; /* User */
 $password = ""; /* Password */
