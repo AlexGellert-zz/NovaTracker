@@ -90,7 +90,6 @@ export default class NewUser extends Vue {
 
   created(){
     if(this.$route.params.user != undefined){
-      console.log("router param" + this.$route.params.user);
       this.user = dataBaseAPI.getUser(this.$route.params.user);
       this.newUser = false;
     }

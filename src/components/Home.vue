@@ -36,6 +36,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import CameraComponent from "./shared/CameraComponent.vue";
+import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { novaUser } from "@/types/index"
 
 @Component({
   components: {
@@ -43,9 +45,16 @@ import CameraComponent from "./shared/CameraComponent.vue";
   },
 })
 export default class Home extends Vue {
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
+  currentUser: novaUser = dataBaseAPI.getCurrentUser();
   constructor() {
     super();
+  }
+  
+  created(){
+    if(this.currentUser.role == 'admin'){
+      this.isAdmin = true;
+    }
   }
 }
 </script>

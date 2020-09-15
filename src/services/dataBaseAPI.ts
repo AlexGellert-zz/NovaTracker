@@ -31,9 +31,16 @@ export default class DataBaseAPI {
         console.log(hashObject);
         return hashObject;
     }
+
+    /** Get Current User **/
+    public getCurrentUser(){
+        return this.state.currentUser;
+    }
     /** Check Valid User **/
     public login(username: string, password: string){
         if(this.state.userHashObject[username].value.password == password){
+            this.state.currentUser = this.state.userHashObject[username].value;
+            console.log(this.state.currentUser);
             return true;
         }
         return false;

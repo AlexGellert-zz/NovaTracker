@@ -26,21 +26,18 @@ ion-row.hydrated {
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" v-if="newItem">Name</ion-label>
-        <ion-label position="floating" v-if="!newItem">{{item.name}}</ion-label>
-        <ion-input type="text" name="name" id="name" v-model="item.name" @ionChange="item.name = $event.target.value" required />
+        <ion-label position="floating">Name</ion-label>
+        <ion-input :disabled="permission" type="text" :value="item.name" v-model="item.name" @ionChange="item.name = $event.target.value" required />
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" v-if="newItem">Description</ion-label>
-        <ion-label position="floating" v-if="!newItem">{{item.item_description}}</ion-label>
-        <ion-textarea type="text" name="item_description" id="item_description" v-model="item.item_description" @ionChange="item.item_description = $event.target.value" required />
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea :disabled="permission" type="text" :value="item.item_description" v-model="item.item_description" @ionChange="item.item_description = $event.target.value" required />
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" v-if="newItem">Quantity</ion-label>
-        <ion-label position="floating" v-if="!newItem">{{item.item_quantity}}</ion-label>
-        <ion-input type="text" name="item_quantity" id="item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
+        <ion-label position="floating">Quantity</ion-label>
+        <ion-input type="text" :value="item.item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
       </ion-item>
 
         <ion-button class="newItem" type="submit" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
@@ -53,7 +50,7 @@ ion-row.hydrated {
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
 import { photoService } from "@/services/PhotoService"
-import { novaItem } from "@/types/index";
+import { novaItem, novaUser } from "@/types/index";
 
 @Component
 export default class Inventory extends Vue {
@@ -61,6 +58,8 @@ export default class Inventory extends Vue {
   newItem: boolean = true;
   stockImage: boolean = true;
   newImage: any = {};
+  permission: boolean = true;
+  currentUser: novaUser = dataBaseAPI.getCurrentUser();
 
   constructor() {
     super();
@@ -72,6 +71,9 @@ export default class Inventory extends Vue {
       this.newItem = false;
       this.stockImage = false;
     }
+    if(this.newItem || this.currentUser.role == 'admin'){
+      this.permission = false;
+    }
   }
 
   async uploadImage(){
@@ -82,7 +84,7 @@ export default class Inventory extends Vue {
 
   addItem(ev) {
       ev.preventDefault();
-      if(!dataBaseAPI.checkItem(this.item.name.toLowerCase())){
+      if(!dataBaseAPI.checkItem(this.item.name.toLowerCase()) && this.item.name != ""){
         dataBaseAPI.newItem(this.item);
       } else {
         alert('Item name already exists');
@@ -90,7 +92,9 @@ export default class Inventory extends Vue {
   }
 
   updateItem(ev) {
+    if(this.currentUser.role == 'admin'){
       dataBaseAPI.updateItem(this.item);
+    }
   }
 }
 </script>
