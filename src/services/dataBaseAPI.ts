@@ -20,10 +20,10 @@ export default class DataBaseAPI {
         let tempArray = new Array();
         let hashObject = {};
         for(let i in data){
-            let key = data[i].name;
+            let key = data[i].name.toLowerCase();
             let obj: any = data[i];
-            if(!tempArray[data[i].name]){
-                tempArray[data[i].name] = {key: key, value: obj};
+            if(!tempArray[key]){
+                tempArray[key] = {key: key, value: obj};
             }
         }
         hashObject = tempArray;
@@ -33,6 +33,24 @@ export default class DataBaseAPI {
     }
     /** Check Valid User **/
     public login(user: string, password: string){
+    }
+
+    /** Check New User **/
+    public checkUser(name){
+        if(this.state.userHashObject[name]){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    /** Check New Item **/
+    public checkItem(name){
+        if(this.state.itemHashObject[name]){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     /** Find User or Item **/

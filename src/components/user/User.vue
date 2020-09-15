@@ -100,10 +100,11 @@ export default class NewUser extends Vue {
     if(this.user.role == ""){
         ev.preventDefault();
         alert("Please choose a role");
-    } else {
-      console.log(this.user);
+    } else if(!dataBaseAPI.checkUser(this.user.name.toLowerCase())) {
       dataBaseAPI.newUser(this.user);
-      alert("User " + this.user.name + " has been created.")
+      alert("User " + this.user.name + " has been created.");
+    } else {
+      alert('Username already exists');
     }
   }
 
