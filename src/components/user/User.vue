@@ -31,21 +31,18 @@ h1{
       </ion-avatar>
 
       <ion-item>
-        <ion-label position="floating" v-if="newUser">name</ion-label>
-        <ion-label position="floating" v-if="!newUser">{{user.name}}</ion-label>
-        <ion-input type="custom" name="name" id="name" v-model="user.name" @ionChange="user.name = $event.target.value" required />
+        <ion-label position="floating">Username</ion-label>
+        <ion-input type="text" :value="user.name" v-model="user.name" @ionChange="user.name = $event.target.value" required />
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" v-if="newUser">Password</ion-label>
-        <ion-label position="floating" v-if="!newUser">{{user.password}}</ion-label>
-        <ion-input type="password" name="password" id="password" v-model="user.password" @ionChange="user.password = $event.target.value" required />
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" :value="user.password" v-model="user.password" @ionChange="user.password = $event.target.value" required />
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" v-if="newUser">Email</ion-label>
-        <ion-label position="floating" v-if="!newUser">{{user.email}}</ion-label>
-        <ion-input type="text" name="email" id="email" v-model="user.email" @ionChange="user.email = $event.target.value" required />
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" :value="user.email" v-model="user.email" @ionChange="user.email = $event.target.value" required />
       </ion-item>
 
       <ion-item>
@@ -101,7 +98,7 @@ export default class NewUser extends Vue {
         alert("Please choose a role");
     } else if(!dataBaseAPI.checkUser(this.user.name.toLowerCase())) {
       dataBaseAPI.newUser(this.user);
-      alert("User " + this.user.name + " has been created.");
+      this.$router.push('/userList');
     } else {
       alert('Username already exists');
     }

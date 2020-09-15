@@ -85,17 +85,15 @@ export default class Inventory extends Vue {
   addItem(ev) {
       if(!dataBaseAPI.checkItem(this.item.name.toLowerCase()) && this.item.name != ""){
         dataBaseAPI.newItem(this.item);
-        ev.preventDefault();
+        this.$router.push('/inventory');
       } else {
         alert('Item name already exists');
       }
   }
 
   updateItem(ev) {
-    if(this.currentUser.role == 'admin'){
       dataBaseAPI.updateItem(this.item);
       this.$router.push('/inventory');
-    }
   }
 }
 </script>
