@@ -94,9 +94,10 @@ export default class NewUser extends Vue {
 
   async addUser(ev) {
     ev.preventDefault();
+    let newUser = await dataBaseAPI.checkUser(this.user.name.toLowerCase());
     if(this.user.role == ""){
         alert("Please choose a role");
-    } else if(!dataBaseAPI.checkUser(this.user.name.toLowerCase())) {
+    } else if(newUser) {
       await dataBaseAPI.newUser(this.user);
       this.$router.push('/userList');
     } else {

@@ -19,6 +19,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { photoService } from "./../services/PhotoService";
+import { dataBaseAPI } from "@/services/dataBaseAPI";
 
 @Component
 export default class QuickEdit extends Vue {
@@ -27,8 +28,10 @@ export default class QuickEdit extends Vue {
         super();
     }
 
-    search(){
-        console.log("Searching...");
+    async search(){
+        dataBaseAPI.findItem(this.searchTerm.toLowerCase()).then((res) => {
+            console.log('item found ' + res);
+        })
     }
 }
 </script>

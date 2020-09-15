@@ -36,7 +36,7 @@ export default class DataBaseAPI {
         let userList = await this.readUsers();
         console.log('checkUser ' + userList)
         for(let i in userList){
-            if(userList[i].name == name){
+            if(userList[i].name.toLowerCase() == name.toLowerCase()){
                 return false;
             }
         }
@@ -147,7 +147,6 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
-        console.log("formData" + formData['name']);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
             console.log('user added ' + user);
@@ -202,13 +201,13 @@ export default class DataBaseAPI {
         return tempUser;
     }
 
-    public async deleteUser(user: novaUser){
+    public async deleteUser(id){
         let formData = new FormData();
         formData.append('deleteUser', "deleteUser")
-        formData.append('id', user.id);
+        formData.append('id', id);
         axios({method: 'post', url: `${host["local"]}`, data: formData}
         ).then(() => {
-            console.log('item deleted ' + user);
+            console.log('item deleted ' + id);
         }).catch((err) => {
             console.log('item deleted ' + err);
         })

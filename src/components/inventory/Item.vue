@@ -9,7 +9,7 @@ ion-row.hydrated {
   height: 200px;
 }
 
-.newItem{
+.deleteItem{
   float: right;
 }
 
@@ -42,6 +42,7 @@ ion-row.hydrated {
 
         <ion-button class="newItem" type="submit" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
         <ion-button class="newItem" type="submit" @click="updateItem($event)" v-if="!newItem">Update Item</ion-button>
+        <ion-button class="deleteItem" color="danger" type="submit" @click="deleteItem($event)" v-if="!newItem">Delete Item</ion-button>
     </form>
   </ion-page>
 </template>
@@ -93,6 +94,12 @@ export default class Inventory extends Vue {
       } else {
         alert('Item name already exists');
       }
+  }
+
+  async deleteItem(ev){
+    await dataBaseAPI.deleteItem(this.item.id);
+    this.$emit('updateList');
+    this.$router.push('/inventory');
   }
 
   async updateItem(ev) {
