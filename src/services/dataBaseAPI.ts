@@ -32,7 +32,11 @@ export default class DataBaseAPI {
         return hashObject;
     }
     /** Check Valid User **/
-    public login(user: string, password: string){
+    public login(username: string, password: string){
+        if(this.state.userHashObject[username].value.password == password){
+            return true;
+        }
+        return false;
     }
 
     /** Check New User **/
@@ -75,7 +79,7 @@ export default class DataBaseAPI {
         axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
             this.state.itemHashObject = this.hashObject(res.data);
-            console.log('Inventory list' + this.state.itemHashObject['member'].key);
+            console.log('Inventory list ' + this.state.itemHashObject['alex'].key);
         }).catch((err) => {
             console.log(err);
         })
@@ -131,7 +135,7 @@ export default class DataBaseAPI {
         axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
             this.state.userHashObject = this.hashObject(res.data);
-            console.log('users' + this.state.userHashObject['member'].key);
+            console.log('user ' + this.state.userHashObject['member'].key);
         }).catch((err) => {
             console.log(err);
         })

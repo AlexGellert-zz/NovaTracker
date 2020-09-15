@@ -17,11 +17,13 @@
       <router-view></router-view>
     </ion-page>
     <ion-page v-if="!isLoggedIn">
-          <ion-header>
+      <menu-left />
+      <ion-header>
         <ion-toolbar>
           <ion-title>
             <fa-icon icon="dog" />Nova's Inventory
           </ion-title>
+          <fa-icon class="menu" icon="bars" />
         </ion-toolbar>
       </ion-header>
       <Login @success="success"/>
@@ -42,7 +44,10 @@ import Login from "./components/user/Login.vue";
   },
 })
 export default class App extends Vue {
-    isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
+  constructor(){
+    super();
+  }
 
   async beforeCreate(){
     await dataBaseAPI.readUsers();
@@ -53,7 +58,6 @@ export default class App extends Vue {
   }
   success(){
     this.isLoggedIn = true;
-    this.$router.push('/');
   }
 }
 </script>
