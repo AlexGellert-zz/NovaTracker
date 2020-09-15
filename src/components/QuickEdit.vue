@@ -9,7 +9,7 @@
       <div class="centerMain">
             <form @submit="search()">
                 <input type="text" name="searchTerm" id="searchTerm" placeholder="Search for an item" v-model="searchTerm" />
-                <input type="submit" value="Search" />
+                <input type="submit" value="Search" @click="search($event)" />
             </form>
         <ion-button>Scan Barcode</ion-button>
       </div>
@@ -28,9 +28,13 @@ export default class QuickEdit extends Vue {
         super();
     }
 
-    async search(){
-        dataBaseAPI.findItem(this.searchTerm.toLowerCase()).then((res) => {
-            console.log('item found ' + res);
+    async search(ev){
+        ev.preventDefault();
+        console.log(this.searchTerm);
+        let item = await dataBaseAPI.findItemName(this.searchTerm.toLowerCase())
+        this.$router.push({
+            name: 'Item',
+            params: { id: item.id }
         })
     }
 }

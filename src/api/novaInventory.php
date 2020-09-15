@@ -35,7 +35,7 @@ if (!$con) {
 
 if(isset($_POST['readItems'])){
   $table = 'item_collection';
-  $data = mysqli_query($con,"SELECT * FROM $table");
+  $data = mysqli_query($con,"SELECT * FROM `$table`");
   $result = array();
   while($row = mysqli_fetch_assoc($data)){
     $result[] = $row;
@@ -77,7 +77,7 @@ if(isset($_POST['findItem'])){
 if(isset($_POST['findItemName'])){
   $table = 'item_collection';
   $name = $_POST['name'];
-  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$name");
+  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE LOWER(`name`) LIKE '$name%'");
   while($row = mysqli_fetch_assoc($data)){
     $result[] = $row;
   }
@@ -87,13 +87,13 @@ if(isset($_POST['findItemName'])){
 if(isset($_POST['deleteItem'])){
   $table = 'item_collection';
   $id = $_POST['id'];
-  $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`=$id");
+  $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`='$id'");
   return $data->result();
 }
 
 if(isset($_POST['readUsers'])){
   $table = 'users';
-  $data = mysqli_query($con,"SELECT * FROM $table");
+  $data = mysqli_query($con,"SELECT * FROM `$table`");
   $response = array();
   while($row = mysqli_fetch_assoc($data)){
     $response[] = $row;
@@ -127,7 +127,7 @@ if(isset($_POST['updateUser'])){
   if(isset($_POST['findUser'])){
     $table = 'users';
     $id = $_POST['id'];
-    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `id`=$id");
+    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `id`='$id'");
     $response = array();
     while($row = mysqli_fetch_assoc($data)){
       $response[] = $row;
@@ -138,7 +138,7 @@ if(isset($_POST['updateUser'])){
   if(isset($_POST['findUserName'])){
     $table = 'users';
     $name = $_POST['name'];
-    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`=$name");
+    $data = mysqli_query($con,"SELECT * FROM `$table` WHERE `name`='$name'");
     $response = array();
     while($row = mysqli_fetch_assoc($data)){
       $response[] = $row;
@@ -149,7 +149,7 @@ if(isset($_POST['updateUser'])){
   if(isset($_POST['deleteUser'])){
     $table = 'users';
     $id = $_POST['id'];
-    $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`=$id");
+    $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`='$id'");
     return $data->result();
   }
 
