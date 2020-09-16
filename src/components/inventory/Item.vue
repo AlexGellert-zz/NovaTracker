@@ -40,9 +40,9 @@ ion-row.hydrated {
         <ion-input type="number" :value="item.item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
       </ion-item>
 
-        <ion-button class="newItem" type="submit" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
-        <ion-button class="newItem" type="submit" @click="updateItem($event)" v-if="!newItem">Update Item</ion-button>
-        <ion-button class="deleteItem" color="danger" type="submit" @click="deleteItem($event)" v-if="!newItem">Delete Item</ion-button>
+        <ion-button class="newItem" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
+        <ion-button class="newItem" @click="updateItem($event)" v-if="!newItem">Update Item</ion-button>
+        <ion-button class="deleteItem" color="danger" @click="deleteItem($event)" v-if="!newItem">Delete Item</ion-button>
     </form>
   </ion-page>
 </template>
@@ -84,24 +84,24 @@ export default class Inventory extends Vue {
     this.item.item_image = photoService.photoState.photos[0].data;
   }
 
-  async addItem(ev) {
+  addItem(ev) {
     ev.preventDefault();
-    let newItem = await dataBaseAPI.checkItemName(this.item.name);
+    let newItem = dataBaseAPI.checkItemName(this.item.name);
       if(newItem){
-        await dataBaseAPI.newItem(this.item);
+        dataBaseAPI.newItem(this.item);
         this.$router.push('/inventory');
       } else {
         alert('Item name already exists');
       }
   }
 
-  async deleteItem(ev){
-    await dataBaseAPI.deleteItem(this.item.id);
+  deleteItem(ev){
+    dataBaseAPI.deleteItem(this.item.id);
     this.$router.push('/inventory');
   }
 
-  async updateItem(ev) {
-      await dataBaseAPI.updateItem(this.item);
+  updateItem(ev) {
+      dataBaseAPI.updateItem(this.item);
       this.$router.push('/inventory');
   }
 }

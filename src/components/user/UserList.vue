@@ -44,14 +44,12 @@ export default class UserList extends Vue {
     super();
   }
 
-  async mounted(){
+  async created(){
     this.userList = await dataBaseAPI.readUsers();
-    this.$forceUpdate();
   }
 
   async deleteUser(id){
     await dataBaseAPI.deleteUser(id);
-    this.userList = await dataBaseAPI.readUsers();
   }
 }
 </script>

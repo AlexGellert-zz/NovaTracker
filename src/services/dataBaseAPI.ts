@@ -13,18 +13,17 @@ enum Type{
  * to cover all the CRUD involving the database.
  */
 export default class DataBaseAPI {
-    public state = Vue.observable({ currentUser: <novaUser>{} });
+    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{} });
 
     /** Get Current User **/
     public getCurrentUser(){
         return this.state.currentUser;
     }
     /** Check Valid User **/
-    public async login(username: string, password: string){
-        let userList = await this.readUsers();
-        for(let i in userList){
-            if(username == userList[i].name && password == userList[i].password){
-                this.state.currentUser = userList[i];
+    public login(username: string, password: string){
+        for(let i in this.state.usersList){
+            if(username == this.state.usersList[i].name && password == this.state.usersList[i].password){
+                this.state.currentUser = this.state.usersList[i];
                 return true;
             }
         }
@@ -32,11 +31,9 @@ export default class DataBaseAPI {
     }
 
     /** Check New User **/
-    public async checkUser(name){
-        let userList = await this.readUsers();
-        console.log('checkUser ' + userList)
-        for(let i in userList){
-            if(userList[i].name.toLowerCase() == name.toLowerCase()){
+    public checkUser(name){
+        for(let i in this.state.usersList){
+            if(this.state.usersList[i].name.toLowerCase() == name.toLowerCase()){
                 return false;
             }
         }
@@ -45,10 +42,9 @@ export default class DataBaseAPI {
 
     /** Check Item Name **/
     
-    public async checkItemName(name){
-        let itemList = await this.readInventory();
-        for(let i in itemList){
-            if(itemList[i].name == name){
+    public checkItemName(name){
+        for(let i in this.state.inventoryList){
+            if(this.state.inventoryList[i].name == name){
                 return false;
             }
         }
@@ -58,13 +54,15 @@ export default class DataBaseAPI {
     public async readInventory(){
         let formData = new FormData();
         formData.append('readItems', "readItems");
-        let newList = await axios({ method: 'post', url: `${host["local"]}`, data: formData }
+        let newItems = axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
+            this.state.inventoryList = res.data;
             return res.data;
         }).catch((err) => {
             console.log(err);
         })
-        return newList;
+
+        return newItems;
     }
     
     public newItem(item: novaItem){
@@ -142,14 +140,13 @@ export default class DataBaseAPI {
     public async readUsers() {
         let formData = new FormData();
         formData.append('readUsers', "readUsers");
-        let newList = await axios({ method: 'post', url: `${host["local"]}`, data: formData }
+        let newList = axios({ method: 'post', url: `${host["local"]}`, data: formData }
         ).then(res => {
-            console.log('user ' + res.data);
+            this.state.usersList = res.data;
             return res.data;
         }).catch((err) => {
             console.log(err);
-        })
-        console.log('returning list ' + newList)
+        });
         return newList;
     }
 

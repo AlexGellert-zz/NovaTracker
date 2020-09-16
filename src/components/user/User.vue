@@ -105,12 +105,12 @@ export default class NewUser extends Vue {
     }
   }
 
-  async updateUser(ev) {
+  updateUser(ev) {
     ev.preventDefault();
     if(this.user.role == ""){
         alert("Please choose a role");
     } else {
-      await dataBaseAPI.updateUser(this.user);
+      dataBaseAPI.updateUser(this.user);
       this.$router.push('/userList');
     }
   }
