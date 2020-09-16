@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
+import { dataBaseAPI } from "@/services/dataBaseAPI";
 import Quagga from "quagga";
 
 
@@ -47,16 +47,14 @@ export default class BarCodeScanner extends Vue {
   created(){
     Quagga.onDetected((data: Array<object>) => {
       this.foundResult = data[0];
-      const foundCode: barcode = {
+      let foundCode: barcode = {
         code: this.foundResult.codeResult.code,
         type: this.foundResult.codeResult.format
       };
-      console.log(this.foundResult);
-      console.log(foundCode);
-      this.stop();
+      this.stop(foundCode);
     });
   }
- mounted() {
+ async mounted() {
     this.start();
   }
 
@@ -88,9 +86,14 @@ export default class BarCodeScanner extends Vue {
     });
   }
 
-  stop() {
+  async stop(foundCode) {
     this.scannerActive = false;
     Quagga.stop();
+    let item = await dataBaseAPI.findItemName(foundCode.code.toLowerCase())
+      this.$router.push({
+        name: 'Item',
+        params: { id: item.id }
+    })
   }
 
 }
