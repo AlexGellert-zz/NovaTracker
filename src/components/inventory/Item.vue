@@ -1,18 +1,8 @@
 <style scoped>
 
-ion-row.hydrated {
-  justify-content: center;
-}
-
-.avatar-md {
-  width: 200px;
-  height: 200px;
-}
-
-.deleteItem{
+#moveBtn{
   float: right;
 }
-
 </style>
 
 <template>
@@ -42,7 +32,7 @@ ion-row.hydrated {
 
         <ion-button class="newItem" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
         <ion-button class="newItem" @click="updateItem($event)" v-if="!newItem">Update Item</ion-button>
-        <ion-button class="deleteItem" color="danger" @click="deleteItem($event)" v-if="!newItem">Delete Item</ion-button>
+        <ion-button class="newItem" id="moveBtn" color="danger" @click="deleteItem($event)" v-if="!newItem">Delete Item</ion-button>
     </form>
   </ion-page>
 </template>

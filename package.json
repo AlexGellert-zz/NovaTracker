@@ -17,6 +17,7 @@
         "@ionic/pwa-elements": "^3.0.1",
         "@ionic/vue": "0.3.1",
         "axios": "^0.20.0",
+        "css-loader": "^4.3.0",
         "quagga": "^0.12.1",
         "vue": "^2.6.11",
         "vue-class-component": "^7.2.3",
