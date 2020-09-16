@@ -11,16 +11,17 @@
                 <input type="text" name="searchTerm" id="searchTerm" placeholder="Search for an item" v-model="searchTerm" />
                 <input type="submit" value="Search" @click="search($event)" />
             </form>
-        <ion-button @click="scanBarcode()">Scan Barcode</ion-button>
+        <router-link to="/barCodeScanner">
+            <ion-button >Scan Barcode</ion-button>
+        </router-link>
       </div>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { photoService } from "./../services/PhotoService";
+import { photoService } from "@/services/PhotoService";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
-import { barCodeApi } from "@/services/barCodeScanner";
 
 @Component
 export default class QuickEdit extends Vue {
@@ -37,10 +38,6 @@ export default class QuickEdit extends Vue {
             name: 'Item',
             params: { id: item.id }
         })
-    }
-
-    async scanBarcode(){
-        
     }
 }
 </script>

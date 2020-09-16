@@ -5,7 +5,7 @@
 </style>
 
 <template>
-  <div>
+  <ion-page>
     <div v-if="foundCodes" class="level">
       <div class="level-item has-text-centered">
         <div>
@@ -14,17 +14,8 @@
         </div>
       </div>
     </div>
-    <nav class="level" role="navigation" aria-label="main navigation">
-      <div v-show="!scannerActive" class="level-item">
-        <a @click="start" class="button">Start Scanner</a>
-      </div>
-
-      <div v-show="scannerActive" class="level-item">
-        <a @click="stop" class="button">Stop Scanner</a>
-      </div>
-    </nav>
     <div id="videoWindow" class="video"></div>
-  </div>
+  </ion-page>
 </template>
 
 <script lang="ts">
@@ -44,23 +35,29 @@ interface codeResult {
 }
 
 @Component
-export default class QuickEdit extends Vue {
+export default class BarCodeScanner extends Vue {
   scannerActive: boolean = false;
   foundCodes: barcode | null = null;
   foundResult: any;
 
- mounted() {
+  constructor(){
+    super();
+  }
+
+  created(){
     Quagga.onDetected((data: Array<object>) => {
-      // console.log(data);
       this.foundResult = data[0];
       const foundCode: barcode = {
         code: this.foundResult.codeResult.code,
         type: this.foundResult.codeResult.format
       };
+      console.log(this.foundResult);
       console.log(foundCode);
-      this.foundCodes = foundCode;
-      this.$emit("found", foundCode);
+      this.stop();
     });
+  }
+ mounted() {
+    this.start();
   }
 
   start() {
@@ -73,7 +70,7 @@ export default class QuickEdit extends Vue {
         target: document.querySelector("#videoWindow")
       },
       decoder: {
-        readers: ["ean_reader"],
+        readers: ["ean_reader", "code_128_reader"],
         multiple: true
       },
       locator: {

@@ -5,9 +5,9 @@ import About from '../components/About.vue'
 
 //Inventory
 import Item from '../components/inventory/Item.vue';
-import NewItem from '../components/inventory/NewItem.vue';
 import Inventory from '../components/inventory/Inventory.vue';
-import QuickEdit from '../components/QuickEdit.vue';
+import QuickEdit from '../components/inventory/QuickEdit.vue';
+import BarCodeScanner from '../components/inventory/BarCodeScanner.vue';
 
 //User
 import Login from '../components/user/Login.vue'
@@ -68,6 +68,11 @@ Vue.use(VueRouter)
     path: '/newUser',
     name: 'NewUser',
     component: User
+  },
+  {
+    path: '/barCodeScanner',
+    name: 'BarCodeScanner',
+    component: BarCodeScanner
   }
 
 ]
