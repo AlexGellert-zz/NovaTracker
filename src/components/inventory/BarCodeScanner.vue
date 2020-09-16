@@ -2,19 +2,21 @@
 .video {
   width: 100%;
 }
+
+ion-spinner.spinner-md{
+  display: block;
+  margin-top: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  width: 100px;
+}
 </style>
 
 <template>
   <ion-page>
-    <div v-if="foundCodes" class="level">
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">{{foundCodes.type}}</p>
-          <p class="title">{{foundCodes.code}}</p>
-        </div>
-      </div>
-    </div>
-    <div id="videoWindow" class="video"></div>
+    <div v-if="scannerActive" id="videoWindow" class="video"></div>
+    <ion-spinner v-if="!scannerActive" name="lines"></ion-spinner>
   </ion-page>
 </template>
 
@@ -36,7 +38,7 @@ interface codeResult {
 
 @Component
 export default class BarCodeScanner extends Vue {
-  scannerActive: boolean = false;
+  scannerActive: boolean = true;
   foundCodes: barcode | null = null;
   foundResult: any;
 
@@ -87,11 +89,12 @@ export default class BarCodeScanner extends Vue {
   async stop(foundCode) {
     this.scannerActive = false;
     Quagga.stop();
+    console.log("object" + foundCode.code)
     let item = await dataBaseAPI.findItemName(foundCode.code.toLowerCase())
-      this.$router.push({
+    setTimeout(() => {this.$router.push({
         name: 'Item',
         params: { id: item.id }
-    })
+    })}, 1000)
   }
 
 }

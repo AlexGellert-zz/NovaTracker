@@ -32,12 +32,12 @@ export default class QuickEdit extends Vue {
 
     async search(ev){
         ev.preventDefault();
-        console.log(this.searchTerm);
         let item = await dataBaseAPI.findItemName(this.searchTerm.toLowerCase())
-        this.$router.push({
+        setTimeout(() => {this.$router.push({
             name: 'Item',
             params: { id: item.id }
-        })
+        })}, 1000);
+        
     }
 }
 </script>

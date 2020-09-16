@@ -90,7 +90,7 @@ export default class Inventory extends Vue {
     let newItem = dataBaseAPI.checkItemName(this.item.name);
       if(newItem){
         dataBaseAPI.newItem(this.item);
-        this.$router.push('/inventory');
+        setTimeout(() => {this.$router.push('/inventory')}, 1000);
       } else {
         alert('Item name already exists');
       }
@@ -103,7 +103,7 @@ export default class Inventory extends Vue {
 
   updateItem(ev) {
       dataBaseAPI.updateItem(this.item);
-      this.$router.push('/inventory');
+      setTimeout(() => {this.$router.push('/inventory')}, 1000);
   }
 }
 </script>

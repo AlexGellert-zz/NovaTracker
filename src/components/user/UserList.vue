@@ -51,7 +51,7 @@ export default class UserList extends Vue {
 
   async deleteUser(id){
     await dataBaseAPI.deleteUser(id);
-    setTimeout(() => {this.$forceUpdate}, 2000);
+    setTimeout(() => {this.$forceUpdate}, 3000);
     this.userList = await dataBaseAPI.readUsers();
   }
 }
