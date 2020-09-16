@@ -57,7 +57,6 @@ export default class BarCodeScanner extends Vue {
  async mounted() {
     this.start();
   }
-
   start() {
     this.scannerActive = true;
     const config: object = {
@@ -85,7 +84,6 @@ export default class BarCodeScanner extends Vue {
       Quagga.start();
     });
   }
-
   async stop(foundCode) {
     this.scannerActive = false;
     Quagga.stop();
