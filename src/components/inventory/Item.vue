@@ -67,6 +67,7 @@ export default class Inventory extends Vue {
   }
 
   async created(){
+    setTimeout(() => {this.$forceUpdate}, 1000);
     if(this.$route.params.id != undefined){
       this.item = await dataBaseAPI.findItem(this.$route.params.id);
       this.newItem = false;
