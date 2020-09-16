@@ -1,6 +1,20 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../components/Home.vue'
+import About from '../components/About.vue'
+
+//Inventory
+import Item from '../components/inventory/Item.vue';
+import Inventory from '../components/inventory/Inventory.vue';
+import QuickEdit from '../components/inventory/QuickEdit.vue';
+import BarCodeScanner from '../components/inventory/BarCodeScanner.vue';
+
+//User
+import Login from '../components/user/Login.vue'
+import UserList from '../components/user/UserList.vue';
+import User from '../components/user/User.vue';
+
+
 
 Vue.use(VueRouter)
 
@@ -13,11 +27,54 @@ Vue.use(VueRouter)
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: About
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/quickEdit',
+    name: 'QuickEdit',
+    component: QuickEdit
+  },
+  {
+    path: '/newItem',
+    name: 'NewItem',
+    component: Item
+  },
+  {
+    path: '/inventory',
+    name: 'Inventory',
+    component: Inventory
+  },
+  {
+    path: '/inventory/:id',
+    name: 'Item',
+    component: Item
+  },
+  {
+    path: '/userList',
+    name: 'UserList',
+    component: UserList
+  },
+  {
+    path: '/userList/:id',
+    name: 'User',
+    component: User
+  },
+  {
+    path: '/newUser',
+    name: 'NewUser',
+    component: User
+  },
+  {
+    path: '/barCodeScanner',
+    name: 'BarCodeScanner',
+    component: BarCodeScanner
   }
+
 ]
 
 const router = new VueRouter({

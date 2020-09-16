@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+.hg
+/src/credentials.json
 
 
 # local env files
