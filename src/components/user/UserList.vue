@@ -44,7 +44,7 @@ export default class UserList extends Vue {
     super();
   }
 
-  async created(){
+  async mounted(){
     this.userList = await dataBaseAPI.readUsers();
   }
 

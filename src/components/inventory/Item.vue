@@ -37,7 +37,7 @@ ion-row.hydrated {
 
       <ion-item>
         <ion-label position="floating">Quantity</ion-label>
-        <ion-input type="text" :value="item.item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
+        <ion-input type="number" :value="item.item_quantity" v-model="item.item_quantity" @ionChange="item.item_quantity = $event.target.value" required />
       </ion-item>
 
         <ion-button class="newItem" type="submit" @click="addItem($event)" v-if="newItem">Create New Item</ion-button>
@@ -89,7 +89,6 @@ export default class Inventory extends Vue {
     let newItem = await dataBaseAPI.checkItemName(this.item.name);
       if(newItem){
         await dataBaseAPI.newItem(this.item);
-        this.$emit('updateList');
         this.$router.push('/inventory');
       } else {
         alert('Item name already exists');
@@ -98,13 +97,11 @@ export default class Inventory extends Vue {
 
   async deleteItem(ev){
     await dataBaseAPI.deleteItem(this.item.id);
-    this.$emit('updateList');
     this.$router.push('/inventory');
   }
 
   async updateItem(ev) {
       await dataBaseAPI.updateItem(this.item);
-      this.$emit('updateList');
       this.$router.push('/inventory');
   }
 }

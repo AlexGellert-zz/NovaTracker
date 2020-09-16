@@ -37,7 +37,7 @@ export default class Inventory extends Vue {
     super();
   }
 
-  async created(){
+  async mounted(){
     this.inventory = await dataBaseAPI.readInventory();
   }
 }
