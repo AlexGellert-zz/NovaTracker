@@ -17,15 +17,9 @@
       <router-view></router-view>
     </ion-page>
     <ion-page v-if="!isLoggedIn">
-      <menu-left />
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>
-            <fa-icon icon="dog" />Nova's Inventory
-          </ion-title>
-          <fa-icon class="menu" icon="bars" />
-        </ion-toolbar>
-      </ion-header>
+
+          <svg-icon name="giftBox"></svg-icon>
+ 
       <Login @success="success"/>
     </ion-page>
   </ion-app>
@@ -36,11 +30,13 @@ import { Component, Vue } from "vue-property-decorator";
 import MenuLeft from "./components/shared/MenuLeft.vue";
 import { dataBaseAPI } from "./services/dataBaseAPI";
 import Login from "./components/user/Login.vue";
+import SvgIcon from "./components/shared/svg/svg.vue";
 
 @Component({
   components: {
     MenuLeft,
-    Login
+    Login,
+    SvgIcon
   },
 })
 export default class App extends Vue {
