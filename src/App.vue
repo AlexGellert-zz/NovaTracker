@@ -17,7 +17,7 @@ ion-app.app-md {
   padding-top: 10px;
   text-align: center;
   background: var(--nav-background);
-  height: 180px;
+  height: 60px;
 }
 
 h4{
@@ -49,7 +49,7 @@ h4{
       <ion-header>
         <ion-toolbar>
           <ion-title>
-            <svg-icon class="headerIcon" name="novaIcon" /><h4>Nova's Inventory</h4>
+            <svg-icon class="headerIcon" name="nova-icon" /><h4>Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
         </ion-toolbar>
@@ -81,7 +81,7 @@ import SvgIcon from "./components/shared/svg/svg.vue";
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   constructor() {
     super();
   }

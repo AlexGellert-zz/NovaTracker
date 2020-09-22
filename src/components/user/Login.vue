@@ -7,6 +7,13 @@
   width: 250px;
 }
 
+.centerMain{
+    text-align: center;
+    padding-top: 150px !important;
+    height: 100%;
+    background: var(--layout-login-background);
+}
+
 .m-button{
     border-radius: 8px;
     margin: 8px 2px;
@@ -24,7 +31,7 @@
   <ion-page>
     <div class="centerMain">
       <svg-icon v-if="isClicked" class="loginIcon" name="giftBox"></svg-icon>
-      <button class="m-button m-button-secondary" v-if="isClicked" @click="isClicked = !isClicked">Login</button>
+      <button class="m-button m-button-login" v-if="isClicked" @click="isClicked = !isClicked">Login</button>
       <form class="form" v-if="!isClicked">
           <input type="text" username="username" id="username" placeholder="username" v-model="username"/>
           <input type="password" name="password" id="password" placeholder="Password" v-model="password"/>

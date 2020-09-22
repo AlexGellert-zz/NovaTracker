@@ -17,7 +17,7 @@
 </g>
     </svg>
 
-    <svg v-if="name == 'novaIcon'" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    <svg v-if="name == 'nova-icon'" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	  viewBox="0 0 300 310" enable-background="new 0 0 300 310" xml:space="preserve">
       <g>
         <path d="M292.373,21.565c-0.652-6.955-2.697-11.513-6.25-13.936c-11.192-7.63-27.967-3.652-47.235,11.201

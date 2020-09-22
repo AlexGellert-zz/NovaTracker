@@ -97,7 +97,7 @@ import SvgIcon from "./shared/svg/svg.vue";
   },
 })
 export default class Home extends Vue {
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
   currentUser: novaUser = dataBaseAPI.getCurrentUser();
   constructor() {
     super();
