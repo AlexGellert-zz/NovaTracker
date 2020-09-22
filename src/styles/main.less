@@ -1,3 +1,10 @@
+@import "./themes.less";
+
+
+h1, h2, h3, h4, h5, h6{
+    color: var(--layout-body-color);
+    margin-top: 0px;
+}
 .toolbar-content{
     display: flex;
 }
@@ -10,9 +17,18 @@ svg.menu {
 
 .centerMain{
     text-align: center;
-    margin-top: 350px !important;
+    margin-top: 150px !important;
 }
 
 .btnDeleteItem{
     float: right;
+}
+
+button{
+    .login{
+        &.button-md{
+            height: 100px;
+            width: 150px;
+        }
+    }
 }

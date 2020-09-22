@@ -1,5 +1,45 @@
 <style>
 @import "./styles/main.less";
+
+ion-app.app-md {
+  background: var(--layout-body-background);
+}
+
+.toolbar-background-md{
+  background: var(--layout-body-background);
+}
+
+.fa-bars{
+  margin-right: 10px;
+}
+
+.loginHeader {
+  padding-top: 10px;
+  text-align: center;
+  background: var(--nav-background);
+  height: 180px;
+}
+
+h4{
+  margin: 0px 5px;
+  font-size: 25px;
+}
+
+.toolbar-title{
+  display: contents;
+}
+
+.headerIcon{
+  fill: var(--nav-fill);
+  margin-left: 5px;
+  padding: 5px;
+  height: 50px;
+  width: 50px;
+}
+.nova{
+    background: black;
+    border-radius: 50%;
+}
 </style>
 
 <template>
@@ -9,7 +49,7 @@
       <ion-header>
         <ion-toolbar>
           <ion-title>
-            <fa-icon icon="dog" />Nova's Inventory
+            <svg-icon class="headerIcon" name="novaIcon" /><h4>Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
         </ion-toolbar>
@@ -17,10 +57,11 @@
       <router-view></router-view>
     </ion-page>
     <ion-page v-if="!isLoggedIn">
-
-          <svg-icon name="giftBox"></svg-icon>
- 
-      <Login @success="success"/>
+      <div class="loginHeader">
+        <img class="nova" src="./assets/husky.png"/>
+        <h2>Nova's Inventory Tracker</h2>
+      </div>
+      <Login @success="success" />
     </ion-page>
   </ion-app>
 </template>
@@ -40,20 +81,22 @@ import SvgIcon from "./components/shared/svg/svg.vue";
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
-  constructor(){
+  isLoggedIn: boolean = true;
+  constructor() {
     super();
   }
 
-  created(){
+  created() {
     dataBaseAPI.readUsers();
     dataBaseAPI.readInventory();
   }
 
   openStart() {
-    var openMenu = (document.querySelector("ion-menu-controller") as any).open("start");
+    var openMenu = (document.querySelector("ion-menu-controller") as any).open(
+      "start"
+    );
   }
-  success(){
+  success() {
     this.isLoggedIn = true;
   }
 }
