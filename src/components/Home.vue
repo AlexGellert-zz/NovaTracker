@@ -10,14 +10,14 @@
 }
 
 .administration{
-  padding-top: 4%;
+  padding-top: 15px;
 }
 
 .singleLine{
   margin-left: 3px;
   margin-bottom: 10px;
   width: 98%;
-  height: 2px;
+  height: 1px;
   background: white;
 }
 
