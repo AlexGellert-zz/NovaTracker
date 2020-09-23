@@ -90,7 +90,7 @@ a{
         <div class="singleLine"></div>
         <form class="searchForm">
           <input type="text" class="searchTerm input-search" placeholder="Search for an item" v-model="searchTerm" />
-          <button class="m-search m-button m-button-secondary" type="submit" @click="search($event)">Search</button>
+          <button class="m-search m-button m-button-list " type="submit" @click="search($event)">Search</button>
         </form>
       </div>
     </div>

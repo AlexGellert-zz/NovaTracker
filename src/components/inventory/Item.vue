@@ -139,7 +139,7 @@ h4{
         <label class="label-quantity">{{item.item_quantity}}</label>
         <div class="quantity" @click="add()"><svg-icon name="add-circle"></svg-icon></div>
       </div>
-      <button class="m-button m-button-login centerButton" @click="updateItem($event)" v-if="!newItem">Update Item</button>
+      <button class="m-button m-button-list centerButton" @click="updateItem($event)" v-if="!newItem">Update Item</button>
     </div>
 
     <!-- Admin & Create Item Form -->
@@ -164,8 +164,8 @@ h4{
         <input class="item-input" type="number" placeholder="Item Quantity 000" v-model="item.item_quantity" required />
       </div>
 
-        <button class="m-button m-button-login centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>
-        <button class="m-button m-button-login" @click="updateItem($event)" v-if="!newItem">Update Item</button>
+        <button class="m-button m-button-list centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>
+        <button class="m-button m-button-list" @click="updateItem($event)" v-if="!newItem">Update Item</button>
         <button class="m-button m-button-delete" id="moveBtn" @click="deleteItem($event)" v-if="!newItem">Delete Item</button>
     </form>
   </ion-page>

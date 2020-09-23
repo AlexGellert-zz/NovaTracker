@@ -12,8 +12,12 @@
 --button-background: #2B2B2B;
 --button-color: #FFFFFF;
 --button-login: #3E3E3E;
+--button-list: #363636;
+--button-edit: #6C6C6C;
 
 --quantity-background: #646363;
+
+--label-inner: #FFFFFF;
 
 
 }
@@ -26,20 +30,20 @@
 
 }
 
-.layout-body-background(){
+.layout-body-background{
     background: var(--layout-body-background);
 }
-.layout-body-color(){
+.layout-body-color{
     color: var(--layout-body-color);
 }
-.layout-login-background(){
+.layout-login-background{
     color: var(--layout-login-background);
 }
 
-.nav-background(){
+.nav-background{
     background: var(--nav-background);
 }
-.nav-fill(){
+.nav-fill{
     fill: var(--nav-fill);
 }
 
@@ -52,6 +56,12 @@
 .m-button-login{
     background-color: var(--button-login);
 }
+.m-button-list{
+    background-color: var(--button-list);
+}
+.m-button-edit{
+    background-color: var(--button-edit);
+}
 
 .login-icon{
     fill: var(--login-icon);
@@ -59,4 +69,12 @@
 
 .quantity-background{
     background: var(--quantity-background);
+}
+
+.header-md::after {
+    background-image: none;
+}
+
+.label-inner{
+    color: var(--label-inner);
 }

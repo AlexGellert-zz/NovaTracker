@@ -1,34 +1,100 @@
 <style scoped>
-@import "./../../styles/grid.less";
+@import './../../styles/themes.less';
 
-ion-col{
-  border: 1px solid grey;
+.layout-body-background {
+  margin-top: 0px !important;
+  padding: 5px;
+  padding-top: 20px;
+}
+
+.header{
+  padding-top: 4px;
+  margin-left: 8px;
+}
+
+h4{
+    text-align: left;
+}
+
+.singleLine{
+    margin-left: 8px;
+    width: 95.5%;
+    height: 1px;
+    background: white;
+}
+
+.user-item{
+    background: var(--button-list);
+    color: var(--layout-body-color);
+    border-radius: 6px;
+    height: 54px;
+    margin: 4px 20px;
+    font-size: 24px;
+    padding: 12px;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.delete{
+  background: red;
+}
+
+.m-button{
+  border-radius: 8px;
+  margin: 12px 14px;
+  overflow: hidden;
+  height: 50px;
+  width: 90%;
+  font-size: 35px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.m-button-edit{
+    color: white;
+    padding: 6px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .newUser{
+  justify-content: center;
+  display: flex;
+  text-decoration: none;
+}
+
+.edit{
+  margin-right: 10px;
+}
+
+.editDelete{
   float: right;
 }
 
+.label-inner{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    width: 54%;
+    display: block;
+}
 </style>
 
 <template>
-  <ion-page>
-    <router-link to="/newUser"><ion-button class="newUser">Add User</ion-button></router-link>
-    <ion-grid>
-      <ion-row>
-        <ion-col>User List</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="six">name</ion-col>
-        <ion-col>Edit</ion-col>
-        <ion-col>Delete</ion-col>
-      </ion-row>
-      <ion-row v-for="(user, index) in userList" :key="index">
-        <ion-col class="six">{{user.name}}</ion-col>
-        <ion-col><router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><ion-button>Edit</ion-button></router-link></ion-col>
-        <ion-col><fa-icon class="delete" icon="times-circle" @click="deleteUser(user.id)" /></ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-page class="layout-body-background">
+    <h4 class="header">User List</h4>
+    <div class="singleLine"></div>
+    <router-link class="newUser" to="/newUser"><button class="m-button m-button-list">New User</button></router-link>
+    <div class="user-item m-button-list" v-for="(user, index) in userList" :key="index">
+    <label class="label-inner">{{user.name}}</label>
+    <div class="editDelete">
+    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit edit">Edit</button></router-link>
+    <button class="m-button-edit delete" @click="deleteUser(user.id)">Delete</button> 
+    </div>
+    </div>
   </ion-page>
 </template>
 
