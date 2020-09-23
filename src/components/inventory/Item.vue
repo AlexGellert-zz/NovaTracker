@@ -24,35 +24,23 @@ h4{
   border: none;
   border-radius: 0px 15px 15px 0px;
     padding: 12px;
-    font-size: 19px;
-}
-
-.item-md{
-  background: var(--layout-body-background) !important;
+font-size: 17px;
 }
 
 .stockImage{
     border-radius: 20px !important;
-    margin-bottom: -10px;
-    margin-top: -10px;
-    width: 225px;
+    margin-bottom: -5px;
+    margin-top: -5px;
+    width: 250px;
     height: 175px;
 }
-
-.phoneImage{
-  border-radius: 20px !important;
-    margin-bottom: -10px;
-    margin-top: -10px;
-    width: 225px;
-    height: 175px;
-}
-
 .item-md {
+  background: var(--layout-body-background) !important;
   padding-left: 0px;
   justify-content: center;
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .pencil{
@@ -67,17 +55,17 @@ h4{
 }
 
 .m-button-delete{
-  background: red;
+  background: var(--button-delete);
 }
 
 .m-button{
     border-radius: 8px;
     margin: 0px 10px;
-    padding: 8px 30px 9px 23px;
+    padding: 8px 28px 9px 21px;
     overflow: hidden;
-    height: 50px;
-    width: 40%;
-    font-size: 20px;
+    height: 45px;
+    width: 38%;
+    font-size: 18px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -94,7 +82,7 @@ h4{
 .label-quantity{
     background: white;
     margin: 10px 0px;
-    font-size: 30px;
+    font-size: 20px;
     padding: 8px 14px;
     border-radius: 12px;
 }
@@ -112,10 +100,17 @@ h4{
   background: var(--quantity-background);
     border-radius: 50%;
     padding: 12px;
-    margin: auto;
+    margin: auto 35px;
     fill: var(--nav-fill);
     height: 50px;
     width: 50px
+}
+
+.item-button{
+    height: 40px;
+    width: 36%;
+    font-size: 16px;
+    font-weight: bold;
 }
 </style>
 
@@ -132,11 +127,11 @@ h4{
       </div>
       <div class="item-md">
         <img class="stockImage" v-if="stockImage || item.item_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
-        <img class="phoneImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
+        <img class="stockImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </div>
       <div class="item-md container-quantity">
         <div class="quantity" @click="subtract()"><svg-icon name="subtract" ></svg-icon></div>
-        <label class="label-quantity">{{item.item_quantity}}</label>
+        <label class="label-quantity">{{('000' + item.item_quantity).substr(-3)}}</label>
         <div class="quantity" @click="add()"><svg-icon name="add-circle"></svg-icon></div>
       </div>
       <button class="m-button m-button-list centerButton" @click="updateItem($event)" v-if="!newItem">Update Item</button>
@@ -151,7 +146,7 @@ h4{
 
       <div class="item-md">
         <img class="stockImage" v-if="stockImage || item.item_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
-        <img class="phoneImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
+        <img class="stockImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </div>
 
       <div class="item-md">
@@ -166,12 +161,12 @@ h4{
 
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
-        <input style="color: red;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
+        <input style="color: red; font-weight: bold; font-size: 16px;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
       </div>
 
         <button class="m-button m-button-list centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>
-        <button class="m-button m-button-list" @click="updateItem($event)" v-if="!newItem">Update Item</button>
-        <button class="m-button m-button-delete" id="moveBtn" @click="deleteItem($event)" v-if="!newItem">Delete Item</button>
+        <button class="m-button m-button-list item-button" @click="updateItem($event)" v-if="!newItem">Update Item</button>
+        <button class="m-button m-button-delete item-button" id="moveBtn" @click="deleteItem($event)" v-if="!newItem">Delete Item</button>
     </form>
   </ion-page>
 </template>

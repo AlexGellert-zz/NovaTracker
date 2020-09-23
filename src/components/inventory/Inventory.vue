@@ -55,8 +55,9 @@ h4{
 
 .m-button-edit{
   background-color: var(--button-edit);
-    padding: 6px;
-    border-radius: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
 .item-details{
@@ -73,9 +74,9 @@ h4{
 }
 
 .counter{
-    color: white;
-    margin-left: 30px;
-    padding-top: 3px;
+    color: var(--nav-fill);
+    margin-left: 15px;
+    padding-top: 5px;
 }
 
 .container-background{
@@ -89,7 +90,7 @@ h4{
 .container{
     height: 100%;
     display: grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 50% 20% 30%;
     border-bottom: 1px solid #8B8B8B;
     padding-bottom: 4px;
     padding-top: 16px;
@@ -107,7 +108,7 @@ h4{
         <div class="accordion-background list-item container" v-for="(item, index) in inventory" :key="index">
           <label class="label-inner">{{item.name}}</label>
           <label class="counter">{{('000' + item.item_quantity).substr(-3)}}</label>
-          <router-link :to="{path: `/inventory/${item.id}`, params:{id: item.id}}"><button class="m-button m-button-edit">Edit/Delete</button></router-link>
+          <router-link :to="{path: `/inventory/${item.id}`, params:{id: item.id}}"><button class="m-button m-button-edit">Edit / Delete</button></router-link>
         </div>
      </div>
   </ion-page>

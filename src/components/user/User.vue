@@ -6,6 +6,7 @@
     width: 150px;
     height: 150px;
     margin: 4%;
+    margin-left: 40px;
 }
 
 .layout-body-background {
@@ -43,7 +44,7 @@ h4{
   justify-content: center;
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .pencil{
@@ -61,9 +62,10 @@ h4{
     border-radius: 8px;
     margin: auto;
     overflow: hidden;
-    height: 40px;
+    height: 34px;
     width: 32%;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: bold;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -77,13 +79,31 @@ h4{
 }
 
 .bottom-buttons{
+  margin: 0px 15px;
   margin-top: 15px;
   display: flex;
+}
+
+.m-button-off{
+  color: #565655;
+}
+
+.trash{
+    fill: var(--button-delete);
+    height: 4em;
+    width: 4em;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: 50px;
 }
 
 .m-button-login:focus{
   outline: none;
   box-shadow: none;
+}
+
+.top-image{
+  display: flex;
 }
 </style>
 
@@ -95,10 +115,13 @@ h4{
 
     <!-- Admin & Create Item Form -->
     <div class="item-form">
+      <div class="top-image">
       <ion-avatar>
         <img v-if="stockImage || user.user_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
         <img v-if="!stockImage && user.user_image != ''" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
+      <svg-icon class="trash" name="trash"></svg-icon>
+      </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
         <input class="item-input" type="text" v-model="user.name" placeholder="Username" required />
@@ -125,7 +148,7 @@ h4{
       </div>
 
       <div class="bottom-buttons">
-        <button class="m-button m-button-login" @click="user.alerts = true" v-if="!user.alerts">Alerts Off</button>
+        <button class="m-button m-button-login m-button-off" @click="user.alerts = true" v-if="!user.alerts">Alerts Off</button>
         <button class="m-button m-button-login" @click="user.alerts = false" v-if="user.alerts">Alerts On</button>
         <button class="m-button m-button-login" type="submit" @click="addUser($event)" v-if="newUser">Create User</button>
         <button class="m-button m-button-login" type="submit" @click="updateUser($event)" v-if="!newUser">Save</button>
@@ -175,8 +198,9 @@ export default class NewUser extends Vue {
     if(this.user.role == ""){
         alert("Please choose a role");
     } else if(newUser) {
-      await dataBaseAPI.newUser(this.user);
-      this.$router.push('/userList');
+      await dataBaseAPI.newUser(this.user).then((res) => {
+        this.$router.push('/userList');
+      });
     } else {
       alert('Username already exists');
     }
@@ -190,6 +214,12 @@ export default class NewUser extends Vue {
       dataBaseAPI.updateUser(this.user);
       this.$router.push('/userList');
     }
+  }
+
+  async deleteUser(id){
+    await dataBaseAPI.deleteUser(id).then((res) => {
+      this.$router.push('/userList');
+    });
   }
 }
 </script>

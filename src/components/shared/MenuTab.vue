@@ -2,7 +2,7 @@
 @import './../../styles/themes.less';
 
 .bottom{
-  position: fixed;
+  position: absolute;
   display: flex;
   background: var(--layout-login-background);
   bottom: 0px;
