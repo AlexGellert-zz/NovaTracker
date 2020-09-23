@@ -1,4 +1,4 @@
-# vuecapacitordemo
+# Nova's Inventory
 
 ## Project setup
 ```
