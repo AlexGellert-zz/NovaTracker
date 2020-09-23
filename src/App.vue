@@ -58,6 +58,7 @@ h4{
         </ion-toolbar>
       </ion-header>
       <router-view></router-view>
+      <menu-tab />
     </ion-page>
     <ion-page v-if="!isLoggedIn">
       <div class="loginHeader">
@@ -75,16 +76,18 @@ import MenuLeft from "./components/shared/MenuLeft.vue";
 import { dataBaseAPI } from "./services/dataBaseAPI";
 import Login from "./components/user/Login.vue";
 import SvgIcon from "./components/shared/svg/svg.vue";
+import MenuTab from "./components/shared/MenuTab.vue"
 
 @Component({
   components: {
     MenuLeft,
     Login,
+    MenuTab,
     SvgIcon
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   constructor() {
     super();
   }

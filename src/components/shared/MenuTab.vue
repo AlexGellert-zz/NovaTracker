@@ -1,5 +1,5 @@
 <style scoped>
-@import './../styles/themes.less';
+@import './../../styles/themes.less';
 
 .bottom{
   position: fixed;
@@ -7,7 +7,7 @@
   background: var(--layout-login-background);
   bottom: 0px;
   width: 100%;
-  padding: 15px 0px;
+  padding-bottom: 5px;
   box-shadow: 1px 0px 0px 1px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -21,6 +21,20 @@
   text-align: center;
   margin: 10px;
   width: 100%;
+  color: var(--router-color);
+}
+
+.icon{
+    margin: auto;
+    height: 2em;
+    width: 2em;
+    margin-bottom: 5px;
+    fill: var(--router-color);
+}
+
+a:not(.button):hover {
+    color: var(--router-active);
+    fill: var(--router-active)
 }
 
 .tab-label{
@@ -42,18 +56,18 @@
   <ion-page class="bottom">
       <ion-tab-bar class="align">
           <router-link class="router" :to="{path: `/inventory`}">
-          <ion-icon name="contacts" />
+          <svg-icon class="icon" name="list" />
           <label class="tab-label">Inventory</label>
           </router-link>
 
 
-          <router-link class="router"  :to="{path: `/inventory`}">
-          <ion-icon name="map" />
+          <router-link class="router"  :to="{path: `/barCodeScanner`}">
+          <svg-icon class="icon" name="barcode" />
           <label class="tab-label">Scan</label>
           </router-link>
 
-          <router-link class="router" :to="{path: `/inventory`}">
-          <ion-icon name="map" />
+          <router-link class="router" :to="{path: `/quickEdit`}">
+          <svg-icon class="icon" name="magnify" />
           <label class="tab-label">Search</label>
           </router-link>
       </ion-tab-bar>
@@ -62,9 +76,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import SvgIcon from "./svg/svg.vue"
 
-@Component
-export default class Template extends Vue {
+@Component({
+    components: {
+        SvgIcon
+    }
+})
+export default class MenuTab extends Vue {
   constructor() {
     super();
   }

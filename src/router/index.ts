@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../components/Home.vue'
-import About from '../components/About.vue'
 
 //Inventory
 import Item from '../components/inventory/Item.vue';
@@ -14,6 +13,9 @@ import Login from '../components/user/Login.vue'
 import UserList from '../components/user/UserList.vue';
 import User from '../components/user/User.vue';
 
+//Test Page
+import Template from '../components/Template.vue';
+
 
 
 Vue.use(VueRouter)
@@ -23,11 +25,6 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
   },
   {
     path: '/login',
@@ -73,6 +70,11 @@ Vue.use(VueRouter)
     path: '/barCodeScanner',
     name: 'BarCodeScanner',
     component: BarCodeScanner
+  },
+  {
+    path: '/test',
+    name: 'Template',
+    component: Template
   }
 
 ]

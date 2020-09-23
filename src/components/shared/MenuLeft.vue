@@ -1,3 +1,7 @@
+<style>
+@import './../../styles/themes.less';
+</style>
+
 <template>
 <ion-page>
   <ion-menu side="start" content-id="menu-content">
