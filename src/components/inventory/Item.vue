@@ -33,8 +33,8 @@ h4{
 
 .stockImage{
     border-radius: 20px;
-    margin-bottom: -40px;
-    margin-top: -40px;
+    margin-bottom: -10px;
+    margin-top: -10px;
     width: 225px;  
 }
 
@@ -121,7 +121,8 @@ h4{
 
 <template>
   <ion-page class="layout-body-background">
-      <h4 class="header">Edit Inventory</h4>
+      <h4 class="header" v-if="!newItem">Edit Inventory</h4>
+      <h4 class="header" v-if="newItem">New Item</h4>
       <div class="singleLine"></div>
 
     <!-- Member Update Item -->
@@ -145,25 +146,25 @@ h4{
     <form class="item-form" v-if="!permission">
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
-        <input class="item-input" :disabled="permission" type="text" v-model="item.name" required />
+        <input class="item-input" type="text" v-model="item.name" placeholder="Item Name" required />
       </div>
 
       <div class="item-md">
-        <img class="flipImage" v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
+        <img class="stockImage" v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
         <img class="flipImage" v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </div>
 
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
-        <input class="item-input" :disabled="permission" type="text" v-model="item.item_description" required />
+        <input class="item-input" type="text" placeholder="Item Description" v-model="item.item_description" required />
       </div>
 
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
-        <input class="item-input" type="number" v-model="item.item_quantity" required />
+        <input class="item-input" type="number" placeholder="Item Quantity 000" v-model="item.item_quantity" required />
       </div>
 
-        <button class="m-button m-button-login" @click="addItem($event)" v-if="newItem">Create New Item</button>
+        <button class="m-button m-button-login centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>
         <button class="m-button m-button-login" @click="updateItem($event)" v-if="!newItem">Update Item</button>
         <button class="m-button m-button-delete" id="moveBtn" @click="deleteItem($event)" v-if="!newItem">Delete Item</button>
     </form>
