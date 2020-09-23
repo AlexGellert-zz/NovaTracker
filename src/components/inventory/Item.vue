@@ -32,19 +32,19 @@ h4{
 }
 
 .stockImage{
-    border-radius: 20px;
+    border-radius: 20px !important;
     margin-bottom: -10px;
     margin-top: -10px;
-    width: 225px;  
+    width: 225px;
+    height: 175px;
 }
 
-.flipImage{
-    border-radius: 20px;
-    transform: rotate(270deg);
-    margin-bottom: -40px;
-    margin-top: -40px;
+.phoneImage{
+  border-radius: 20px !important;
+    margin-bottom: -10px;
+    margin-top: -10px;
     width: 225px;
-    transform: rotate(270deg);
+    height: 175px;
 }
 
 .item-md {
@@ -131,8 +131,8 @@ h4{
         <h2 class="item-h2">{{item.name}}</h2>
       </div>
       <div class="item-md">
-        <img class="stockImage" v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
-        <img class="flipImage" v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="250px" />
+        <img class="stockImage" v-if="stockImage || item.item_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
+        <img class="phoneImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </div>
       <div class="item-md container-quantity">
         <div class="quantity" @click="subtract()"><svg-icon name="subtract" ></svg-icon></div>
@@ -150,8 +150,8 @@ h4{
       </div>
 
       <div class="item-md">
-        <img class="stockImage" v-if="stockImage" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
-        <img class="flipImage" v-if="!stockImage" :src="item.item_image" @click="uploadImage()"  width="250px" />
+        <img class="stockImage" v-if="stockImage || item.item_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="250px" @click="uploadImage()"/>
+        <img class="phoneImage" v-if="!stockImage && item.item_image != ''" :src="item.item_image" @click="uploadImage()"  width="250px" />
       </div>
 
       <div class="item-md">
@@ -162,6 +162,11 @@ h4{
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
         <input class="item-input" type="number" placeholder="Item Quantity 000" v-model="item.item_quantity" required />
+      </div>
+
+      <div class="item-md">
+        <svg-icon class="pencil" name="pencil"></svg-icon>
+        <input style="color: red;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
       </div>
 
         <button class="m-button m-button-list centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>

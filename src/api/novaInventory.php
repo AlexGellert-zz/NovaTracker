@@ -49,7 +49,8 @@ if(isset($_POST['insertItem'])){
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
   $item_image = $_POST['item_image'];
-  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `item_description`, `item_quantity`, `item_image`) VALUES ('$name', '$item_description', '$item_quantity', '$item_image')");
+  $low_stock = $_POST['low_stock'];
+  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `item_description`, `item_quantity`, `item_image`, `low_stock`) VALUES ('$name', '$item_description', '$item_quantity', '$item_image', '$low_stock')");
   return $data->result();
 }
 
@@ -60,7 +61,8 @@ if(isset($_POST['updateItem'])){
   $item_description = $_POST['item_description'];
   $item_quantity = $_POST['item_quantity'];
   $item_image = $_POST['item_image'];
-  $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image' WHERE `id`=$id");
+  $low_stock = $_POST['low_stock'];
+  $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image', `low_stock`='$low_stock' WHERE `id`=$id");
   return $data->result();
 }
 
@@ -108,7 +110,8 @@ if(isset($_POST['newUser'])){
   $email = $_POST['email'];
   $alerts = $_POST['alerts'];
   $role = $_POST['role'];
-  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`) VALUES ('$name', '$password', '$email', '$alerts','$role')");
+  $user_image = $_POST['user_image'];
+  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`, `user_image`) VALUES ('$name', '$password', '$email', '$alerts','$role', '$user_image')");
   return $data->result();
 }
 
@@ -120,7 +123,8 @@ if(isset($_POST['updateUser'])){
     $email = $_POST['email'];
     $alerts = $_POST['alerts'];
     $role = $_POST['role'];
-    $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role' WHERE `id`=$id");
+    $user_image = $_POST['user_image'];
+    $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role', `user_image`='$user_image' WHERE `id`=$id");
     return $data->result();
   }
 

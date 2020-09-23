@@ -20,4 +20,5 @@ export interface novaUser {
     email: string;
     alerts: any;
     role: any;
+    user_image?: any;
 }

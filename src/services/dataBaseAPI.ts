@@ -14,7 +14,16 @@ enum Type{
  * to cover all the CRUD involving the database.
  */
 export default class DataBaseAPI {
-    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{} });
+    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{}, panel1: <boolean>false });
+
+    public getPanel(){
+        return this.state.panel1;
+    }
+
+    public togglePanel(){
+        this.state.panel1 = !this.state.panel1;
+        console.log("toggle panel");
+    }
 
     /** Get Current User **/
     public getCurrentUser(){
@@ -73,6 +82,7 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
+        formData.append('low_stock', item.low_stock);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then((res) => {
             console.log("item added " + res)
@@ -90,6 +100,7 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
+        formData.append('low_stock', item.low_stock);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item updated ' + item);
@@ -160,6 +171,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
+        formData.append('user_image', user.user_image);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('user added ' + user);
@@ -177,6 +189,7 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
+        formData.append('user_image', user.user_image);
         axios({method: 'post', url: `${host["live"]}`, data: formData}
         ).then(() => {
             console.log('item updated ' + user);

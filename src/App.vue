@@ -51,7 +51,7 @@ h4{
       <menu-left />
       <ion-header>
         <ion-toolbar>
-          <ion-title>
+          <ion-title @click="goHome()">
             <svg-icon class="headerIcon" name="nova-icon" /><h4>Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
@@ -99,6 +99,11 @@ export default class App extends Vue {
       "start"
     );
   }
+
+  goHome(){
+    this.$router.push('/');
+  }
+
   success() {
     this.isLoggedIn = true;
   }

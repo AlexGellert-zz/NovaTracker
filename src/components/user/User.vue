@@ -38,22 +38,6 @@ h4{
   background: var(--layout-body-background) !important;
 }
 
-.stockImage{
-    border-radius: 20px;
-    margin-bottom: -10px;
-    margin-top: -10px;
-    width: 225px;  
-}
-
-.flipImage{
-    border-radius: 20px;
-    transform: rotate(270deg);
-    margin-bottom: -40px;
-    margin-top: -40px;
-    width: 225px;
-    transform: rotate(270deg);
-}
-
 .item-md {
   padding-left: 0px;
   justify-content: center;
@@ -101,7 +85,6 @@ h4{
   outline: none;
   box-shadow: none;
 }
-
 </style>
 
 <template>
@@ -113,7 +96,8 @@ h4{
     <!-- Admin & Create Item Form -->
     <div class="item-form">
       <ion-avatar>
-        <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
+        <img v-if="stockImage || user.user_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
+        <img v-if="!stockImage && user.user_image != ''" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
@@ -153,6 +137,7 @@ h4{
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { photoService } from "@/services/PhotoService";
 import { novaUser } from "@/types/index";
 import SvgIcon from "@/components/shared/svg/svg.vue";
 
@@ -164,6 +149,7 @@ import SvgIcon from "@/components/shared/svg/svg.vue";
 export default class NewUser extends Vue {
   user: any = {name: "", password: "" , email: "", alerts: 0, role: ""};
   newUser: boolean = true;
+  stockImage = true;
 
   constructor() {
     super();
@@ -173,7 +159,14 @@ export default class NewUser extends Vue {
     if(this.$route.params.id != undefined){
       this.user = await dataBaseAPI.findUser(this.$route.params.id);
       this.newUser = false;
+      this.stockImage = false;
     }
+  }
+
+  async uploadImage(){
+    await photoService.takePhoto();
+    this.stockImage = false;
+    this.user.user_image = photoService.photoState.photos[0].data;
   }
 
   async addUser(ev) {
