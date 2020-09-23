@@ -13,11 +13,6 @@ import Login from '../components/user/Login.vue'
 import UserList from '../components/user/UserList.vue';
 import User from '../components/user/User.vue';
 
-//Test Page
-import Template from '../components/Template.vue';
-
-
-
 Vue.use(VueRouter)
 
   const routes: Array<RouteConfig> = [
@@ -70,13 +65,7 @@ Vue.use(VueRouter)
     path: '/barCodeScanner',
     name: 'BarCodeScanner',
     component: BarCodeScanner
-  },
-  {
-    path: '/test',
-    name: 'Template',
-    component: Template
   }
-
 ]
 
 const router = new VueRouter({
