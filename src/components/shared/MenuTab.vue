@@ -53,7 +53,7 @@ a:not(.button):hover {
 </style>
 
 <template>
-  <ion-page class="bottom">
+  <ion-page class="bottom footer">
       <ion-tab-bar class="align">
           <router-link class="router" :to="{path: `/inventory`}">
           <svg-icon class="icon" name="list" />

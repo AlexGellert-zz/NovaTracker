@@ -161,7 +161,7 @@ font-size: 17px;
 
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
-        <input style="color: red; font-weight: bold; font-size: 16px;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
+        <input style="color: red; font-weight: bold; font-size: 16.5px;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
       </div>
 
         <button class="m-button m-button-list centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>

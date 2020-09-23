@@ -33,7 +33,7 @@
   padding: 4px;
   border: none;
   fill: black;
-  height: 41px;
+  height: 42px;
   width: 41px;
   border-radius: 15px 0px 0px 15px;
   text-align: center;
@@ -44,7 +44,7 @@
   padding: 4px;
   border: none;
   fill: black;
-  height: 41px;
+  height: 42px;
   width: 41px;
   border-radius: 15px 0px 0px 15px;
   text-align: center;
