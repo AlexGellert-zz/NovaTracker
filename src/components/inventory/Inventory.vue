@@ -119,7 +119,7 @@ import { novaItem } from "@/types/index";
 @Component
 export default class Inventory extends Vue {
   inventory: novaItem[] = [];
-  panel1 = true;
+  panel1 = false;
   constructor() {
     super();
   }
