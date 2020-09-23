@@ -78,7 +78,7 @@ a{
   <ion-page>
     <div class="centerMain">
       <div v-if="!findItem">
-        <h4 class="header">Check Inventory</h4>
+        <h4 class="header">Search Inventory</h4>
         <div class="singleLine"></div>
           <button class="itemchoice m-button m-button-secondary" @click="findItem = true"><svg-icon class="magnify" name="magnify"></svg-icon><div class="innerText">Search Inventory</div></button>
           <router-link to="/barCodeScanner">
