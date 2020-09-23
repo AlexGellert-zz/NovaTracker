@@ -4,10 +4,10 @@ import router from './router';
 import store from './store';
 import { defineCustomElements } from '@ionic/pwa-elements/loader'; 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars, faDog, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimesCircle, faCheckSquare, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faBars, faDog, faTimesCircle);
+library.add(faBars, faTimesCircle, faCheckSquare, faUser);
 Vue.component('fa-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false

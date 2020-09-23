@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { novaItem, novaUser } from '@/types/index';
+import { mailService } from "@/services/mailService";
 const host = require('@/credentials.json');
 const axios = require('axios').default;
 
@@ -81,6 +82,7 @@ export default class DataBaseAPI {
     }
 
     public async updateItem(item: novaItem){
+        mailService.sendMail(item);
         let formData = new FormData();
         formData.append('updateItem', "updateItem");
         formData.append('id', item.id);

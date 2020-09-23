@@ -3,6 +3,7 @@ node_modules
 /dist
 .hg
 /src/credentials.json
+/assets
 
 
 # local env files

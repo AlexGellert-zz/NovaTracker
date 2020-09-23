@@ -1,50 +1,136 @@
 <style scoped>
-ion-row.hydrated {
+@import './../../styles/themes.less';
+
+.avatar-md{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 4%;
+}
+
+.layout-body-background {
+  margin-top: 0px !important;
+  padding: 5px;
+  padding-top: 20px;
+}
+
+h4{
+    text-align: left;
+}
+
+.singleLine{
+    margin-left: 4px;
+    margin-bottom: 4%;
+    width: 97%;
+    height: 1px;
+    background: white;
+}
+
+.item-input{
+  outline: none;
+  border: none;
+  border-radius: 0px 15px 15px 0px;
+    padding: 12px;
+    font-size: 19px;
+}
+
+.item-md{
+  background: var(--layout-body-background) !important;
+}
+
+.stockImage{
+    border-radius: 20px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+    width: 225px;  
+}
+
+.flipImage{
+    border-radius: 20px;
+    transform: rotate(270deg);
+    margin-bottom: -40px;
+    margin-top: -40px;
+    width: 225px;
+    transform: rotate(270deg);
+}
+
+.item-md {
+  padding-left: 0px;
   justify-content: center;
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
-.avatar-md {
-  width: 200px;
-  height: 200px;
+.pencil{
+  background: white;
+  padding: 4px;
+  border: none;
+  fill: black;
+  height: 46px;
+  width: 46px;
+  border-radius: 15px 0px 0px 15px;
+  text-align: center;
 }
 
-.role{
-    color: black;
+.m-button{
+    border-radius: 8px;
+    margin: auto;
+    overflow: hidden;
+    height: 40px;
+    width: 32%;
+    font-size: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-h1{
-    text-align: center;
+.ion-item{
+  width: 311px;
+  margin: auto;
 }
 
-.newUser{
-    float: right;
+.item-md.item-interactive{
+  border-radius: 15px !important;
+}
+
+.bottom-buttons{
+  margin-top: 15px;
+  display: flex;
+}
+
+.m-button-login:focus{
+  outline: none;
+  box-shadow: none;
 }
 
 </style>
 
 <template>
-  <ion-page>
-      <h1>New User</h1>
-    <form>
+  <ion-page class="layout-body-background">
+      <h4 class="header" v-if="!newUser">User Management</h4>
+      <h4 class="header" v-if="newUser">New User</h4>
+      <div class="singleLine"></div>
+
+    <!-- Admin & Create Item Form -->
+    <div class="item-form">
       <ion-avatar>
         <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
       </ion-avatar>
+      <div class="item-md">
+        <svg-icon class="pencil" name="pencil"></svg-icon>
+        <input class="item-input" type="text" v-model="user.name" placeholder="Username" required />
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" :value="user.name" v-model="user.name" @ionChange="user.name = $event.target.value" required />
-      </ion-item>
+      <div class="item-md">
+        <svg-icon class="pencil" name="pencil"></svg-icon>
+        <input class="item-input" type="password" placeholder="Password" v-model="user.password" required />
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" :value="user.password" v-model="user.password" @ionChange="user.password = $event.target.value" required />
-      </ion-item>
+      <div class="item-md">
+        <svg-icon class="pencil" name="pencil"></svg-icon>
+        <input class="item-input" type="email" placeholder="Email Address" v-model="user.email" required />
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="text" :value="user.email" v-model="user.email" @ionChange="user.email = $event.target.value" required />
-      </ion-item>
-
+      <div class="ion-item">
       <ion-item>
         <ion-label class="role">Role</ion-label>
         <ion-select placeholder="Select One" :value="user.role" @ionChange="user.role = $event.target.value">
@@ -52,22 +138,15 @@ h1{
           <ion-select-option value="admin">Admin</ion-select-option>
         </ion-select>
       </ion-item>
+      </div>
 
-      <ion-item>
-        <ion-label position="fixed">Alerts</ion-label>
-        <ion-segment @ionChange="user.alerts = $event.target.value" :value="user.alerts">
-          <ion-segment-button value="1">
-            <ion-label>Yes</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="0">
-            <ion-label>No</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-item>
-        <ion-button class="newUser" type="submit" @click="addUser($event)" v-if="newUser">Create New User</ion-button>
-        <ion-button class="newUser" type="submit" @click="updateUser($event)" v-if="!newUser">Update User</ion-button>
-    </form>
-
+      <div class="bottom-buttons">
+        <button class="m-button m-button-login" @click="user.alerts = true" v-if="!user.alerts">Alerts Off</button>
+        <button class="m-button m-button-login" @click="user.alerts = false" v-if="user.alerts">Alerts On</button>
+        <button class="m-button m-button-login" type="submit" @click="addUser($event)" v-if="newUser">Create User</button>
+        <button class="m-button m-button-login" type="submit" @click="updateUser($event)" v-if="!newUser">Save</button>
+      </div>
+    </div>
   </ion-page>
 </template>
 
@@ -75,8 +154,13 @@ h1{
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
 import { novaUser } from "@/types/index";
+import SvgIcon from "@/components/shared/svg/svg.vue";
 
-@Component
+@Component({
+  components: {
+    SvgIcon
+  }
+})
 export default class NewUser extends Vue {
   user: any = {name: "", password: "" , email: "", alerts: 0, role: ""};
   newUser: boolean = true;

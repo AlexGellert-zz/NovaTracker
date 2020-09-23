@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import {
-    Plugins, CameraResultType, Capacitor, FilesystemDirectory,
+    Plugins, CameraResultType, FilesystemDirectory,
     CameraPhoto, CameraSource
 } from '@capacitor/core';
 import { Photo } from '@/types/index'
 
-const { Camera, Filesystem, Storage } = Plugins;
+const { Camera } = Plugins;
 
 /**
  * PhotoService is used to take and save pictures.
@@ -22,26 +22,12 @@ export default class PhotoService {
             quality: 100
         });
 
-        console.log(capturedPhoto);
-
-        const savedImageFile = await this.savePicture(capturedPhoto);
-
-        this.photoState.photos.unshift(savedImageFile);
-    }
-
-    public async savePicture(cameraPhoto: CameraPhoto){
-        let base64Data = await this.readAsBase64(cameraPhoto);
+        let base64Data = await this.readAsBase64(capturedPhoto);
         let fileName = new Date().getTime() + ".jpeg";
 
-        //Change this to talk to API connecting to DB
-        let savedFile = await Filesystem.writeFile({
-            path: fileName,
-            data: base64Data,
-            directory: FilesystemDirectory.Data
-        })
+        let savedImageFile = {filepath: fileName, webviewPath: capturedPhoto.webPath, data: base64Data};
 
-        return {filepath: fileName, webviewPath: cameraPhoto.webPath, data: base64Data}
-
+        this.photoState.photos.unshift(savedImageFile);
     }
 
     private async readAsBase64(cameraPhoto: CameraPhoto) {
