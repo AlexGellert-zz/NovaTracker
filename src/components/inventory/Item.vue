@@ -238,11 +238,13 @@ export default class Inventory extends Vue {
   }
 
   deleteItem(ev){
+    ev.preventDefault();
     dataBaseAPI.deleteItem(this.item.id);
     this.$router.push('/inventory');
   }
 
   updateItem(ev) {
+      ev.preventDefault();
       dataBaseAPI.updateItem(this.item);
       setTimeout(() => {this.$router.push('/inventory')}, 1000);
   }
