@@ -53,7 +53,7 @@ a{
   border: none;
   border-radius: 15px;
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .searchForm{
@@ -62,13 +62,14 @@ a{
 }
 
 .m-search{
-  border-radius: 8px;
-  margin: 25px 14px;
-  padding: 8px 30px 9px 23px;
-  overflow: hidden;
-  height: 50px;
-  width: 90%;
-  font-size: 35px;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 25px;
+    padding: 8px 30px 9px 23px;
+    overflow: hidden;
+    height: 40px;
+    width: 150px;
+    font-size: 20px;
 }
 </style>
 

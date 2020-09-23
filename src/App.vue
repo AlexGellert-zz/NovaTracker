@@ -25,7 +25,7 @@ ion-app.app-md {
 
 h4{
   margin: 0px 5px;
-  font-size: 25px;
+  font-size: 28px;
 }
 
 .toolbar-title{
@@ -39,6 +39,11 @@ h4{
   height: 50px;
   width: 50px;
 }
+
+.header{
+  font-size: 16px;
+}
+
 .nova{
     background: black;
     border-radius: 50%;
@@ -52,7 +57,7 @@ h4{
       <ion-header>
         <ion-toolbar>
           <ion-title @click="goHome()">
-            <svg-icon class="headerIcon" name="nova-icon" /><h4>Nova's Inventory</h4>
+            <svg-icon class="headerIcon" name="nova-icon" /><h4 class="header">Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
         </ion-toolbar>
@@ -87,7 +92,7 @@ import MenuTab from "./components/shared/MenuTab.vue"
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   constructor() {
     super();
   }
