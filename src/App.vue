@@ -14,10 +14,13 @@ ion-app.app-md {
 }
 
 .loginHeader {
-  padding-top: 10px;
-  text-align: center;
-  background: var(--nav-background);
-  height: 60px;
+    position: absolute;
+    padding-top: 10px;
+    text-align: center;
+    background: var(--nav-background);
+    height: 230px;
+    width: 100%;
+    border-radius: 0px 0px 90px 0px;
 }
 
 h4{
