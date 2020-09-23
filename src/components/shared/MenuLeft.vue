@@ -69,12 +69,15 @@ import SvgIcon from './svg/svg.vue';
 })
 export default class MenuLeft extends Vue {
     items = [{ name: 'Home', icon: 'nova-icon', href: '/' }, { name: 'Inventory', icon: 'list', href: '/inventory' },
-        { name: 'Quick Edit', icon: 'magnify', href: '/quickEdit' }, { name: 'Log out', icon: 'user' }]
+        { name: 'Quick Edit', icon: 'magnify', href: '/quickEdit' }, { name: 'Log out', icon: 'user', href: 'logout'}]
     constructor(){
         super();
     }
 
     changeLocation(link){
+      if(link == 'logout'){
+        location.reload();
+      }
       this.$router.push(link);
     }
   }
