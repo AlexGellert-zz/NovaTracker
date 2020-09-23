@@ -7,6 +7,7 @@ import Item from '../components/inventory/Item.vue';
 import Inventory from '../components/inventory/Inventory.vue';
 import QuickEdit from '../components/inventory/QuickEdit.vue';
 import BarCodeScanner from '../components/inventory/BarCodeScanner.vue';
+import SearchItem from '../components/inventory/SearchItem.vue'
 
 //User
 import Login from '../components/user/Login.vue'
@@ -65,6 +66,11 @@ Vue.use(VueRouter)
     path: '/barCodeScanner',
     name: 'BarCodeScanner',
     component: BarCodeScanner
+  },
+  {
+    path: '/searchItem',
+    name: 'SearchItem',
+    component: SearchItem
   }
 ]
 

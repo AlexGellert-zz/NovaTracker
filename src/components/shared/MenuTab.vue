@@ -66,7 +66,7 @@ a:not(.button):hover {
           <label class="tab-label">Scan</label>
           </router-link>
 
-          <router-link class="router" :to="{path: `/quickEdit`}">
+          <router-link class="router" :to="{path: `/searchItem`}">
           <svg-icon class="icon" name="magnify" />
           <label class="tab-label">Search</label>
           </router-link>
