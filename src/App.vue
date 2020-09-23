@@ -92,7 +92,7 @@ import MenuTab from "./components/shared/MenuTab.vue"
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   constructor() {
     super();
   }
