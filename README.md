@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(100) NOT NULL,
   `alerts` int(11) NOT NULL,
   `role` varchar(30) NOT NULL,
+  `user_image` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 ```
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `item_collection` (
   `item_description` varchar(255) NOT NULL,
   `item_quantity` int(11) NOT NULL,
   `item_image` mediumblob NOT NULL,
+  `low_stock` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 ```
