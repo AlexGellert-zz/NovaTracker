@@ -81,6 +81,7 @@ export default class MenuLeft extends Vue {
         location.reload();
       }else if(this.$router.currentRoute.fullPath != link){
         this.$router.push(link);
+        var openMenu = (document.querySelector("ion-menu-controller") as any).close("start");
       }
     }
     
