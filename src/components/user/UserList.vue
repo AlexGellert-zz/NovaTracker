@@ -24,7 +24,7 @@ h4{
 }
 
 .user-item{
-    background: var(--button-list);
+    background: var(--user-list);
     color: var(--layout-body-color);
     border-radius: 6px;
     height: 54px;
@@ -53,8 +53,7 @@ h4{
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.m-button-edit{
-    color: white;
+.m-button-edit-user{
     padding: 6px 16px;
     border-radius: 10px;
     font-size: 16px;
@@ -92,7 +91,7 @@ h4{
     <div class="user-item m-button-list" v-for="(user, index) in userList" :key="index">
     <label class="label-inner">{{user.name}}</label>
     <div class="editDelete">
-    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit edit">Edit / Delete</button></router-link>
+    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit-user edit">Edit / Delete</button></router-link>
     </div>
     </div>
   </ion-page>

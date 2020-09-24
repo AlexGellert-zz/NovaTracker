@@ -24,7 +24,7 @@ h4{
 
 .magnify{
     width: 64px;
-    fill: white;
+    fill: var(--nav-fill);
 }
 
 .innerText{

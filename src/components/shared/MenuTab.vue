@@ -22,6 +22,7 @@
   margin: 10px;
   width: 100%;
   color: var(--router-color);
+  fill: var(--nav-fill);
 }
 
 .icon{
@@ -29,13 +30,8 @@
     height: 2em;
     width: 2em;
     margin-bottom: 5px;
-    fill: var(--router-color);
 }
 
-a:not(.button):hover {
-    color: var(--router-active);
-    fill: var(--router-active)
-}
 
 .tab-label{
   margin: 0;
@@ -48,6 +44,15 @@ a:not(.button):hover {
     font-size: inherit;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+a:not(.button):hover {
+    color: var(--router-active);
+    fill: var(--router-active) !important;
+}
+
+a:active{
+  fill: var(--router-active) !important;
 }
 
 </style>

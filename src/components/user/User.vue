@@ -85,7 +85,7 @@ h4{
 }
 
 .m-button-off{
-  color: #565655;
+  color: var(--button-off);
 }
 
 .trash{
@@ -120,7 +120,7 @@ h4{
         <img v-if="stockImage || user.user_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
         <img v-if="!stockImage && user.user_image != ''" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
-      <svg-icon class="trash" name="trash"></svg-icon>
+      <svg-icon class="trash" name="trash" @click="deleteUser(user.id)"></svg-icon>
       </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>

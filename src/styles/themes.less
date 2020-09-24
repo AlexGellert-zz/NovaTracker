@@ -5,6 +5,7 @@
 }
 
 :root {
+--login-background-icon: #000000;
 --layout-body-background: #252525;
 --layout-body-color: #FFFFFF;
 
@@ -19,10 +20,15 @@
 
 --button-background: #2B2B2B;
 --button-color: #FFFFFF;
+--button-icon-color: #FFFFFF;
 --button-login: #3E3E3E;
 --button-list: #363636;
 --button-edit: #6C6C6C;
+--button-edit-user: #6C6C6C;
+--button-edit-user-color: #FFFFFF;
 --button-delete: rgb(156, 0, 0);
+
+--user-list: #363636;
 
 --quantity-background: #646363;
 
@@ -32,7 +38,10 @@
 --router-color: #FFFFFF;
 --router-active: #ffffff94;
 
+--button-off: #565655;
 
+--input-border: none;
+--input-radius: none;
 }
 
 [data-theme="light"]{
@@ -40,9 +49,83 @@
 }
 
 [data-theme="blue"]{
+    --login-background-icon: #3483B3;
 
+    --layout-body-background: #94C5ED;
+    --layout-body-color: #444444;
+    
+    --layout-login-background: #FFFFFF;
+    
+    --side-menu: #1A1A1A;
+    
+    --nav-background: #94C5ED;
+    --nav-fill: #000000;
+    
+    --login-icon: #C0DEF0;
+    
+    --button-background: #BDE2FF;
+    --button-color: #45507A;
+    --button-icon-color:#000000;
+    --button-login: #ECF7FF;
+    --button-list: #B7DEFC;
+    --button-edit: #D8E8D9;
+    --button-delete: rgb(255, 50, 50);
+    --user-list: #ECF7FF;
+    --button-edit-user: #CFE5F6;
+    --button-edit-user-color: #444446;
+
+    --button-off: #8CB4D3;
+    
+    --quantity-background: #B7DEFC;
+    
+    --label-inner: #4A568C;
+    --accordion-background: #FFFFFF;
+    
+    --router-color: #000000;
+    --router-active: #94C5ED;
+
+    --input-border: 1px solid black;
+    --input-radius: 8px;
 }
+[data-theme="green"]{
+    --login-background-icon: #638B00;
 
+    --layout-body-background: #C3E774;
+    --layout-body-color: #444444;
+    
+    --layout-login-background: #FFFFFF;
+    
+    --side-menu: #1A1A1A;
+    
+    --nav-background: #C3E774;
+    --nav-fill: #000000;
+    
+    --login-icon: #D0F382;
+    
+    --button-background: #DDFF93;
+    --button-color: #444444;
+    --button-icon-color:#000000;
+    --button-login: #ECFFC1;
+    --button-list: #DDFF93;
+    --button-edit: #D8E8D9;
+    --button-delete: rgb(255, 50, 50);
+    --user-list: #ECF7FF;
+    --button-edit-user: #C3E774;
+    --button-edit-user-color: #444445;
+
+    --button-off: #8CB4D3;
+    
+    --quantity-background: #DDFF93;
+    
+    --label-inner: #654A6C;
+    --accordion-background: #FFFFFF;
+    
+    --router-color: #000000;
+    --router-active: #C3E774;
+
+    --input-border: 1px solid black;
+    --input-radius: 8px;
+}
 .layout-body-background{
     background: var(--layout-body-background);
 }
@@ -80,6 +163,10 @@
 }
 .m-side-menu{
     background: var(--side-menu);
+}
+.m-button-edit-user{
+    color: var(--button-edit-user-color);
+    background: var(--button-edit-user);
 }
 
 .login-icon{

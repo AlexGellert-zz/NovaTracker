@@ -21,4 +21,5 @@ export interface novaUser {
     alerts: any;
     role: any;
     user_image?: any;
+    user_theme?: any;
 }

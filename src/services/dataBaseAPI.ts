@@ -4,6 +4,7 @@ import { mailService } from "@/services/mailService";
 const host = require('@/credentials.json');
 const axios = require('axios').default;
 const _url = host["live"];
+const rootEl = document.documentElement;
 enum Type{
     "user" = 1,
     "item" = 2
@@ -34,6 +35,9 @@ export default class DataBaseAPI {
         for(let i in this.state.usersList){
             if(username == this.state.usersList[i].name && password == this.state.usersList[i].password){
                 this.state.currentUser = this.state.usersList[i];
+                if(this.state.usersList[i].user_theme != '' && this.state.usersList[i].user_theme != null){
+                    rootEl.setAttribute('data-theme', this.state.usersList[i].user_theme);
+                }
                 return true;
             }
         }
@@ -190,6 +194,7 @@ export default class DataBaseAPI {
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
         formData.append('user_image', user.user_image);
+        formData.append('user_theme', user.user_theme);
         axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('item updated ' + user);

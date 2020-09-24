@@ -1,5 +1,6 @@
 <style scoped>
 @import "./../styles/themes.less";
+
 .layout-body-background {
   margin-top: 0px !important;
   padding: 5px;
@@ -44,7 +45,23 @@ li::before {
 }
 
 li + li {
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgb(255, 255, 255);
+}
+
+.m-button{
+    border-radius: 8px;
+    margin: 0px 10px;
+    padding: 8px 28px 9px 21px;
+    overflow: hidden;
+    height: 45px;
+    width: 38%;
+    font-size: 18px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.centerButton{
+  display: block;
+  margin: auto;
 }
 
 </style>
@@ -67,6 +84,8 @@ li + li {
         <label>Green</label>
       </li>
     </ul>
+
+    <button class="m-button m-button-list centerButton" @click="saveTheme()" >Save Theme</button>
   </ion-page>
 </template>
 
@@ -74,6 +93,8 @@ li + li {
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
 import SvgIcon from "./shared/svg/svg.vue";
+import { novaUser } from "@/types/index";
+const rootEl = document.documentElement;
 
 @Component({
   components: {
@@ -81,17 +102,25 @@ import SvgIcon from "./shared/svg/svg.vue";
   },
 })
 export default class ThemeSelector extends Vue {
+  currentUser: any;
   constructor() {
     super();
+    this.currentUser = dataBaseAPI.getCurrentUser();
   }
 
   changeTheme(color){
-    const rootEl = document.documentElement;
-    const currentTheme = rootEl.getAttribute('data-theme');
-    console.log("current theme: " + currentTheme);
+    var currentTheme = rootEl.getAttribute('data-theme');
     if(color != currentTheme){
       rootEl.setAttribute('data-theme', color);
     }
+  }
+
+  saveTheme(){
+    this.currentUser.user_theme = rootEl.getAttribute('data-theme');
+    dataBaseAPI.updateUser(this.currentUser).then((res) => {
+      this.$router.push('/');
+    });
+    
   }
 }
 </script>

@@ -54,6 +54,8 @@
   display: flex;
   width: 100%;
   margin-bottom: 15px;
+  border: var(--input-border);
+  border-radius: var(--input-radius);
 }
 
 .m-button {
@@ -127,7 +129,6 @@ export default class Login extends Vue {
       this.username.toLowerCase(),
       this.password
     );
-    console.log("checkLogin " + checkLogin);
     if (checkLogin) {
       this.$emit("success");
     } else {

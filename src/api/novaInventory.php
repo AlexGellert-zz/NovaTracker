@@ -111,7 +111,8 @@ if(isset($_POST['newUser'])){
   $alerts = $_POST['alerts'];
   $role = $_POST['role'];
   $user_image = $_POST['user_image'];
-  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`, `user_image`) VALUES ('$name', '$password', '$email', '$alerts','$role', '$user_image')");
+  $user_theme = '';
+  $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`, `user_image`, `user_theme`) VALUES ('$name', '$password', '$email', '$alerts','$role', '$user_image', '$user_theme')");
   return $data->result();
 }
 
@@ -124,7 +125,8 @@ if(isset($_POST['updateUser'])){
     $alerts = $_POST['alerts'];
     $role = $_POST['role'];
     $user_image = $_POST['user_image'];
-    $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role', `user_image`='$user_image' WHERE `id`=$id");
+    $user_theme = $_POST['user_theme'];
+    $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role', `user_image`='$user_image', `user_theme`='$user_theme' WHERE `id`=$id");
     return $data->result();
   }
 

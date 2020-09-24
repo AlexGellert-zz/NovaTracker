@@ -27,14 +27,14 @@
 
 svg.checkSquare{
   color: var(--button-background);
-  background: var(--button-color);
+  background: var(--button-icon-color);
   border-radius: 20px;
   height: 100px;
   width: 100px
 }
 
 .user{
-  fill: var(--button-color);
+  fill: var(--button-icon-color);
   margin: auto;
   border-radius: 20px;
   height: 100px;
@@ -42,7 +42,7 @@ svg.checkSquare{
 }
 
 .magnify{
-  fill: var(--button-color);
+  fill: var(--button-icon-color);
   margin: auto;
   border-radius: 20px;
   height: 100px;

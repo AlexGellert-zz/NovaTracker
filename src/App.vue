@@ -26,6 +26,7 @@ ion-app.app-md {
 h4{
   margin: 0px 5px;
   font-size: 28px;
+  font-weight: bold;
 }
 
 .toolbar-title{
@@ -45,7 +46,7 @@ h4{
 }
 
 .nova{
-    background: black;
+    background: var(--login-background-icon);
     border-radius: 50%;
 }
 </style>
@@ -92,7 +93,7 @@ import MenuTab from "./components/shared/MenuTab.vue"
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   showModal: boolean = false;
   constructor() {
     super();
