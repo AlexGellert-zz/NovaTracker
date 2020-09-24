@@ -1,20 +1,19 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../components/Home.vue'
-import About from '../components/About.vue'
+import ThemeSelector from "../components/ThemeSelector.vue"
 
 //Inventory
 import Item from '../components/inventory/Item.vue';
 import Inventory from '../components/inventory/Inventory.vue';
 import QuickEdit from '../components/inventory/QuickEdit.vue';
 import BarCodeScanner from '../components/inventory/BarCodeScanner.vue';
+import SearchItem from '../components/inventory/SearchItem.vue'
 
 //User
 import Login from '../components/user/Login.vue'
 import UserList from '../components/user/UserList.vue';
 import User from '../components/user/User.vue';
-
-
 
 Vue.use(VueRouter)
 
@@ -23,11 +22,6 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
   },
   {
     path: '/login',
@@ -73,8 +67,17 @@ Vue.use(VueRouter)
     path: '/barCodeScanner',
     name: 'BarCodeScanner',
     component: BarCodeScanner
+  },
+  {
+    path: '/searchItem',
+    name: 'SearchItem',
+    component: SearchItem
+  },
+  {
+    path: '/themes',
+    name: 'ThemeSelector',
+    component: ThemeSelector
   }
-
 ]
 
 const router = new VueRouter({

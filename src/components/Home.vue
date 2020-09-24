@@ -27,22 +27,22 @@
 
 svg.checkSquare{
   color: var(--button-background);
-  background: var(--button-color);
+  background: var(--button-icon-color);
   border-radius: 20px;
   height: 100px;
   width: 100px
 }
 
-svg.user{
-  color: var(--button-color);
-  background: var(--button-background);
+.user{
+  fill: var(--button-icon-color);
+  margin: auto;
   border-radius: 20px;
   height: 100px;
   width: 100px
 }
 
 .magnify{
-  fill: var(--button-color);
+  fill: var(--button-icon-color);
   margin: auto;
   border-radius: 20px;
   height: 100px;
@@ -70,7 +70,7 @@ svg.user{
       <ion-row v-if="isAdmin">
         <ion-col>
           <router-link to="/userList">
-            <button class="homeBtn m-button m-button-secondary"><h4 class="hButton">Edit Users</h4><div><fa-icon class="user" icon="user" /></div></button>
+            <button class="homeBtn m-button m-button-secondary"><h4 class="hButton">Edit Users</h4><div><svg-icon class="user" name="user" /></div></button>
           </router-link>
         </ion-col>
         <ion-col>

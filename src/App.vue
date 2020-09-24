@@ -25,7 +25,8 @@ ion-app.app-md {
 
 h4{
   margin: 0px 5px;
-  font-size: 25px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .toolbar-title{
@@ -39,8 +40,13 @@ h4{
   height: 50px;
   width: 50px;
 }
+
+.header-nav{
+  font-size: 16px;
+}
+
 .nova{
-    background: black;
+    background: var(--login-background-icon);
     border-radius: 50%;
 }
 </style>
@@ -51,13 +57,14 @@ h4{
       <menu-left />
       <ion-header>
         <ion-toolbar>
-          <ion-title>
-            <svg-icon class="headerIcon" name="nova-icon" /><h4>Nova's Inventory</h4>
+          <ion-title @click="goHome()">
+            <svg-icon class="headerIcon" name="nova-icon" /><h4 class="header-nav">Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
         </ion-toolbar>
       </ion-header>
       <router-view></router-view>
+      <menu-tab />
     </ion-page>
     <ion-page v-if="!isLoggedIn">
       <div class="loginHeader">
@@ -75,16 +82,19 @@ import MenuLeft from "./components/shared/MenuLeft.vue";
 import { dataBaseAPI } from "./services/dataBaseAPI";
 import Login from "./components/user/Login.vue";
 import SvgIcon from "./components/shared/svg/svg.vue";
+import MenuTab from "./components/shared/MenuTab.vue"
 
 @Component({
   components: {
     MenuLeft,
     Login,
+    MenuTab,
     SvgIcon
   },
 })
 export default class App extends Vue {
   isLoggedIn: boolean = false;
+  showModal: boolean = false;
   constructor() {
     super();
   }
@@ -99,6 +109,13 @@ export default class App extends Vue {
       "start"
     );
   }
+
+  goHome(){
+    if(this.$router.currentRoute.fullPath != '/'){
+        this.$router.push('/');
+      }
+  }
+
   success() {
     this.isLoggedIn = true;
   }

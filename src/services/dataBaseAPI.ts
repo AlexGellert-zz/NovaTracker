@@ -3,7 +3,8 @@ import { novaItem, novaUser } from '@/types/index';
 import { mailService } from "@/services/mailService";
 const host = require('@/credentials.json');
 const axios = require('axios').default;
-
+const _url = host["live"]; //Settings host['live'] or host['local'];
+const rootEl = document.documentElement;
 enum Type{
     "user" = 1,
     "item" = 2
@@ -14,7 +15,16 @@ enum Type{
  * to cover all the CRUD involving the database.
  */
 export default class DataBaseAPI {
-    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{} });
+    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{}, panel1: <boolean>false });
+
+    public getPanel(){
+        return this.state.panel1;
+    }
+
+    public togglePanel(){
+        this.state.panel1 = !this.state.panel1;
+        console.log("toggle panel");
+    }
 
     /** Get Current User **/
     public getCurrentUser(){
@@ -25,6 +35,9 @@ export default class DataBaseAPI {
         for(let i in this.state.usersList){
             if(username == this.state.usersList[i].name && password == this.state.usersList[i].password){
                 this.state.currentUser = this.state.usersList[i];
+                if(this.state.usersList[i].user_theme != '' && this.state.usersList[i].user_theme != null){
+                    rootEl.setAttribute('data-theme', this.state.usersList[i].user_theme);
+                }
                 return true;
             }
         }
@@ -55,7 +68,7 @@ export default class DataBaseAPI {
     public async readInventory(){
         let formData = new FormData();
         formData.append('readItems', "readItems");
-        let newItems = axios({ method: 'post', url: `${host["live"]}`, data: formData }
+        let newItems = axios({ method: 'post', url: _url, data: formData }
         ).then(res => {
             this.state.inventoryList = res.data;
             return res.data;
@@ -73,7 +86,8 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        formData.append('low_stock', item.low_stock);
+        axios({method: 'post', url: _url, data: formData}
         ).then((res) => {
             console.log("item added " + res)
         }).catch((err) => {
@@ -82,7 +96,9 @@ export default class DataBaseAPI {
     }
 
     public async updateItem(item: novaItem){
-        mailService.sendMail(item);
+        if(item.item_quantity == 0 || item.item_quantity < item.low_stock){
+            mailService.sendMail(item);
+        }
         let formData = new FormData();
         formData.append('updateItem', "updateItem");
         formData.append('id', item.id);
@@ -90,7 +106,8 @@ export default class DataBaseAPI {
         formData.append('item_description', item.item_description);
         formData.append('item_quantity', item.item_quantity);
         formData.append('item_image', item.item_image);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        formData.append('low_stock', item.low_stock);
+        axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('item updated ' + item);
         }).catch((err) => {
@@ -102,7 +119,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('findItem', 'findItem');
         formData.append('id', id);
-        let tempItem = await axios({method: 'post', url: `${host["live"]}`, data: formData}
+        let tempItem = await axios({method: 'post', url: _url, data: formData}
         ).then((res) => {
             console.log('item found ' + res.data[0]);
             return res.data[0];
@@ -116,7 +133,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('findItemName', 'findItemName');
         formData.append('name', name);
-        let tempItem = await axios({method: 'post', url: `${host["live"]}`, data: formData}
+        let tempItem = await axios({method: 'post', url: _url, data: formData}
         ).then((res) => {
             console.log('item found ' + res.data[0]);
             return res.data[0];
@@ -130,7 +147,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteItem', "deleteItem");
         formData.append('id', id);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('item deleted: ' + id);
         }).catch((err) => {
@@ -142,7 +159,7 @@ export default class DataBaseAPI {
     public async readUsers() {
         let formData = new FormData();
         formData.append('readUsers', "readUsers");
-        let newList = axios({ method: 'post', url: `${host["live"]}`, data: formData }
+        let newList = axios({ method: 'post', url: _url, data: formData }
         ).then(res => {
             this.state.usersList = res.data;
             return res.data;
@@ -160,7 +177,8 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        formData.append('user_image', user.user_image);
+        axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('user added ' + user);
         }).catch((err) => {
@@ -177,7 +195,9 @@ export default class DataBaseAPI {
         formData.append('email', user.email);
         formData.append('alerts', user.alerts);
         formData.append('role', user.role);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        formData.append('user_image', user.user_image);
+        formData.append('user_theme', user.user_theme);
+        axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('item updated ' + user);
         }).catch((err) => {
@@ -189,7 +209,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('findUser', 'findUser');
         formData.append('id', id);
-        let tempUser = await axios({method: 'post', url: `${host["live"]}`, data: formData}
+        let tempUser = await axios({method: 'post', url: _url, data: formData}
         ).then((res) => {
             console.log('user found ' + res.data);
             return res.data[0];
@@ -203,7 +223,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('findUserName', 'findUserName');
         formData.append('name', name);
-        let tempUser = await axios({method: 'post', url: `${host["live"]}`, data: formData}
+        let tempUser = await axios({method: 'post', url: _url, data: formData}
         ).then((res) => {
             console.log('user found ' + res.data[0]);
             return res.data[0];
@@ -218,7 +238,7 @@ export default class DataBaseAPI {
         let formData = new FormData();
         formData.append('deleteUser', "deleteUser")
         formData.append('id', id);
-        axios({method: 'post', url: `${host["live"]}`, data: formData}
+        axios({method: 'post', url: _url, data: formData}
         ).then(() => {
             console.log('item deleted ' + id);
         }).catch((err) => {

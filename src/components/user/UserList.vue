@@ -24,14 +24,15 @@ h4{
 }
 
 .user-item{
-    background: var(--button-list);
+    background: var(--user-list);
     color: var(--layout-body-color);
     border-radius: 6px;
     height: 54px;
     margin: 4px 20px;
-    font-size: 24px;
-    padding: 12px;
-    display: flex;
+    font-size: 20px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 65% 25%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -52,8 +53,7 @@ h4{
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.m-button-edit{
-    color: white;
+.m-button-edit-user{
     padding: 6px 16px;
     border-radius: 10px;
     font-size: 16px;
@@ -78,8 +78,8 @@ h4{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-    width: 54%;
-    display: block;
+  width: 90%;
+  display: block;
 }
 </style>
 
@@ -91,8 +91,7 @@ h4{
     <div class="user-item m-button-list" v-for="(user, index) in userList" :key="index">
     <label class="label-inner">{{user.name}}</label>
     <div class="editDelete">
-    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit edit">Edit</button></router-link>
-    <button class="m-button-edit delete" @click="deleteUser(user.id)">Delete</button> 
+    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit-user edit">Edit / Delete</button></router-link>
     </div>
     </div>
   </ion-page>
@@ -111,14 +110,8 @@ export default class UserList extends Vue {
   }
 
   async mounted(){
-    setTimeout(() => {this.$forceUpdate}, 2000);
-    this.userList = await dataBaseAPI.readUsers();
-  }
-
-  async deleteUser(id){
-    await dataBaseAPI.deleteUser(id);
     setTimeout(() => {this.$forceUpdate}, 3000);
-    this.userList = await dataBaseAPI.readUsers();
+    this.userList = await dataBaseAPI.readUsers().then();
   }
 }
 </script>

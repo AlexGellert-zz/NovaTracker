@@ -6,6 +6,7 @@
     width: 150px;
     height: 150px;
     margin: 4%;
+    margin-left: 40px;
 }
 
 .layout-body-background {
@@ -38,28 +39,12 @@ h4{
   background: var(--layout-body-background) !important;
 }
 
-.stockImage{
-    border-radius: 20px;
-    margin-bottom: -10px;
-    margin-top: -10px;
-    width: 225px;  
-}
-
-.flipImage{
-    border-radius: 20px;
-    transform: rotate(270deg);
-    margin-bottom: -40px;
-    margin-top: -40px;
-    width: 225px;
-    transform: rotate(270deg);
-}
-
 .item-md {
   padding-left: 0px;
   justify-content: center;
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .pencil{
@@ -77,9 +62,10 @@ h4{
     border-radius: 8px;
     margin: auto;
     overflow: hidden;
-    height: 40px;
+    height: 34px;
     width: 32%;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: bold;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -93,8 +79,26 @@ h4{
 }
 
 .bottom-buttons{
+  margin: 0px 15px;
   margin-top: 15px;
   display: flex;
+}
+
+.m-button-off{
+  color: var(--button-off);
+}
+
+.trash{
+    fill: var(--button-delete);
+    height: 4em;
+    width: 4em;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: 80px;
+}
+
+.trash-delete{
+  display: contents;
 }
 
 .m-button-login:focus{
@@ -102,6 +106,9 @@ h4{
   box-shadow: none;
 }
 
+.top-image{
+  display: flex;
+}
 </style>
 
 <template>
@@ -112,9 +119,13 @@ h4{
 
     <!-- Admin & Create Item Form -->
     <div class="item-form">
+      <div class="top-image">
       <ion-avatar>
-        <img src="@/assets/husky.png" alt="Picture of a husky." width="400px" />
+        <img v-if="stockImage || user.user_image == 'undefined'" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
+        <img v-if="!stockImage && user.user_image != 'undefined'" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
+      <div class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash"></svg-icon></div>
+      </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
         <input class="item-input" type="text" v-model="user.name" placeholder="Username" required />
@@ -141,7 +152,7 @@ h4{
       </div>
 
       <div class="bottom-buttons">
-        <button class="m-button m-button-login" @click="user.alerts = true" v-if="!user.alerts">Alerts Off</button>
+        <button class="m-button m-button-login m-button-off" @click="user.alerts = true" v-if="!user.alerts">Alerts Off</button>
         <button class="m-button m-button-login" @click="user.alerts = false" v-if="user.alerts">Alerts On</button>
         <button class="m-button m-button-login" type="submit" @click="addUser($event)" v-if="newUser">Create User</button>
         <button class="m-button m-button-login" type="submit" @click="updateUser($event)" v-if="!newUser">Save</button>
@@ -153,6 +164,7 @@ h4{
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { photoService } from "@/services/PhotoService";
 import { novaUser } from "@/types/index";
 import SvgIcon from "@/components/shared/svg/svg.vue";
 
@@ -162,8 +174,9 @@ import SvgIcon from "@/components/shared/svg/svg.vue";
   }
 })
 export default class NewUser extends Vue {
-  user: any = {name: "", password: "" , email: "", alerts: 0, role: ""};
+  user: any = {name: "", password: "" , email: "", alerts: 0, role: "member"};
   newUser: boolean = true;
+  stockImage = true;
 
   constructor() {
     super();
@@ -173,7 +186,14 @@ export default class NewUser extends Vue {
     if(this.$route.params.id != undefined){
       this.user = await dataBaseAPI.findUser(this.$route.params.id);
       this.newUser = false;
+      this.stockImage = false;
     }
+  }
+
+  async uploadImage(){
+    await photoService.takePhoto();
+    this.stockImage = false;
+    this.user.user_image = photoService.photoState.photos[0].data;
   }
 
   async addUser(ev) {
@@ -182,8 +202,8 @@ export default class NewUser extends Vue {
     if(this.user.role == ""){
         alert("Please choose a role");
     } else if(newUser) {
-      await dataBaseAPI.newUser(this.user);
-      this.$router.push('/userList');
+      dataBaseAPI.newUser(this.user);
+      setTimeout(() => {this.$router.push('/userList');}, 1000);
     } else {
       alert('Username already exists');
     }
@@ -195,8 +215,14 @@ export default class NewUser extends Vue {
         alert("Please choose a role");
     } else {
       dataBaseAPI.updateUser(this.user);
-      this.$router.push('/userList');
+      setTimeout(() => {this.$router.push('/userList');}, 1000);
     }
+  }
+
+  async deleteUser(id){
+    await dataBaseAPI.deleteUser(id).then((res) => {
+      this.$router.push('/userList');
+    });
   }
 }
 </script>

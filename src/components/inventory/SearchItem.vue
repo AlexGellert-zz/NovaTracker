@@ -24,7 +24,7 @@ h4{
 
 .magnify{
     width: 64px;
-    fill: var(--nav-fill);
+    fill: white;
 }
 
 .innerText{
@@ -53,7 +53,7 @@ a{
   border: none;
   border-radius: 15px;
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .searchForm{
@@ -62,44 +62,50 @@ a{
 }
 
 .m-search{
-  border-radius: 8px;
-  margin: 25px 14px;
-  padding: 8px 30px 9px 23px;
-  overflow: hidden;
-  height: 50px;
-  width: 90%;
-  font-size: 35px;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 25px;
+    padding: 8px 30px 9px 23px;
+    overflow: hidden;
+    height: 40px;
+    width: 150px;
+    font-size: 20px;
 }
 </style>
 
 <template>
   <ion-page>
     <div class="centerMain">
-        <h4 class="header">Search Inventory</h4>
+        <h4 class="header">Item Search</h4>
         <div class="singleLine"></div>
-        <router-link to="/searchItem">
-          <button class="itemchoice m-button m-button-secondary"><svg-icon class="magnify" name="magnify"></svg-icon><div class="innerText">Search Inventory</div></button>
-          </router-link>
-          <router-link to="/barCodeScanner">
-            <button class="itemchoice m-button m-button-secondary"><svg-icon class="bcode" name="bcode"></svg-icon><div class="innerText">Scan Barcode</div></button>
-          </router-link>
-    </div>
+        <form class="searchForm">
+          <input type="text" class="searchTerm input-search" placeholder="Search for an item" v-model="searchTerm" />
+          <button class="m-search m-button m-button-list " type="submit" @click="search($event)">Search</button>
+        </form>
+      </div>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
-import SvgIcon from "@/components/shared/svg/svg.vue";
 
-@Component({
-  components: {
-    SvgIcon,
-  },
-})
-export default class QuickEdit extends Vue {
+@Component
+export default class SearchItem extends Vue {
+  searchTerm: string = "";
   constructor() {
     super();
+  }
+
+  async search(ev) {
+    ev.preventDefault();
+    let item = await dataBaseAPI.findItemName(this.searchTerm.toLowerCase());
+    setTimeout(() => {
+      this.$router.push({
+        name: "Item",
+        params: { id: item.id },
+      });
+    }, 1000);
   }
 }
 </script>

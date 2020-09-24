@@ -41,6 +41,8 @@ h4{
     font-weight: bold;
     transition: 0.4s;
     border-radius: 8px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .list-item{
@@ -53,8 +55,9 @@ h4{
 
 .m-button-edit{
   background-color: var(--button-edit);
-    padding: 6px;
-    border-radius: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
 .item-details{
@@ -71,9 +74,9 @@ h4{
 }
 
 .counter{
-    color: white;
-    margin-left: 30px;
-    padding-top: 3px;
+    color: var(--nav-fill);
+    margin-left: 15px;
+    padding-top: 5px;
 }
 
 .container-background{
@@ -87,7 +90,7 @@ h4{
 .container{
     height: 100%;
     display: grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 50% 20% 30%;
     border-bottom: 1px solid #8B8B8B;
     padding-bottom: 4px;
     padding-top: 16px;
@@ -100,12 +103,12 @@ h4{
   <ion-page class="layout-body-background">
     <h4 class="header">Check Inventory</h4>
     <div class="singleLine"></div>
-      <button class="accordion" @click="panel1 = !panel1">Category 1</button>
+      <button class="accordion" @click="toggle()">Category 1</button>
       <div v-if="panel1" class="accordion-background container-background">
         <div class="accordion-background list-item container" v-for="(item, index) in inventory" :key="index">
           <label class="label-inner">{{item.name}}</label>
           <label class="counter">{{('000' + item.item_quantity).substr(-3)}}</label>
-          <router-link :to="{path: `/inventory/${item.id}`, params:{id: item.id}}"><button class="m-button m-button-edit">Edit/Delete</button></router-link>
+          <router-link :to="{path: `/inventory/${item.id}`, params:{id: item.id}}"><button class="m-button m-button-edit">Edit / Delete</button></router-link>
         </div>
      </div>
   </ion-page>
@@ -119,9 +122,14 @@ import { novaItem } from "@/types/index";
 @Component
 export default class Inventory extends Vue {
   inventory: novaItem[] = [];
-  panel1 = false;
+  panel1 = dataBaseAPI.state.panel1;
   constructor() {
     super();
+  }
+
+  toggle(){
+    dataBaseAPI.togglePanel();
+    this.panel1 = dataBaseAPI.state.panel1;
   }
 
   async mounted(){
