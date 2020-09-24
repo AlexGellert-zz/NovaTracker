@@ -94,7 +94,11 @@ h4{
     width: 4em;
     margin-top: 20px;
     margin-left: auto;
-    margin-right: 50px;
+    margin-right: 80px;
+}
+
+.trash-delete{
+  display: contents;
 }
 
 .m-button-login:focus{
@@ -117,10 +121,10 @@ h4{
     <div class="item-form">
       <div class="top-image">
       <ion-avatar>
-        <img v-if="stockImage || user.user_image == ''" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
-        <img v-if="!stockImage && user.user_image != ''" :src="user.user_image" @click="uploadImage()"  width="400px" />
+        <img v-if="stockImage || user.user_image == 'undefined'" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
+        <img v-if="!stockImage && user.user_image != 'undefined'" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
-      <svg-icon class="trash" name="trash" @click="deleteUser(user.id)"></svg-icon>
+      <div class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash"></svg-icon></div>
       </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
@@ -170,7 +174,7 @@ import SvgIcon from "@/components/shared/svg/svg.vue";
   }
 })
 export default class NewUser extends Vue {
-  user: any = {name: "", password: "" , email: "", alerts: 0, role: ""};
+  user: any = {name: "", password: "" , email: "", alerts: 0, role: "member"};
   newUser: boolean = true;
   stockImage = true;
 

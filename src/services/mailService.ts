@@ -5,7 +5,7 @@ const axios = require('axios').default;
 export default class MailService {
 
     sendMail(item){
-        let content = 'Item: ' + item.name + '<br> Description: ' + item.item_description + '<br> Quantity: ' + item.item_quantity;
+        let content = 'Item: ' + item.name + '<br> Description: ' + item.item_description + '<br> Quantity: ' + item.item_quantity + '<br> Low_Stock: ' + item.low_stock;
         let low_stock = 'Low Stock: ' + item.name;
         axios.post(`https://api.elasticemail.com/v2/email/send?apikey=${host['apikey']}&subject=${low_stock}&from=deathcyth03@hotmail.com&to=deathcyth03@hotmail.com&bodyHTML=${content}`).then(res => {
             console.log("response" + JSON.stringify(res.data));

@@ -3,7 +3,7 @@ import { novaItem, novaUser } from '@/types/index';
 import { mailService } from "@/services/mailService";
 const host = require('@/credentials.json');
 const axios = require('axios').default;
-const _url = host["live"];
+const _url = host["live"]; //Settings host['live'] or host['local'];
 const rootEl = document.documentElement;
 enum Type{
     "user" = 1,
@@ -96,7 +96,9 @@ export default class DataBaseAPI {
     }
 
     public async updateItem(item: novaItem){
-        mailService.sendMail(item);
+        if(item.item_quantity == 0 || item.item_quantity < item.low_stock){
+            mailService.sendMail(item);
+        }
         let formData = new FormData();
         formData.append('updateItem', "updateItem");
         formData.append('id', item.id);
