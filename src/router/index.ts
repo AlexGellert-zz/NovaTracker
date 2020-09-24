@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../components/Home.vue'
+import ThemeSelector from "../components/ThemeSelector.vue"
 
 //Inventory
 import Item from '../components/inventory/Item.vue';
@@ -71,6 +72,11 @@ Vue.use(VueRouter)
     path: '/searchItem',
     name: 'SearchItem',
     component: SearchItem
+  },
+  {
+    path: '/themes',
+    name: 'ThemeSelector',
+    component: ThemeSelector
   }
 ]
 

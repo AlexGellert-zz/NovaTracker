@@ -40,7 +40,7 @@ h4{
   width: 50px;
 }
 
-.header{
+.header-nav{
   font-size: 16px;
 }
 
@@ -57,7 +57,7 @@ h4{
       <ion-header>
         <ion-toolbar>
           <ion-title @click="goHome()">
-            <svg-icon class="headerIcon" name="nova-icon" /><h4 class="header">Nova's Inventory</h4>
+            <svg-icon class="headerIcon" name="nova-icon" /><h4 class="header-nav">Nova's Inventory</h4>
           </ion-title>
           <fa-icon class="menu" @click="openStart()" icon="bars" />
         </ion-toolbar>
@@ -92,7 +92,8 @@ import MenuTab from "./components/shared/MenuTab.vue"
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
+  showModal: boolean = false;
   constructor() {
     super();
   }
@@ -109,7 +110,9 @@ export default class App extends Vue {
   }
 
   goHome(){
-    this.$router.push('/');
+    if(this.$router.currentRoute.fullPath != '/'){
+        this.$router.push('/');
+      }
   }
 
   success() {

@@ -59,7 +59,8 @@ ion-scroll>.scroll-inner {
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { dataBaseAPI } from '@/services/dataBaseAPI';
 import SvgIcon from './svg/svg.vue';
 
 @Component({
@@ -69,16 +70,19 @@ import SvgIcon from './svg/svg.vue';
 })
 export default class MenuLeft extends Vue {
     items = [{ name: 'Home', icon: 'nova-icon', href: '/' }, { name: 'Inventory', icon: 'list', href: '/inventory' },
-        { name: 'Quick Edit', icon: 'magnify', href: '/quickEdit' }, { name: 'Log out', icon: 'user', href: 'logout'}]
+        { name: 'Quick Edit', icon: 'magnify', href: '/quickEdit' }, { name: 'Theme Selector', icon: 'color-picker', href: '/themes'}, { name: 'Log out', icon: 'user', href: 'logout'}];
+    
     constructor(){
         super();
     }
 
-    changeLocation(link){
-      if(link == 'logout'){
+    async changeLocation(link){
+      if(link === 'logout'){
         location.reload();
+      }else if(this.$router.currentRoute.fullPath != link){
+        this.$router.push(link);
       }
-      this.$router.push(link);
     }
+    
   }
 </script>
