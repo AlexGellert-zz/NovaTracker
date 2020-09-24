@@ -110,9 +110,8 @@ export default class UserList extends Vue {
   }
 
   async mounted(){
-    setTimeout(() => {this.$forceUpdate}, 2500);
+    setTimeout(() => {this.$forceUpdate}, 3000);
     this.userList = await dataBaseAPI.readUsers().then();
-    console.log(this.userList[4].user_image);
   }
 }
 </script>

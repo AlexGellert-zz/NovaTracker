@@ -202,9 +202,8 @@ export default class NewUser extends Vue {
     if(this.user.role == ""){
         alert("Please choose a role");
     } else if(newUser) {
-      await dataBaseAPI.newUser(this.user).then((res) => {
-        this.$router.push('/userList');
-      });
+      dataBaseAPI.newUser(this.user);
+      setTimeout(() => {this.$router.push('/userList');}, 1000);
     } else {
       alert('Username already exists');
     }
@@ -216,7 +215,7 @@ export default class NewUser extends Vue {
         alert("Please choose a role");
     } else {
       dataBaseAPI.updateUser(this.user);
-      this.$router.push('/userList');
+      setTimeout(() => {this.$router.push('/userList');}, 1000);
     }
   }
 
