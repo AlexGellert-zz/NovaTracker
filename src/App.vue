@@ -93,7 +93,7 @@ import MenuTab from "./components/shared/MenuTab.vue"
   },
 })
 export default class App extends Vue {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = dataBaseAPI.state.isLoggedIn;
   showModal: boolean = false;
   constructor() {
     super();
@@ -102,6 +102,9 @@ export default class App extends Vue {
   created() {
     dataBaseAPI.readUsers();
     dataBaseAPI.readInventory();
+    this.$watch(() => dataBaseAPI.state.isLoggedIn, (value) => {
+      this.isLoggedIn = value;
+    })
   }
 
   openStart() {
@@ -117,7 +120,7 @@ export default class App extends Vue {
   }
 
   success() {
-    this.isLoggedIn = true;
+    dataBaseAPI.toggleLogin();
   }
 }
 </script>

@@ -78,7 +78,10 @@ export default class MenuLeft extends Vue {
 
     async changeLocation(link){
       if(link === 'logout'){
-        location.reload();
+        dataBaseAPI.toggleLogin();
+        if(this.$router.currentRoute.fullPath != '/'){
+          this.$router.push('/');
+        }
       }else if(this.$router.currentRoute.fullPath != link){
         this.$router.push(link);
         var openMenu = (document.querySelector("ion-menu-controller") as any).close("start");

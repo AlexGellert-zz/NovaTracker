@@ -28,8 +28,7 @@ h4{
 .accordion {
     background-color: var(--button-background);
     color: var(--nav-fill);
-    justify-content: center;
-    display: block;
+    display: flex;
     cursor: pointer;
     margin: auto;
     width: 90%;
@@ -97,13 +96,26 @@ h4{
     width: 88%;
 }
 
+.arrow{
+    margin-left: auto;
+    height: 20px;
+    width: 14px;
+    margin-top: -6px;
+}
+.arrow-down{
+    margin-left: auto;
+    height: 20px;
+    width: 20px;
+    margin-top: -7px;
+}
+
 </style>
 
 <template>
   <ion-page class="layout-body-background">
     <h4 class="header">Check Inventory</h4>
     <div class="singleLine"></div>
-      <button class="accordion" @click="toggle()">Category 1</button>
+      <button class="accordion" @click="toggle()">Category 1<svg-icon class="arrow" name="left" v-if="!panel1"></svg-icon><svg-icon class="arrow-down" name="down" v-if="panel1"></svg-icon></button>
       <div v-if="panel1" class="accordion-background container-background">
         <div class="accordion-background list-item container" v-for="(item, index) in inventory" :key="index">
           <label class="label-inner">{{item.name}}</label>
@@ -118,8 +130,13 @@ h4{
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
 import { novaItem } from "@/types/index";
+import SvgIcon from "@/components/shared/svg/svg.vue"
 
-@Component
+@Component({
+  components: {
+    SvgIcon
+  }
+})
 export default class Inventory extends Vue {
   inventory: novaItem[] = [];
   panel1 = dataBaseAPI.state.panel1;

@@ -15,20 +15,27 @@ enum Type{
  * to cover all the CRUD involving the database.
  */
 export default class DataBaseAPI {
-    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{}, panel1: <boolean>false });
+    public state = Vue.observable({ usersList: <novaUser[]>[], inventoryList: <novaItem[]>[], currentUser: <novaUser>{}, panel1: <boolean>false, isLoggedIn: <boolean>false });
 
     public getPanel(){
         return this.state.panel1;
     }
 
+    public toggleLogin(){
+        this.state.isLoggedIn = ! this.state.isLoggedIn;
+    }
+
     public togglePanel(){
         this.state.panel1 = !this.state.panel1;
-        console.log("toggle panel");
     }
 
     /** Get Current User **/
     public getCurrentUser(){
         return this.state.currentUser;
+    }
+
+    public setCurrentUser(){
+        this.state.currentUser = <novaUser>{};
     }
     /** Check Valid User **/
     public login(username: string, password: string){
@@ -199,9 +206,9 @@ export default class DataBaseAPI {
         formData.append('user_theme', user.user_theme);
         axios({method: 'post', url: _url, data: formData}
         ).then(() => {
-            console.log('item updated ' + user);
+            console.log('user updated ' + user);
         }).catch((err) => {
-            console.log('item updated ' + err);
+            console.log('user updated ' + err);
         })
     }
 
