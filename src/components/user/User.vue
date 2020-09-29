@@ -5,8 +5,7 @@
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    margin: 4%;
-    margin-left: 40px;
+    margin: 4% auto;
 }
 
 .layout-body-background {
@@ -92,9 +91,7 @@ h4{
     fill: var(--button-delete);
     height: 4em;
     width: 4em;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: 80px;
+    margin: 20px auto;
 }
 
 .trash-delete{
@@ -124,7 +121,7 @@ h4{
         <img v-if="stockImage || user.user_image == 'undefined'" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
         <img v-if="!stockImage && user.user_image != 'undefined'" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
-      <div class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash"></svg-icon></div>
+      <div class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash-alt"></svg-icon></div>
       </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
