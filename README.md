@@ -62,10 +62,4 @@ npx cap copy
 npx cap open android
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![alt text](https://github.com/AlexGellert/NovaTracker/blob/master/screenshot.png)
