@@ -25,7 +25,7 @@ localVue.use(VueRouter)
 
 /** Tests for Home **/
 describe('Home.vue', () => {
-  it('renders Home.vue', () => {
+  it('renders Home.vue and data testing', () => {
     const wrapper = shallowMount(Home, {
       stubs: ['router-link', 'ion-page', 'ion-grid', 'ion-row', 'ion-col', 'fa-icon']
     });
@@ -45,7 +45,7 @@ describe('ThemeSelector.vue', () => {
 
 /** Tests for Login **/
 describe('Login.vue', () => {
-  it('render Login.vue', () => {
+  it('render Login.vue and login testing', () => {
     const wrapper = shallowMount(Login, {
       stubs: ['router-link', 'ion-page']
     });
@@ -85,7 +85,7 @@ describe('User.vue', () => {
 
 /** Tests for Inventory **/
 describe('Inventory.vue', () => {
-  it('renders Inventory.vue', () => {
+  it('renders Inventory.vue and item list testing', () => {
     const wrapper = shallowMount(Inventory, {
       stubs: ['router-link', 'ion-page']
     });
@@ -133,7 +133,7 @@ describe('SearchItem.vue', () => {
 
 /** Tests for SearchItem **/
 describe('MenuLeft.vue', () => {
-  it('render MenuLeft.vue and search function', () => {
+  it('render MenuLeft.vue', () => {
     const wrapper = shallowMount(MenuLeft, {
       stubs: ['router-link', 'ion-page', 'ion-menu', 'ion-header', 'ion-toolbar', 'ion-title', 'ion-content']
     });
@@ -143,7 +143,7 @@ describe('MenuLeft.vue', () => {
 
 /** Tests for SearchItem **/
 describe('MenuTab.vue', () => {
-  it('render MenuTab.vue and search function', () => {
+  it('render MenuTab.vue', () => {
     const wrapper = shallowMount(MenuTab, {
       stubs: ['router-link', 'ion-page', 'ion-tab-bar']
     });
