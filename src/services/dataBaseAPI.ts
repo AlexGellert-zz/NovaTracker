@@ -87,6 +87,9 @@ export default class DataBaseAPI {
     }
     
     public newItem(item: novaItem){
+        if(item.item_quantity == 0 || item.item_quantity < item.low_stock){
+            mailService.sendMail(item);
+        }
         let formData = new FormData();
         formData.append('insertItem', "insertItem");
         formData.append('name', item.name);

@@ -121,7 +121,7 @@ h4{
         <img v-if="stockImage || user.user_image == 'undefined'" src="@/assets/husky.png" alt="Picture of a husky." width="400px" @click="uploadImage()"/>
         <img v-if="!stockImage && user.user_image != 'undefined'" :src="user.user_image" @click="uploadImage()"  width="400px" />
       </ion-avatar>
-      <div class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash-alt"></svg-icon></div>
+      <div v-if="!newUser" class="trash-delete" @click="deleteUser(user.id)"><svg-icon class="trash" name="trash-alt"></svg-icon></div>
       </div>
       <div class="item-md">
         <svg-icon class="pencil" name="pencil"></svg-icon>
