@@ -14,6 +14,9 @@ Example:
 {
     "local": "http://localhost/api/novaInventory.php",
     "live": "https://www.yoursite.com/api/novaInventory.php"
+    "username": "youremail@hotmail.com", //elastic email
+    "password": "", //elastic password
+    "apikey": "" //elastic api
 }
 ```
 
