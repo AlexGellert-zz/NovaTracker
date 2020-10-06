@@ -5,22 +5,11 @@
  * This is just so we can mess around locally
  */
 
-
-//Remove all this code in production and use file in api/novaInventory.php
-$allowedOrigins = array(
-  '(http(s)://)?192.168.1.5:8080',
-  '(http(s)://)?localhost:8080',
-);
- 
-
-//Remove all this code in production and use file in api/novaInventory.php
-
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
 header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
-//Remove all this code in production and use file in api/novaInventory.php
 $host = "localhost"; /* Host name */
 $user = "root"; /* User */
 $password = ""; /* Password */
@@ -51,7 +40,7 @@ if(isset($_POST['insertItem'])){
   $item_image = $_POST['item_image'];
   $low_stock = $_POST['low_stock'];
   $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `item_description`, `item_quantity`, `item_image`, `low_stock`) VALUES ('$name', '$item_description', '$item_quantity', '$item_image', '$low_stock')");
-  return $data->result();
+  return $data;
 }
 
 if(isset($_POST['updateItem'])){
@@ -63,7 +52,7 @@ if(isset($_POST['updateItem'])){
   $item_image = $_POST['item_image'];
   $low_stock = $_POST['low_stock'];
   $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `item_description`='$item_description', `item_quantity`='$item_quantity', `item_image`='$item_image', `low_stock`='$low_stock' WHERE `id`=$id");
-  return $data->result();
+  return $data;
 }
 
 if(isset($_POST['findItem'])){
@@ -90,7 +79,7 @@ if(isset($_POST['deleteItem'])){
   $table = 'item_collection';
   $id = $_POST['id'];
   $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`='$id'");
-  return $data->result();
+  return $data;
 }
 
 if(isset($_POST['readUsers'])){
@@ -113,7 +102,7 @@ if(isset($_POST['newUser'])){
   $user_image = $_POST['user_image'];
   $user_theme = '';
   $data = mysqli_query($con,"INSERT INTO `$table`(`name`, `password`, `email`, `alerts`, `role`, `user_image`, `user_theme`) VALUES ('$name', '$password', '$email', '$alerts','$role', '$user_image', '$user_theme')");
-  return $data->result();
+  return $data;
 }
 
 if(isset($_POST['updateUser'])){
@@ -127,7 +116,7 @@ if(isset($_POST['updateUser'])){
     $user_image = $_POST['user_image'];
     $user_theme = $_POST['user_theme'];
     $data = mysqli_query($con,"UPDATE `$table` SET `name`='$name', `password`='$password', `email`='$email', `alerts`='$alerts', `role`='$role', `user_image`='$user_image', `user_theme`='$user_theme' WHERE `id`=$id");
-    return $data->result();
+    return $data;
   }
 
   if(isset($_POST['findUser'])){
@@ -156,7 +145,7 @@ if(isset($_POST['updateUser'])){
     $table = 'users';
     $id = $_POST['id'];
     $data = mysqli_query($con,"DELETE FROM `$table` WHERE `id`='$id'");
-    return $data->result();
+    return $data;
   }
 
 

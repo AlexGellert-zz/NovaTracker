@@ -87,7 +87,7 @@ export default class DataBaseAPI {
     }
     
     public newItem(item: novaItem){
-        if(item.item_quantity == 0 || item.item_quantity < item.low_stock){
+        if(parseInt(item.item_quantity) == 0 || parseInt(item.item_quantity) < parseInt(item.low_stock)){
             mailService.sendMail(item);
         }
         let formData = new FormData();
@@ -101,12 +101,12 @@ export default class DataBaseAPI {
         ).then((res) => {
             console.log("item added " + res)
         }).catch((err) => {
-            console.log('item added ' + err);
+            console.log('item added error ' + err);
         })
     }
 
     public async updateItem(item: novaItem){
-        if(item.item_quantity == 0 || item.item_quantity < item.low_stock){
+        if(parseInt(item.item_quantity) === 0 || parseInt(item.item_quantity) < parseInt(item.low_stock)){
             mailService.sendMail(item);
         }
         let formData = new FormData();
@@ -121,7 +121,7 @@ export default class DataBaseAPI {
         ).then(() => {
             console.log('item updated ' + item);
         }).catch((err) => {
-            console.log('item added ' + err);
+            console.log('item update error' + err);
         })
     }
 
