@@ -19,7 +19,7 @@ export default class PhotoService {
         const capturedPhoto = await Camera.getPhoto({
             resultType: CameraResultType.Uri,
             source: CameraSource.Camera,
-            quality: 100
+            quality: 50
         });
 
         let base64Data = await this.readAsBase64(capturedPhoto);
