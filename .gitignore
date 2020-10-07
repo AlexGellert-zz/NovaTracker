@@ -4,6 +4,7 @@ node_modules
 .hg
 /src/credentials.json
 /assets
+/android/app
 
 
 # local env files
@@ -25,3 +26,4 @@ ts-jest.log
 *.njsproj
 *.sln
 *.sw?
+android/app/build.gradle
