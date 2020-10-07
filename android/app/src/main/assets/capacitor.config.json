@@ -1,5 +1,5 @@
 {
-    "appId": "com.novatracker.app",
+    "appId": "com.novastracker.app",
     "appName": "NovaTracker",
     "bundledWebRuntime": false,
     "npmClient": "npm",
