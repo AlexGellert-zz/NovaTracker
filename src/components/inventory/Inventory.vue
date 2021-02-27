@@ -83,7 +83,7 @@ h4{
   margin: auto;
   width: 90%;
   overflow-x: auto;
-  height: 64%;
+  height: 50%;
   margin-top: -9px;
   padding-bottom: 20px;
   border-radius: 0px 0px 15px 15px;

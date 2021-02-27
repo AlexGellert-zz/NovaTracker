@@ -84,7 +84,7 @@ h4{
 
 .user-container{
   overflow-x: auto;
-  height: 64%;
+  height: 50%;
 }
 </style>
 
