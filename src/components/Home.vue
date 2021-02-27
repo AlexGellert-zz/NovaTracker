@@ -66,14 +66,14 @@ svg.checkSquare{
             <button class="homeBtn m-button m-button-secondary"><h4 class="hButton">Quick Edit</h4><div><svg-icon class="magnify" name="magnify" /></div></button>
           </router-link>
         </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col>
           <router-link to="/newItem">
             <button class="homeBtn m-button m-button-secondary"><h4 class="hButton">New Item</h4><div><svg-icon class="magnify" name="add-circle" /></div></button>
           </router-link>
         </ion-col>
-      </ion-row>
-      <ion-row v-if="isAdmin">
-        <ion-col>
+        <ion-col v-if="isAdmin">
           <router-link to="/userList">
             <button class="homeBtn m-button m-button-secondary"><h4 class="hButton">Edit Users</h4><div><svg-icon class="user" name="user" /></div></button>
           </router-link>

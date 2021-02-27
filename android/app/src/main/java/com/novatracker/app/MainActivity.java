@@ -1,4 +1,4 @@
-package com.novastracker.app;
+package com.novatracker.app;
 
 import android.os.Bundle;
 
