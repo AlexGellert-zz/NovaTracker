@@ -139,6 +139,20 @@ export default class DataBaseAPI {
         return tempItem;
     }
 
+    public async findItems(name){
+        let formData = new FormData();
+        formData.append('findItemName', 'findItemName');
+        formData.append('name', name);
+        let tempItem = await axios({method: 'post', url: _url, data: formData}
+        ).then((res) => {
+            console.log('item found ', res);
+            return res;
+        }).catch((err) => {
+            console.log('item found ' + err);
+        });
+        return tempItem;
+    }
+
     public async findItemName(name){
         let formData = new FormData();
         formData.append('findItemName', 'findItemName');

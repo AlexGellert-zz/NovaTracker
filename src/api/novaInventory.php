@@ -68,7 +68,7 @@ if(isset($_POST['findItem'])){
 if(isset($_POST['findItemName'])){
   $table = 'item_collection';
   $name = $_POST['name'];
-  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE LOWER(`name`) LIKE '$name%'");
+  $data = mysqli_query($con,"SELECT * FROM `$table` WHERE LOWER(`name`) LIKE '%$name%'");
   while($row = mysqli_fetch_assoc($data)){
     $result[] = $row;
   }

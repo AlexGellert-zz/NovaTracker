@@ -5,6 +5,10 @@
   padding-top: 20px;
 }
 
+.layout-body-background{
+  padding: 0px !important;
+}
+
 h4{
     text-align: left;
 }
@@ -71,41 +75,65 @@ a{
     width: 150px;
     font-size: 20px;
 }
+
+.error{
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+}
 </style>
 
 <template>
   <ion-page>
-    <div class="centerMain">
+    <div class="centerMain" v-if="!itemsFound">
         <h4 class="header">Item Search</h4>
         <div class="singleLine"></div>
+        <div class="error" v-if="notFound">Nothing Found!</div>
         <form class="searchForm">
           <input type="text" class="searchTerm input-search" placeholder="Search for an item" v-model="searchTerm" />
           <button class="m-search m-button m-button-list " type="submit" @click="search($event)">Search</button>
         </form>
-      </div>
+    </div>
+    <div class="centerMain" v-if="itemsFound">
+      <inventory :displayInventory="itemList" :expanded="true" />
+    </div>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
+import { novaItem } from "@/types/index";
+import Inventory from "./Inventory.vue";
 
-@Component
+@Component({
+  components: {
+    Inventory
+  }
+})
 export default class SearchItem extends Vue {
   searchTerm: string = "";
+  private itemList: novaItem[];
+  private itemsFound: boolean = false;
+  private notFound: boolean = false;
   constructor() {
     super();
   }
 
   async search(ev) {
     ev.preventDefault();
-    let item = await dataBaseAPI.findItemName(this.searchTerm.toLowerCase());
-    setTimeout(() => {
-      this.$router.push({
-        name: "Item",
-        params: { id: item.id },
-      });
-    }, 1000);
+    await dataBaseAPI.findItems(this.searchTerm.toLowerCase()).then(res => {
+      if(res.data){
+        this.itemList = res.data;
+        this.itemsFound = true;
+        let panelState = dataBaseAPI.getPanel();
+        if(!panelState){
+          dataBaseAPI.togglePanel();
+        }
+      } else {
+        this.notFound = true;
+      }
+    });
   }
 }
 </script>

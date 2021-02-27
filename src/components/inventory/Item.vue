@@ -112,6 +112,17 @@ font-size: 17px;
     font-size: 16px;
     font-weight: bold;
 }
+
+.error{
+  font-size: 16px;
+  color: red;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.error-message{
+  justify-content: center;
+  display: flex;
+}
 </style>
 
 <template>
@@ -164,6 +175,12 @@ font-size: 17px;
         <input style="color: red; font-weight: bold; font-size: 16.5px;" class="item-input" type="number" placeholder="Low Stock 000" v-model="item.low_stock" required />
       </div>
 
+      <div class="error" v-if="blankCheck.length > 0">
+        <div class="error-message" v-for="item in blankCheck" :key="item">
+            {{ item }} is empty.
+        </div>
+      </div>
+
         <button class="m-button m-button-list centerButton" style="font-size: 24px;" @click="addItem($event)" v-if="newItem">Create</button>
         <button class="m-button m-button-list item-button" @click="updateItem($event)" v-if="!newItem">Update Item</button>
         <button class="m-button m-button-delete item-button" id="moveBtn" @click="deleteItem($event)" v-if="!newItem">Delete Item</button>
@@ -184,11 +201,12 @@ import SvgIcon from "@/components/shared/svg/svg.vue"
   }
 })
 export default class Inventory extends Vue {
-  item: any = {name: "", item_description: "" , item_quantity: "", item_image: new Blob()};
+  item: any = {name: "", item_description: "" , item_quantity: "", low_stock: "", item_image: new Blob()};
   newItem: boolean = true;
   stockImage: boolean = true;
   newImage: any = {};
   permission: boolean = true;
+  blankCheck: String[] = [];
   currentUser: novaUser = dataBaseAPI.getCurrentUser();
 
   constructor() {
@@ -202,7 +220,7 @@ export default class Inventory extends Vue {
       this.newItem = false;
       this.stockImage = false;
     }
-    console.log("user role " + this.currentUser.role);
+
     if(this.newItem || this.currentUser.role == 'admin'){
       this.permission = false;
     }
@@ -229,12 +247,16 @@ export default class Inventory extends Vue {
   addItem(ev) {
     ev.preventDefault();
     let newItem = dataBaseAPI.checkItemName(this.item.name);
-      if(newItem){
-        dataBaseAPI.newItem(this.item);
-        setTimeout(() => {this.$router.push('/inventory')}, 1000);
-      } else {
-        alert('Item name already exists');
-      }
+    this.blankCheck = [];
+    Object.keys(this.item).forEach(e => this.item[e] ? '' : this.blankCheck.push(e));
+    if(newItem && this.blankCheck.length === 0 ){
+      console.log("new item");
+      // dataBaseAPI.newItem(this.item);
+      // setTimeout(() => {this.$router.push('/inventory')}, 1000);
+    } else if(!newItem && this.blankCheck) {
+    } else {
+      alert('Item name already exists');
+    }
   }
 
   deleteItem(ev){

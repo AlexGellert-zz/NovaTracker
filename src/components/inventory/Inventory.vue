@@ -127,7 +127,7 @@ h4{
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { dataBaseAPI } from "@/services/dataBaseAPI";
 import { novaItem } from "@/types/index";
 import SvgIcon from "@/components/shared/svg/svg.vue"
@@ -138,6 +138,7 @@ import SvgIcon from "@/components/shared/svg/svg.vue"
   }
 })
 export default class Inventory extends Vue {
+  @Prop() displayInventory: novaItem[];
   inventory: novaItem[] = [];
   panel1 = dataBaseAPI.state.panel1;
   constructor() {
@@ -151,7 +152,11 @@ export default class Inventory extends Vue {
 
   async mounted(){
     setTimeout(() => {this.$forceUpdate}, 2000);
-    this.inventory = await dataBaseAPI.readInventory();
+    if(this.displayInventory){
+      this.inventory = this.displayInventory
+    } else {
+      this.inventory = await dataBaseAPI.readInventory();
+    }
   }
 }
 </script>
