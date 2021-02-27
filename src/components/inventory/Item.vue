@@ -250,9 +250,8 @@ export default class Inventory extends Vue {
     this.blankCheck = [];
     Object.keys(this.item).forEach(e => this.item[e] ? '' : this.blankCheck.push(e));
     if(newItem && this.blankCheck.length === 0 ){
-      console.log("new item");
-      // dataBaseAPI.newItem(this.item);
-      // setTimeout(() => {this.$router.push('/inventory')}, 1000);
+      dataBaseAPI.newItem(this.item);
+      setTimeout(() => {this.$router.push('/inventory')}, 1000);
     } else if(!newItem && this.blankCheck) {
     } else {
       alert('Item name already exists');

@@ -82,12 +82,13 @@ h4{
   display: block;
   margin: auto;
   width: 90%;
+  overflow-x: auto;
+  height: 64%;
   margin-top: -9px;
   padding-bottom: 20px;
   border-radius: 0px 0px 15px 15px;
 }
 .container{
-    height: 100%;
     display: grid;
     grid-template-columns: 50% 20% 30%;
     border-bottom: 1px solid #8B8B8B;

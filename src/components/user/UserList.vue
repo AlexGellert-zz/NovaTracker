@@ -81,6 +81,11 @@ h4{
   width: 90%;
   display: block;
 }
+
+.user-container{
+  overflow-x: auto;
+  height: 64%;
+}
 </style>
 
 <template>
@@ -88,10 +93,12 @@ h4{
     <h4 class="header">User List</h4>
     <div class="singleLine"></div>
     <router-link class="newUser" to="/newUser"><button class="m-button m-button-list">New User</button></router-link>
+    <div class="user-container">
     <div class="user-item m-button-list" v-for="(user, index) in userList" :key="index">
-    <label class="label-inner">{{user.name}}</label>
-    <div class="editDelete">
-    <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit-user edit">Edit / Delete</button></router-link>
+      <label class="label-inner">{{user.name}}</label>
+        <div class="editDelete">
+        <router-link :to="{path: `/userList/${user.id}`, params:{id: user.id}}"><button class="m-button-edit-user edit">Edit / Delete</button></router-link>
+        </div>
     </div>
     </div>
   </ion-page>
